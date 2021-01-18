@@ -15,7 +15,7 @@
 
 #bottom-nav{
   display: flex;
-  position: absolute;
+  position: fixed;
   background-color:gray;
   bottom: 0;
   height: 35px;

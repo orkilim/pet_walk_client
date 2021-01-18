@@ -1,8 +1,7 @@
 import * as React from 'react'
 import Navbar from '../RepeatingComponents/Navbar'
-import Container from '@material-ui/core/Container';
 
-const myInfo = () => {
+const MyInfo = () => {
 
 
     return (
@@ -15,4 +14,4 @@ const myInfo = () => {
 
 }
 
-export default myInfo
+export default MyInfo
