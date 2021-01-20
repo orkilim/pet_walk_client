@@ -7,7 +7,7 @@ import { Select } from '@material-ui/core';
 import axios from 'axios';
 
 
-const AddPet = () => {
+const EditPet = () => {
 
     const [dogType, setDogType] = React.useState('none')
     const [dogName, setDogName] = React.useState('')
@@ -20,6 +20,12 @@ const AddPet = () => {
     const [dayPlanLevel,setDayPlanLevel]=React.useState(null)
     const [hobbies,setHobbies]=React.useState("")
     const [bio,setBio]=React.useState("")
+
+
+
+    /* add an axios GET call to put all the info in the pet's info*/
+
+
 
     return (
         
@@ -61,4 +67,4 @@ const AddPet = () => {
 
 
 
-export default AddPet
+export default EditPet
