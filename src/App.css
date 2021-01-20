@@ -49,6 +49,11 @@
   
 }
 
+.add-pet-input-side-by-side{
+  display: flex;
+  width: 50%;
+}
+
 #lets-go-button{
   display: flex;
   position: absolute;
@@ -64,4 +69,22 @@
   padding-top: 29px;
   bottom: 1.5cm;
 }
+
+.add-pet-input-side-by-side-2{
+  display: flex;
+  width: 33%;
+}
+
+#add-pet-container{
+  display: flex;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content:space-evenly;
+  align-items: center;
+  background-image:linear-gradient(to right,gold,gray,blue);
+
+}
+
 
