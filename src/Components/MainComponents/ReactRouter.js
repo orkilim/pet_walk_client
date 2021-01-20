@@ -4,12 +4,14 @@ import '../../App.css'
 import AddPet from './AddPet'
 import MyInfo from './MyInfo'
 import Search from './Search'
+import Intro from './Intro'
 
 const ReactRouter=()=>{
 
 
     return(
         <React.Fragment>
+            <Route exact path="/" component={Intro}/>
             <Route exact path="/myInfo" component={MyInfo}/>
             <Route exact path="/myPets" component={MyInfo}/>
             <Route exact path="/search" component={Search}/>
