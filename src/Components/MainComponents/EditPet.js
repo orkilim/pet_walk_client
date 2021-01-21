@@ -23,7 +23,20 @@ const EditPet = () => {
 
 
 
-    /* add an axios GET call to put all the info in the pet's info*/
+    axios({
+        method: 'get',
+        url: 'http://petwalkapp.herokuapp.com/pets',
+        headers: {
+            "x-auth-token": localStorage["token"],
+        }
+    })
+    .then((data)=>{
+        console.log(data)
+    })
+    .catch((err)=>{
+        if(err)
+        console.log('blah blah:\n'+err)
+    })
 
 
 

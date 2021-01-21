@@ -52,7 +52,7 @@ const AddPet = () => {
             <textarea id="plan-textfield" className='add-pet-input' type='text' value={hobbies} placeholder='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
             <textarea id="plan-textfield" className='add-pet-input' type='text' value={bio} placeholder='Bio...' onChange={(event) => { setBio(event.target.value) }} />
             <Button style={{backgroundColor:'blue',borderRadius:'100px'}} onClick={()=>{
-                //add an axios POST call to add the new pet
+                //add an axios POST call
             }}>+</Button>
             <Navbar />
         </div>

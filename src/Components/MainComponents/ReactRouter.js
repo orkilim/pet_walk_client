@@ -5,6 +5,9 @@ import AddPet from './AddPet'
 import MyInfo from './MyInfo'
 import Search from './Search'
 import Intro from './Intro'
+import EditPet from './EditPet'
+import MyPets from './MyPets'
+import Login from './Login'
 
 const ReactRouter=()=>{
 
@@ -16,6 +19,9 @@ const ReactRouter=()=>{
             <Route exact path="/myPets" component={MyInfo}/>
             <Route exact path="/search" component={Search}/>
             <Route exact path='/addPet' component={AddPet}/>
+            <Route exact path='/editPet' component={EditPet}/>
+            <Route exact path='/myPets' component={MyPets}/>
+            <Route exact path='/login' component={Login}/>
         </React.Fragment>
     )
 }

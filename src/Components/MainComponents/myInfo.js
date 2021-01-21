@@ -6,7 +6,7 @@ const MyInfo = () => {
 
     return (
 
-        <div className='container'>
+        <div className='general-container'>
             <Navbar />
         </div>
 
