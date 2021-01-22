@@ -8,12 +8,12 @@ const showPets = (item) => {
     return (
         <div style={{ display: 'flex', position: 'relative', marginTop: '20px', backgroundColor: 'lightgray', width: '30%', borderRadius: '10px' }}>
             <img style={{ display: 'block', position: 'relative', width: '3cm', height: '3cm', borderRadius: '10px', left: '10%', marginTop: '20px' }} alt='cute dog' src={item.img} />
-            <div style={{ display: 'block', position: 'absolute', flexDirection:'column',marginTop: '20px',left:'50%' }} >
-                <text style={{ display: 'flex'}} > name: {item.name}  </text>
-                <br/>
-                <text style={{ display: 'flex'}} > type: {item.type}  </text>
-                <br/>
-                <text style={{ display: 'flex'}} > age: {item.age} </text>
+            <div style={{ display: 'block', position: 'absolute', flexDirection: 'column', marginTop: '20px', left: '50%' }} >
+                <text style={{ display: 'flex' }} > name: {item.name}  </text>
+                <br />
+                <text style={{ display: 'flex' }} > type: {item.type}  </text>
+                <br />
+                <text style={{ display: 'flex' }} > age: {item.age} </text>
             </div>
         </div>
     )
@@ -49,17 +49,25 @@ const MyPets = () => {
 
 
     return (
-        <div>
-            <h1 style={{ display: 'block', position: 'relative', width: '10%', top: '1.5cm', left: '15%' }}>My Pets</h1>
-            <div className='general-container'>
+
+        <div style={{ display: 'flex', position: 'absolute', justifyContent:'center',alignItems:'center',width: '100%', height: '100%', backgroundImage: 'linear-gradient(to right,gold,gray,blue)' }}>
+            <h1 style={{ display: 'block', position: 'absolute', width: '10%', top: '1.5cm', left: '15%' }}>My Pets</h1>
+            <div style={{display:'flex',width:'100%',flexDirection:'column',alignItems:'center',justifyContent:'flex-start'}} /*className='general-container'*/ >
                 {
                     pets.map(showPets)
                 }
                 <Navbar />
             </div>
         </div>
+
     )
 }
 
 
 export default MyPets
+
+
+
+/**/
+
+/**/

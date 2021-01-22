@@ -5,20 +5,11 @@ import ReactRouter from './Components/MainComponents/ReactRouter.js'
 
 function App() {
   return (
-    <div className="App">
+    /*<div className="App">*/
         <Router>
           <ReactRouter />
         </Router>
-
-
-
-
-      {/*put login page here!!!!*/}
-
-
-
-
-    </div>
+    /*</div>*/
   );
 }
 

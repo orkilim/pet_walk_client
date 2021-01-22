@@ -8,7 +8,7 @@ let key=0
 
 const showImages = (imageLink) => {
         return (
-            <img style={{ width: 100, height: 100 }} key={key++} src={imageLink} alt='dog image' />
+            <img style={{float:'left',marginTop:'10px',marginLeft:'20px',marginRight:'20px',width: 100, height: 100 }} key={key++} src={imageLink} alt='dog image' />
         )
     
     

@@ -4,11 +4,11 @@
 
 
 
-@media (prefers-reduced-motion: no-preference) {
+/*@media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+}*/
 
 
 
@@ -39,7 +39,7 @@
   flex-direction: column;
   justify-content:flex-start;
   align-items: center;
-  /*background-color: green;*/
+  /*background-image: linear-gradient(to right,gold, gray, blue);*/
 }
 
 .add-pet-input{

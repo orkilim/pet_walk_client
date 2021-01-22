@@ -16,7 +16,6 @@ const ReactRouter=()=>{
         <React.Fragment>
             <Route exact path="/" component={Intro}/>
             <Route exact path="/myInfo" component={MyInfo}/>
-            <Route exact path="/myPets" component={MyInfo}/>
             <Route exact path="/search" component={Search}/>
             <Route exact path='/addPet' component={AddPet}/>
             <Route exact path='/editPet' component={EditPet}/>
