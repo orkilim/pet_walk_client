@@ -12,19 +12,21 @@ const AddPet = () => {
     const [dogType, setDogType] = React.useState('none')
     const [dogName, setDogName] = React.useState('')
     const [dogGender, setDogGender] = React.useState('Male')
-    const [dogAge, setDogAge] = React.useState('')
-    const [dogWeight, setDogWeight] = React.useState('')
+    const [dogAge, setDogAge] = React.useState(1)//was empty now starting with 1
+    const [dogWeight, setDogWeight] = React.useState(1)//was empty now starting with 1
     const [dogPlan, setDogPlan] = React.useState('')
-    const [activityLevel, setActivityLevel] = React.useState(0)
-    const [foodLevel, setFoodLevel] = React.useState(0)
-    const [dayPlanLevel, setDayPlanLevel] = React.useState(0)
+    const [activityLevel, setActivityLevel] = React.useState(1)//was number switched to string
+    const [foodLevel, setFoodLevel] = React.useState(1)//was number switched to string
+    const [dayPlanLevel, setDayPlanLevel] = React.useState(1)//was number switched to string
     const [hobbies, setHobbies] = React.useState("")
     const [bio, setBio] = React.useState("")
+    const [dogImg,setDogImg]=React.useState("https://media.petnet.co.il/ckFiles/images/Canaan%20Dog.jpg")
 
     return (
 
         <div id='add-pet-container' /*className='general-container'*/>
-            <input className='add-pet-input' type='file' />
+            <img alt='dog image' src={dogImg} style={{display:'block',width:'100px',height:'100px'}} />
+            <input className='add-pet-input' type='file' onChange={(event)=>{setDogImg(event.target.value)}} />
             <input className='add-pet-input' type='text' value={dogName} placeholder='pet name...' onChange={(event) => { setDogName(event.target.value) }} />
             <Select className='add-pet-input' value={dogType} onChange={(event) => { setDogType(event.target.value) }}>
                 <MenuItem selected value='none' >dog type</MenuItem>
@@ -53,10 +55,13 @@ const AddPet = () => {
             <textarea id="plan-textfield" className='add-pet-input' type='text' value={bio} placeholder='Bio...' onChange={(event) => { setBio(event.target.value) }} />
             <Button style={{ backgroundColor: 'blue', borderRadius: '100px' }} onClick={() => {
                 axios({
-                    method: 'get',
+                    method: 'post',
                     url: 'https://petwalkapp.herokuapp.com/pets',
+                    headers:{
+                        "x-auth-token": localStorage["token"]
+                    },
                     data: {
-
+                        
                         "name": dogName,
                         "type": dogType,
                         "age": dogAge,

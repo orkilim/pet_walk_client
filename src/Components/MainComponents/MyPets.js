@@ -50,7 +50,7 @@ const MyPets = () => {
                     console.log(err)
 
             })
-    })
+    },[])
 
 
     return (
@@ -74,6 +74,3 @@ export default MyPets
 
 
 
-/**/
-
-/**/
