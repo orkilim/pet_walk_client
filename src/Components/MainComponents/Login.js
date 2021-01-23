@@ -1,10 +1,10 @@
 import { Button } from '@material-ui/core'
-import * as React from 'react'
-import '../../App.css'
-import axios from 'axios'
+import * as React from 'react';
+import '../../App.css';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login=()=>{
-
     const[email,setEmail]=React.useState('')
     const[pass,setPass]=React.useState(null)
 
