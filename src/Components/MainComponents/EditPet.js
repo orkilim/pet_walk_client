@@ -20,22 +20,36 @@ const EditPet = () => {
     const [dayPlanLevel,setDayPlanLevel]=React.useState(null)
     const [hobbies,setHobbies]=React.useState("")
     const [bio,setBio]=React.useState("")
+    
 
 
+    React.useEffect(() => {
+        axios({
+            method: 'get',
+            url: `https://petwalkapp.herokuapp.com/pets/ofUser/${localStorage['dogId']}`,
+            headers: {
+                "x-auth-token": localStorage["token"],
+            }
+        })
+            .then((data) => {
+                const dogInfo=data.data
+                setDogName(dogInfo.name)
+                setDogType(dogInfo.type)
+                setDogAge(dogInfo.age)        
+                setDogWeight(dogInfo.weight)        
+                setDogGender(dogInfo.gender)        
+                setActivityLevel(dogInfo.activityLevel)        
+                setFoodLevel(dogInfo.foodLevel)
+                setDogPlan(dogInfo.dayPlan)
+                setHobbies(dogInfo.hobbies)        
+                        
+                return
+            })
+            .catch((err) => {
+                if (err)
+                    console.log(err)
 
-    axios({
-        method: 'get',
-        url: 'http://petwalkapp.herokuapp.com/pets',
-        headers: {
-            "x-auth-token": localStorage["token"],
-        }
-    })
-    .then((data)=>{
-        console.log(data)
-    })
-    .catch((err)=>{
-        if(err)
-        console.log('blah blah:\n'+err)
+            })
     })
 
 
@@ -71,8 +85,22 @@ const EditPet = () => {
             <textarea id="plan-textfield" className='add-pet-input' type='text' value={hobbies} placeholder='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
             <textarea id="plan-textfield" className='add-pet-input' type='text' value={bio} placeholder='Bio...' onChange={(event) => { setBio(event.target.value) }} />
             <Button style={{backgroundColor:'blue',borderRadius:'100px'}} onClick={()=>{
-                //add an axios POST call to add the new pet
-            }}>+</Button>
+                axios({
+                    method:'put',
+                    url:'https://petwalkapp.herokuapp.com/pets',
+                    data:{
+                        "name": dogName,
+                        "type": dogType,
+                        "age": dogAge,
+                        "weight": dogWeight,
+                        "gender": dogGender,
+                        "activityLevel": activityLevel,
+                        "foodLevel": foodLevel,
+                        "dayPlan": dogPlan,
+                        "hobbies": hobbies
+                    }
+                })
+            }}>Save Changes</Button>
             <Navbar />
         </div>
     )

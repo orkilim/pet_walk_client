@@ -14,15 +14,15 @@ const AddPet = () => {
     const [dogGender, setDogGender] = React.useState('Male')
     const [dogAge, setDogAge] = React.useState('')
     const [dogWeight, setDogWeight] = React.useState('')
-    const [dogPlan,setDogPlan]=React.useState('')
-    const [activityLevel,setActivityLevel]=React.useState(null)
-    const [foodLevel,setFoodLevel]=React.useState(null)
-    const [dayPlanLevel,setDayPlanLevel]=React.useState(null)
-    const [hobbies,setHobbies]=React.useState("")
-    const [bio,setBio]=React.useState("")
+    const [dogPlan, setDogPlan] = React.useState('')
+    const [activityLevel, setActivityLevel] = React.useState(0)
+    const [foodLevel, setFoodLevel] = React.useState(0)
+    const [dayPlanLevel, setDayPlanLevel] = React.useState(0)
+    const [hobbies, setHobbies] = React.useState("")
+    const [bio, setBio] = React.useState("")
 
     return (
-        
+
         <div id='add-pet-container' /*className='general-container'*/>
             <input className='add-pet-input' type='file' />
             <input className='add-pet-input' type='text' value={dogName} placeholder='pet name...' onChange={(event) => { setDogName(event.target.value) }} />
@@ -39,21 +39,43 @@ const AddPet = () => {
                 <MenuItem selected value='Male' >Male</MenuItem>
                 <MenuItem value='Female' >Female</MenuItem>
             </Select>
-            <div className='add-pet-input' style={{flexDirection:'row'}} >
+            <div className='add-pet-input' style={{ flexDirection: 'row' }} >
                 <input className='add-pet-input-side-by-side' type='number' placeholder='age...' value={dogAge} onChange={(event) => { setDogAge(event.target.value) }} />
                 <input className='add-pet-input-side-by-side' type='number' placeholder='weight (in KG)...' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
             </div>
             <textarea id="plan-textfield" className='add-pet-input' type='text' value={dogPlan} placeholder='daily plan...' onChange={(event) => { setDogPlan(event.target.value) }} />
-            <div className='add-pet-input' style={{flexDirection:'row'}} >
+            <div className='add-pet-input' style={{ flexDirection: 'row' }} >
                 <input className='add-pet-input-side-by-side-2' type='number' placeholder='Day Plan Level' value={dayPlanLevel} onChange={(event) => { setDayPlanLevel(event.target.value) }} />
                 <input className='add-pet-input-side-by-side-2' type='number' placeholder='Food Level' value={foodLevel} onChange={(event) => { setFoodLevel(event.target.value) }} />
                 <input className='add-pet-input-side-by-side-2' type='number' placeholder='Activity Level' value={activityLevel} onChange={(event) => { setActivityLevel(event.target.value) }} />
             </div>
             <textarea id="plan-textfield" className='add-pet-input' type='text' value={hobbies} placeholder='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
             <textarea id="plan-textfield" className='add-pet-input' type='text' value={bio} placeholder='Bio...' onChange={(event) => { setBio(event.target.value) }} />
-            <Button style={{backgroundColor:'blue',borderRadius:'100px'}} onClick={()=>{
-                //add an axios POST call
-            }}>+</Button>
+            <Button style={{ backgroundColor: 'blue', borderRadius: '100px' }} onClick={() => {
+                axios({
+                    method: 'get',
+                    url: 'https://petwalkapp.herokuapp.com/pets',
+                    data: {
+
+                        "name": dogName,
+                        "type": dogType,
+                        "age": dogAge,
+                        "weight": dogWeight,
+                        "gender": dogGender,
+                        "activityLevel": activityLevel,
+                        "foodLevel": foodLevel,
+                        "dayPlan": dogPlan,
+                        "hobbies": hobbies
+                    }
+                })
+                    .then((data) => {
+                        console.log(data)
+                    })
+                    .catch((err) => {
+                        if (err)
+                            console.log('problem with adding a dog:\n' + err)
+                    })
+            }}>Add Pet</Button>
             <Navbar />
         </div>
     )
