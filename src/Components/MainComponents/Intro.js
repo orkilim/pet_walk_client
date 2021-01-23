@@ -8,7 +8,6 @@ const Intro = () => {
 
     return (
         <div className="general-container">
-            {/*add photo here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
             <NavLink id='lets-go-button' to='/login'>
                 LET'S GO
             </NavLink>
