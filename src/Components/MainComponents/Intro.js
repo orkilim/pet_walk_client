@@ -4,11 +4,8 @@ import { NavLink } from 'react-router-dom'
 import '../../App.css'
 
 const Intro = () => {
-
-
     return (
         <div className="general-container">
-            {/*add photo here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
             <NavLink id='lets-go-button' to='/login'>
                 LET'S GO
             </NavLink>
