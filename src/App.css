@@ -118,3 +118,17 @@ body{background: #E5E5E5;}
   color: #000000;
 }
 
+/* buttonStyle For all pages */
+.btn{
+    border-radius: 20px;
+    color: #5b595c;
+    border: 1px solid #ffffff;
+    background-color: rgba(0, 0, 0, 0.03); 
+    box-shadow: 15px 15px 30px 0px rgba(0, 0, 0, .48);
+}
+.btns:hover{
+  color: #000000;
+  box-shadow: 15px 15px 30px 0px rgba(0, 0, 0, .70);
+  transition: box-shadow .5s;
+}
+
