@@ -1,13 +1,10 @@
-import * as React from 'react'
-import Navbar from '../RepeatingComponents/Navbar'
+import * as React from 'react';
+import Navbar from '../RepeatingComponents/Navbar';
 
 const MyInfo = () => {
-
-
     return (
-
         <div className='general-container'>
-            <Navbar />
+            <Navbar namePage={'myInfo'}/>
         </div>
 
     )

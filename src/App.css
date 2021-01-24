@@ -24,12 +24,16 @@ body{background: #E5E5E5;}
 #bottom-nav{
   display: flex;
   position: fixed;
-  background-color:gray;
   bottom: 0;
-  height: 35px;
+  height: 60px;
+  background-color: #D1FFFD;
   width: 100%;
   align-items: center;
   justify-content: space-around;
+}
+
+#bottom-nav:hover {
+  background-color: #a7f5f1;
 }
 
 .container{
@@ -130,5 +134,11 @@ body{background: #E5E5E5;}
   color: #000000;
   box-shadow: 15px 15px 30px 0px rgba(0, 0, 0, .70);
   transition: box-shadow .5s;
+}
+
+/* Navbar */
+.nav {
+  height: 60px;
+  background-color: #D1FFFD;
 }
 
