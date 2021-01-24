@@ -1,6 +1,6 @@
-.App {
+/* .App {
   align-content: center;
-}
+} */
 
 
 
@@ -10,7 +10,15 @@
   }
 }*/
 
-
+h1{
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 39px;
+  color: #000001;
+}
+h2,h3{font-weight: 800;}
+body{background: #E5E5E5;}
 
 
 #bottom-nav{
@@ -25,7 +33,6 @@
 }
 
 .container{
-  display: flex;
   position: fixed;
   /*background-color: green;*/
   width: 100%;
@@ -86,12 +93,28 @@
   background-image:linear-gradient(to right,gold,gray,blue);
 
 }
-
-
-
 .each-pet-in-my-pets-div{
   border-color: black;
   border-width: 5px;
   border-style: solid;
+}
+
+
+/*for indexPage  */
+#id_start{
+  border-radius: 20px;
+  border: 1px solid #5b595c;
+  color: #5b595c;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+#id_start a{
+  color: #5b595c;
+}
+#id_start:hover{
+  box-shadow: 17px 8px 13px 4px rgba(0, 0, 0, 0.48);
+  transition: box-shadow .5s;
+}
+#id_start a:hover{
+  color: #000000;
 }
 
