@@ -3,7 +3,7 @@ import * as React from 'react';
 import '../../App.css';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { NavLink, } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Joi from 'joi-browser';
 
 
@@ -25,9 +25,6 @@ const Login = () => {
             email: email,
             pass: pass,
         }
-
-        console.log(our_data);
-
         let errors = {};
 
         //chack valid form inputs
