@@ -1,6 +1,6 @@
-.App {
+/* .App {
   align-content: center;
-}
+} */
 
 
 
@@ -10,27 +10,38 @@
   }
 }*/
 
-
+h1{
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px !important;
+  line-height: 39px !important;
+  color: #000001;
+}
+h2,h3{font-weight: 800;}
+body{background: #E5E5E5;}
 
 
 #bottom-nav{
   display: flex;
   position: fixed;
-  background-color:gray;
   bottom: 0;
-  height: 35px;
+  height: 60px;
+  background-color: #D1FFFD;
   width: 100%;
   align-items: center;
   justify-content: space-around;
 }
 
-.container{
-  display: flex;
+#bottom-nav:hover {
+  background-color: #a7f5f1;
+}
+
+/* .container{
   position: fixed;
-  /*background-color: green;*/
+  background-color: green;
   width: 100%;
   height: 100%;
-}
+} */
 
 .general-container{
   display: flex;
@@ -91,12 +102,51 @@
   background-image:linear-gradient(to right,gray,lightgray);
 
 }
-
-
-
 .each-pet-in-my-pets-div{
   border-color: black;
   border-width: 5px;
   border-style: solid;
 }
+
+
+/*for indexPage  */
+#id_start{
+  border-radius: 20px;
+  border: 1px solid #5b595c;
+  color: #5b595c;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+#id_start a{
+  color: #5b595c;
+}
+#id_start:hover{
+  box-shadow: 17px 8px 13px 4px rgba(0, 0, 0, 0.48);
+  transition: box-shadow .5s;
+}
+#id_start a:hover{
+  color: #000000;
+}
+
+/* buttonStyle For all pages */
+.btn{
+    border-radius: 20px;
+    color: #5b595c;
+    border: 1px solid #ffffff;
+    background-color: rgba(0, 0, 0, 0.03); 
+    box-shadow: 15px 15px 30px 0px rgba(0, 0, 0, .48);
+}
+.btns:hover{
+  color: #000000;
+  box-shadow: 15px 15px 30px 0px rgba(0, 0, 0, .70);
+  transition: box-shadow .5s;
+}
+
+
+.btn_section{
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  background-image: linear-gradient(#c6c7ca, #F1F3F6);
+  box-shadow: 13px 7px 25px 5px  rgba(124, 177, 255, 0.48);
+}
+
 

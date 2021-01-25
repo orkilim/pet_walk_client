@@ -10,9 +10,8 @@ import MyPets from './MyPets'
 import Login from './Login'
 import PetProfile from './PetProfile'
 
+
 const ReactRouter=()=>{
-
-
     return(
         <React.Fragment>
             <Route exact path="/" component={Intro}/>

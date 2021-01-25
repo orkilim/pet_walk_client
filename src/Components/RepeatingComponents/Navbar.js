@@ -6,18 +6,32 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-
-const Navbar = () => {
-
+const Navbar = (props) => {
+    const {namePage} = props;
     return (
         <div id="bottom-nav">
-            <NavLink to='/myInfo'><HomeIcon color='primary' /></NavLink>
-            <NavLink to='/myPets'><PetsIcon color='primary' /></NavLink>
-            <NavLink to='/profile'><AccountCircleIcon color='primary' /></NavLink>
-            <NavLink to='/search'><SearchIcon color='primary' /></NavLink>
-            <NavLink to='/settings'><SettingsIcon color='primary' /></NavLink>
+            {namePage === 'myInfo' 
+            ? <NavLink to='/myInfo'><HomeIcon color='primary' /></NavLink>
+            : <NavLink to='/myInfo'><HomeIcon color="disabled" /></NavLink>
+            }
+            {namePage === 'myPets' 
+            ? <NavLink to='/myPets'><PetsIcon color='primary' /></NavLink>
+            : <NavLink to='/myPets'><PetsIcon color='disabled' /></NavLink>
+            }
+            {namePage === 'profile' 
+            ? <NavLink to='/profile'><AccountCircleIcon color='primary' /></NavLink>
+            : <NavLink to='/profile'><AccountCircleIcon color='disabled' /></NavLink>
+            }
+            {namePage === 'search' 
+            ? <NavLink to='/search'><SearchIcon color='primary' /></NavLink>
+            : <NavLink to='/search'><SearchIcon color='disabled' /></NavLink>
+            }
+            {namePage === 'settings' 
+            ? <NavLink to='/settings'><SettingsIcon color='primary' /></NavLink>
+            : <NavLink to='/settings'><SettingsIcon color='disabled' /></NavLink>
+            }
         </div>
-    )
+    );
 }
 
 export default Navbar
