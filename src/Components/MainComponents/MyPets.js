@@ -1,7 +1,7 @@
 import * as React from 'react'
 import axios from 'axios'
 import Navbar from '../RepeatingComponents/Navbar'
-import { Button } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { NavLink } from 'react-router-dom';
 import MediaQuery from 'react-responsive'
@@ -12,14 +12,14 @@ const showPets = (item) => {
             <img style={{ display: 'block', position: 'relative', width: '3cm', height: '3cm', borderRadius: '10px', left: '10%', marginTop: '20px' }} alt='cute dog' src={item.img} />
             <div style={{ display: 'block', position: 'absolute', flexDirection: 'column', marginTop: '20px', left: '50%' }} >
                 <text style={{ display: 'flex' }} > name: {item.name}  </text>
-                <br />
+                
                 <text style={{ display: 'flex' }} > type: {item.type}  </text>
-                <br />
+                
                 <text style={{ display: 'flex' }} > age: {item.age} </text>
             </div>
-            <NavLink to='/editPet' onClick={()=>{
+            <NavLink to='/petProfile' onClick={() => {
                 localStorage.setItem('dogId', item._id);
-            }} style={{ display: 'block', position: 'relative', left: '8cm', top: '1.5cm', width: '20px', height: '20px' }} ><ChevronRightIcon style={{ color: 'blue' }} /></NavLink>
+            }} style={{ display: 'block', position: 'absolute',right:'0.5cm', top: '1.5cm', width: '20px', height: '20px' }} ><ChevronRightIcon style={{ color: 'blue' }} /></NavLink>
         </div>
     )
 
@@ -50,21 +50,23 @@ const MyPets = () => {
                     console.log(err)
 
             })
-    },[])
+    }, [])
 
 
     return (
 
-        <div style={{ display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%', backgroundColor: 'lightgray' }}>
-                <h1 style={{ display: 'block', position: 'absolute', width: '10%', top: '1.5cm', left: '15%' }}>My Pets</h1>
-            <div style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }} /*className='general-container'*/ >
+        <Grid style={{backgroundColor:'lightgray'}} >
+            <h1 style={{ display: 'block', position: 'absolute', width: '10%', top: '1.5cm', left: '15%' }}>My Pets</h1>
+            <div style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }} /*className='general-container'*/ >
                 {
                     pets.map(showPets)
                 }
-                <NavLink to='/addPet' ><Button style={{ backgroundColor: 'blue', color: 'white', marginTop: '1.5cm', borderRadius: '50%', height: '55px', fontSize: '20px' }} >+</Button></NavLink>
+                <NavLink to='/addPet' ><Button style={{ backgroundColor: 'blue', color: 'white',  marginTop:'1cm',borderRadius: '50%', height: '55px', fontSize: '20px' }} >+</Button></NavLink>
+                <br/>
+                <br/>
                 <Navbar />
             </div>
-        </div>
+        </Grid>
 
     )
 }
@@ -73,4 +75,6 @@ const MyPets = () => {
 export default MyPets
 
 
+/*<div style={{ display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%', backgroundColor: 'lightgray' }}>*/
 
+/*</div>*/

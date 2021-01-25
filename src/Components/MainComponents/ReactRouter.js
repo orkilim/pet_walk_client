@@ -8,6 +8,7 @@ import Intro from './Intro'
 import EditPet from './EditPet'
 import MyPets from './MyPets'
 import Login from './Login'
+import PetProfile from './PetProfile'
 
 const ReactRouter=()=>{
 
@@ -21,6 +22,7 @@ const ReactRouter=()=>{
             <Route exact path='/editPet' component={EditPet}/>
             <Route exact path='/myPets' component={MyPets}/>
             <Route exact path='/login' component={Login}/>
+            <Route exact path='/petProfile' component={PetProfile}/>
         </React.Fragment>
     )
 }
