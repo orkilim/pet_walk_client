@@ -9,7 +9,7 @@ import Loading from '../RepeatingComponents/Loading';
 const MyInfo = () => {
     const [myPets, setMyPets] = React.useState([]);
     const [data, setData] = React.useState(false); // data retrieved from the server(y\n)
-    const [petIndex, setPetIndex] = React.useState(0); // index from data array 
+    const [petIndex, setPetIndex] = React.useState(0); // index from myPets array 
 
     React.useEffect(() => {
         console.log(data);
@@ -35,6 +35,7 @@ const MyInfo = () => {
 
     }, [])
 
+    //Click and render the pet in the array :
     const handleClick = () => {
         if (petIndex <= myPets.length && petIndex != 0) {
             console.log(myPets);
@@ -45,7 +46,6 @@ const MyInfo = () => {
             setPetIndex(petIndex + 1);
             showMyPets();
         }
-        //else dose nothing 
     }
 
     const showMyPets = () => {
@@ -53,31 +53,37 @@ const MyInfo = () => {
             return ('no Pats');
         }
         // let defultData = {
-        //     img: (data[petIndex].img == undefined) ? "https://icon-library.com/images/dog-icon/dog-icon-16.jpg" : data[petIndex].img,
-        //     age: (!data[petIndex].age) ? "Forever Young" : data[petIndex].age,
-        //     currDayPlanLevel = (data[petIndex].currDayPlanLevel == undefined) ? 0 : data[petIndex].currDayPlanLevel,
-        //     currActivityLevel = (data[petIndex].currActivityLevel == undefined) ? 0 : data[petIndex].currActivityLevel,
-        //     currFoodLevel = (data[petIndex].currFoodLevel == undefined) ? 0 : data[petIndex].currFoodLevel
+        //     img: (myPets[petIndex].img == undefined) ? "https://icon-library.com/images/dog-icon/dog-icon-16.jpg" : myPets[petIndex].img,
+        //     age: (!myPets[petIndex].age) ? "Forever Young" : myPets[petIndex].age,
+        //     currDayPlanLevel = (myPets[petIndex].currDayPlanLevel == undefined) ? 0 : myPets[petIndex].currDayPlanLevel,
+        //     currActivityLevel = (myPets[petIndex].currActivityLevel == undefined) ? 0 : myPets[petIndex].currActivityLevel,
+        //     currFoodLevel = (myPets[petIndex].currFoodLevel == undefined) ? 0 : myPets[petIndex].currFoodLevel
         // }
-        // data[petIndex].complitDayPlan = data[petIndex].currDayPlanLevel == 0 ? data[petIndex].currDayPlanLevel : Math.ceil(data[petIndex].currDayPlanLevel / (100 / data[petIndex].dayPlanLevel));
-        // data[petIndex].complitActivity = data[petIndex].currActivityLevel == 0 ? data[petIndex].currActivityLevel : Math.ceil(data[petIndex].currActivityLevel / (100 / data[petIndex].activityLevel));
-        // data[petIndex].complitFood = data[petIndex].currFoodLevel == 0 ? data[petIndex].currFoodLevel : Math.ceil(data[petIndex].currFoodLevel / (100 / data[petIndex].foodLevel));
+        // myPets[petIndex].complitDayPlan = myPets[petIndex].currDayPlanLevel == 0 ? myPets[petIndex].currDayPlanLevel : Math.ceil(myPets[petIndex].currDayPlanLevel / (100 / myPets[petIndex].dayPlanLevel));
+        // myPets[petIndex].complitActivity = myPets[petIndex].currActivityLevel == 0 ? myPets[petIndex].currActivityLevel : Math.ceil(myPets[petIndex].currActivityLevel / (100 / myPets[petIndex].activityLevel));
+        // myPets[petIndex].complitFood = myPets[petIndex].currFoodLevel == 0 ? myPets[petIndex].currFoodLevel : Math.ceil(myPets[petIndex].currFoodLevel / (100 / myPets[petIndex].foodLevel));
 
-        // return ( //fix class &style
-        //     <React.Fragment>
-        //         <div className='row p-3 justify-content-between btn_section'>
-        //             <div className="col-1 align-self-center" onClick={onClickLeft()}>
-        //                 <i className="fa fa-chevron-left" style={{ fontSize: '200%', color: '#6EA8FF', cursor: 'pointer' }} aria-hidden="true"></i>
-        //             </div>
-        //         </div>
-        //     </React.Fragment>
-        //)
+        console.log(myPets.data);
+        console.log(petIndex);
+        console.log(myPets.data[petIndex].img);
         return (
             <React.Fragment>
                 <div className="row p-3 justify-content-between btn_section" >
-                    <ArrowBackIosRoundedIcon color='#6EA8FF' onClick={handleClick} className="col-1 align-self-center"></ArrowBackIosRoundedIcon>
+                    <ArrowBackIosRoundedIcon onClick={handleClick} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowBackIosRoundedIcon>
+                    <div className="col d-flex justify-content-center align-items-center">
+                        <img src={myPets.data[petIndex].img}
+                            alt="Avatar" className="img_pet" style={{ width: '50%', border: '#fff solid', borderRadius: '50%', padding: '5%' }} />
+                        <div className="col-6 justify-content-end">
+                            <h5 className="pt-4 pl-2" style={{ color: '#727377' }}> {myPets.data[petIndex].type}</h5>
+                            <h2 className="pl-2">{myPets.data[petIndex].name}</h2>
+                            <h5 className="pb-2 pl-2" style={{ color: '#727377' }}> age {myPets.data[petIndex].age}</h5>
+                        </div>
+                        <ArrowForwardIosRoundedIcon onClick={handleClick} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon>
 
+                    </div>
                 </div>
+
+
             </React.Fragment>
         )
     }
