@@ -60,6 +60,55 @@ const MyInfo = () => {
         }
     }
 
+    const upadteActivity = (level) => {
+        //update in db :
+        let dataBodyVal = {
+            id: myPets.data[petIndex]._id, //requird for edting in server 
+            name: myPets.data[petIndex].name,
+            type: myPets.data[petIndex].type,
+            dayPlan: myPets.data[petIndex].dayPlan,
+            dayPlanLevel: myPets.data[petIndex].dayPlanLevel,
+            activityLevel: myPets.data[petIndex].activityLevel,
+            foodLevel: myPets.data[petIndex].foodLevel,
+            currActivityLevel: Number(level)
+        }
+        console.log(dataBodyVal);
+
+        //update
+        axios({
+            method: 'PUT',
+            url: "https://petwalkapp.herokuapp.com/pets",
+            data: dataBodyVal,
+            headers: {
+                "x-auth-token": localStorage["token"],
+            }
+        })
+            .then(myData => {
+                console.log(myData);
+                //myPets.data[petIndex].currActivityLevel=Number(level);
+                console.log(myPets.data[petIndex].currActivityLevel);
+                console.log(level);
+                let perv = myPets.data.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) });
+                console.log("up", perv);
+
+                //setMyPets(myPets = myPets.data.map(item => item._id !== dataBodyVal.id ? item : { ...item, currActivityLevel: Number(level) }));
+                //console.log("up", myPets);
+                return;
+
+            })
+            .catch(error => {
+                console.log(error.response);
+                if (error.response.status == 404) {
+                    alert(error.response);
+                }
+                if (error.response.status == 500) {
+                    alert("Server Error , Try later");
+                }
+                return;
+            })
+    }
+
+
     const onClickPlay = () => {
         Swal.mixin({
             input: 'text',
@@ -87,13 +136,11 @@ const MyInfo = () => {
             }
             //update activity level:
             console.log(result.value[2]);
-            // if (Number(result.value[2]) >= 1) {
-            //     localStorage.setItem(`petName`, `${this.name}`);
-            //     localStorage.setItem(`petId`, `${this.id}`);
-            //     localStorage.setItem(`update`, `currActivityLevel`);
-            //     localStorage.setItem(`index`, `${this.i}`);
-            //     updatMyInfo(result.value[2]);
-            // }
+            upadteActivity(result.value[2]);
+            if (Number(result.value[2]) >= 1) {
+                console.log("d");
+                // updatMyInfo(result.value[2]);
+            }
         })
     }
 
@@ -118,10 +165,10 @@ const MyInfo = () => {
             return ('no Pats');
         }
         //set defult elements from db
-        myPets.data[petIndex].age= (!myPets.data[petIndex].age) ? "Forever Young" : myPets.data[petIndex].age;
+        let age = (myPets.data[petIndex].age == undefined) ? "Forever Young" : myPets.data[petIndex].age;
         myPets.data[petIndex].currDayPlanLevel = (myPets.data[petIndex].currDayPlanLevel == undefined) ? 0 : myPets.data[petIndex].currDayPlanLevel;
         myPets.data[petIndex].currActivityLevel = (myPets.data[petIndex].currActivityLevel == undefined) ? 0 : myPets.data[petIndex].currActivityLevel;
-        myPets.data[petIndex].currFoodLevel =(myPets.data[petIndex].currFoodLevel == undefined) ?0 : myPets.data[petIndex].currFoodLevel;
+        myPets.data[petIndex].currFoodLevel = (myPets.data[petIndex].currFoodLevel == undefined) ? 0 : myPets.data[petIndex].currFoodLevel;
 
         myPets.data[petIndex].complitDayPlan = myPets.data[petIndex].currDayPlanLevel == 0 ? myPets.data[petIndex].currDayPlanLevel : Math.ceil(myPets.data[petIndex].currDayPlanLevel / (100 / myPets.data[petIndex].dayPlanLevel));
         myPets.data[petIndex].complitActivity = myPets.data[petIndex].currActivityLevel == 0 ? myPets.data[petIndex].currActivityLevel : Math.ceil(myPets.data[petIndex].currActivityLevel / (100 / myPets.data[petIndex].activityLevel));
@@ -140,7 +187,7 @@ const MyInfo = () => {
                         <div className="col-6 justify-content-end">
                             <h5 className="pt-4 pl-2" style={{ color: '#727377' }}> {myPets.data[petIndex].type}</h5>
                             <h2 className="pl-2">{myPets.data[petIndex].name}</h2>
-                            <h5 className="pb-2 pl-2" style={{ color: '#727377' }}> age {myPets.data[petIndex].age}</h5>
+                            <h5 className="pb-2 pl-2" style={{ color: '#727377' }}> age {age}</h5>
                         </div>
                         <ArrowForwardIosRoundedIcon onClick={handleClickRight} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon>
                     </div>
@@ -185,7 +232,7 @@ const MyInfo = () => {
                 </div>
                 {/*End of Daily food habits section */}
 
-                <div className='col-auto text-center' style={{marginBottom: '100px'}}>
+                <div className='col-auto text-center' style={{ marginBottom: '100px' }}>
                     <button onClick={onClickPlay} className="btnStyle btn-lg btns_blue mt-4 w-75">Start a Play</button>
                 </div>
             </React.Fragment>
