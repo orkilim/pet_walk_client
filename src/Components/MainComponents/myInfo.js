@@ -37,14 +37,20 @@ const MyInfo = () => {
 
     //Click and render the pet in the array :
     const handleClick = () => {
-        if (petIndex <= myPets.length && petIndex != 0) {
-            console.log(myPets);
-            setPetIndex(petIndex - 1);
-            showMyPets();
-        }
         if (petIndex == 0) {
-            setPetIndex(petIndex + 1);
-            showMyPets();
+            setPetIndex(myPets.data.length-1);
+        }
+        if (petIndex > 0) {
+            setPetIndex(petIndex-1);
+        }
+    }
+
+    const handleClickRight = () => {
+        if (petIndex == myPets.data.length-1) {
+            setPetIndex(0);
+        }
+        if (petIndex >= 0 && petIndex < myPets.data.length-1) {
+            setPetIndex(petIndex+1);
         }
     }
 
@@ -78,7 +84,7 @@ const MyInfo = () => {
                             <h2 className="pl-2">{myPets.data[petIndex].name}</h2>
                             <h5 className="pb-2 pl-2" style={{ color: '#727377' }}> age {myPets.data[petIndex].age}</h5>
                         </div>
-                        <ArrowForwardIosRoundedIcon onClick={handleClick} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon>
+                        <ArrowForwardIosRoundedIcon onClick={handleClickRight} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon>
 
                     </div>
                 </div>
