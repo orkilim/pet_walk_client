@@ -53,6 +53,7 @@ const PetProfile = () => {
                 setDogPlan(dogInfo.dayPlan)
                 setDayPlanLevel(dogInfo.dayPlanLevel)
                 setHobbies(dogInfo.hobbies)
+                setBio(dogInfo.bio)
                 setDogImg(dogInfo.img)
             })
             .catch((err) => {
@@ -72,7 +73,7 @@ const PetProfile = () => {
                 <div style={{display:'flex',position:'relative', backgroundColor:'gray'}} >
                     <div style={{ display: 'flex', position: 'absolute', left: '20%', width: '175px', flexDirection: 'column' }}>
                         <div style={{ flexDirection: 'row' }}>
-                            <NavLink to='/editPet'><Button style={{ backgroundColor: 'orange', borderRadius: '10px' }}> <CreateIcon /> Edit</Button></NavLink>
+                            <NavLink to='/editPet' ><Button style={{ backgroundColor: 'orange', borderRadius: '10px' }}> <CreateIcon /> Edit</Button></NavLink>
                             <NavLink to='/myPets' onClick={() => {
                                 axios({
                                     method: 'delete',

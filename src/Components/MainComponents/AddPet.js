@@ -5,6 +5,7 @@ import { Button, Grid, Input, MenuItem, TextField } from '@material-ui/core';
 import '../../App.css'
 import { Select } from '@material-ui/core';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -21,7 +22,7 @@ const AddPet = () => {
     const [dayPlanLevel, setDayPlanLevel] = React.useState()//was number switched to string
     const [hobbies, setHobbies] = React.useState("")
     const [bio, setBio] = React.useState("")
-    const [dogImg, setDogImg] = React.useState("")
+    const [dogImg, setDogImg] = React.useState("https://icon-library.com/images/dog-icon/dog-icon-16.jpg")
     
     return (
         <Grid style={{backgroundColor:'lightgray'}}>
@@ -54,7 +55,7 @@ const AddPet = () => {
                 </div>
                 <TextField multiline={true} rows={2} id="plan-textfield" className='add-pet-input' type='text' value={hobbies}  label='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
                 <TextField multiline={true} rows={2} id="plan-textfield" className='add-pet-input' type='text' value={bio} label='Bio...' onChange={(event) => { setBio(event.target.value) }} />
-                <Button style={{marginTop:'0.5cm' ,backgroundColor: 'blue', borderRadius: '100px' }} onClick={() => {
+                <NavLink to="/myPets" ><Button style={{marginTop:'0.5cm',marginBottom:'1.5cm' ,backgroundColor: 'blue', borderRadius: '100px' }} onClick={() => {
 
                     const age = (Number)(dogAge)
                     const weight = (Number)(dogWeight)
@@ -94,7 +95,7 @@ const AddPet = () => {
 
 
                         })
-                }}>Add Pet</Button>
+                }}>Add Pet</Button></NavLink>
                 <Navbar />
             </div>
         </Grid>
