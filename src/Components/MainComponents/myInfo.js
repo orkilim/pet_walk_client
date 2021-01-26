@@ -28,8 +28,8 @@ const MyInfo = () => {
             }
         })
             .then((data) => {
-                console.log(data);
-                setMyPets(data);
+                console.log(data.data);
+                setMyPets(data.data);
                 setData(true);
                 return;
                 // showMyPets();
@@ -44,7 +44,7 @@ const MyInfo = () => {
     //Click and render the pet in the array :
     const handleClick = () => {
         if (petIndex == 0) {
-            setPetIndex(myPets.data.length - 1);
+            setPetIndex(myPets.length - 1);
         }
         if (petIndex > 0) {
             setPetIndex(petIndex - 1);
@@ -52,10 +52,10 @@ const MyInfo = () => {
     }
 
     const handleClickRight = () => {
-        if (petIndex == myPets.data.length - 1) {
+        if (petIndex == myPets.length - 1) {
             setPetIndex(0);
         }
-        if (petIndex >= 0 && petIndex < myPets.data.length - 1) {
+        if (petIndex >= 0 && petIndex < myPets.length - 1) {
             setPetIndex(petIndex + 1);
         }
     }
@@ -63,13 +63,13 @@ const MyInfo = () => {
     const upadteActivity = (level) => {
         //update in db :
         let dataBodyVal = {
-            id: myPets.data[petIndex]._id, //requird for edting in server 
-            name: myPets.data[petIndex].name,
-            type: myPets.data[petIndex].type,
-            dayPlan: myPets.data[petIndex].dayPlan,
-            dayPlanLevel: myPets.data[petIndex].dayPlanLevel,
-            activityLevel: myPets.data[petIndex].activityLevel,
-            foodLevel: myPets.data[petIndex].foodLevel,
+            id: myPets[petIndex]._id, //requird for edting in server 
+            name: myPets[petIndex].name,
+            type: myPets[petIndex].type,
+            dayPlan: myPets[petIndex].dayPlan,
+            dayPlanLevel: myPets[petIndex].dayPlanLevel,
+            activityLevel: myPets[petIndex].activityLevel,
+            foodLevel: myPets[petIndex].foodLevel,
             currActivityLevel: Number(level)
         }
         console.log(dataBodyVal);
@@ -85,14 +85,20 @@ const MyInfo = () => {
         })
             .then(myData => {
                 console.log(myData);
-                //myPets.data[petIndex].currActivityLevel=Number(level);
-                console.log(myPets.data[petIndex].currActivityLevel);
+                console.log(myPets[petIndex].currActivityLevel);
                 console.log(level);
-                let perv = myPets.data.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) });
-                console.log("up", perv);
+                let perv = myPets.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) });
+                console.log("up", myPets);
+                try{
+                    setMyPets(myPets=> myPets.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) }));
+                    console.log("uprty", myPets);
 
-                //setMyPets(myPets = myPets.data.map(item => item._id !== dataBodyVal.id ? item : { ...item, currActivityLevel: Number(level) }));
-                //console.log("up", myPets);
+                    // setMyPets(myPets =>myPets.map(item => item._id !== dataBodyVal.id ? item : { ...item, currActivityLevel: Number(level) }));
+
+                }catch(e){
+                    console.log(e);
+                }
+                console.log("up2", myPets);
                 return;
 
             })
@@ -161,32 +167,33 @@ const MyInfo = () => {
 
 
     const showMyPets = () => {
+        console.log(myPets)
         if (myPets.length == 0) {
             return ('no Pats');
         }
         //set defult elements from db
-        let age = (myPets.data[petIndex].age == undefined) ? "Forever Young" : myPets.data[petIndex].age;
-        myPets.data[petIndex].currDayPlanLevel = (myPets.data[petIndex].currDayPlanLevel == undefined) ? 0 : myPets.data[petIndex].currDayPlanLevel;
-        myPets.data[petIndex].currActivityLevel = (myPets.data[petIndex].currActivityLevel == undefined) ? 0 : myPets.data[petIndex].currActivityLevel;
-        myPets.data[petIndex].currFoodLevel = (myPets.data[petIndex].currFoodLevel == undefined) ? 0 : myPets.data[petIndex].currFoodLevel;
+        let age = (myPets[petIndex].age == undefined) ? "Forever Young" : myPets[petIndex].age;
+        myPets[petIndex].currDayPlanLevel = (myPets[petIndex].currDayPlanLevel == undefined) ? 0 : myPets[petIndex].currDayPlanLevel;
+        myPets[petIndex].currActivityLevel = (myPets[petIndex].currActivityLevel == undefined) ? 0 : myPets[petIndex].currActivityLevel;
+        myPets[petIndex].currFoodLevel = (myPets[petIndex].currFoodLevel == undefined) ? 0 : myPets[petIndex].currFoodLevel;
 
-        myPets.data[petIndex].complitDayPlan = myPets.data[petIndex].currDayPlanLevel == 0 ? myPets.data[petIndex].currDayPlanLevel : Math.ceil(myPets.data[petIndex].currDayPlanLevel / (100 / myPets.data[petIndex].dayPlanLevel));
-        myPets.data[petIndex].complitActivity = myPets.data[petIndex].currActivityLevel == 0 ? myPets.data[petIndex].currActivityLevel : Math.ceil(myPets.data[petIndex].currActivityLevel / (100 / myPets.data[petIndex].activityLevel));
-        myPets.data[petIndex].complitFood = myPets.data[petIndex].currFoodLevel == 0 ? myPets.data[petIndex].currFoodLevel : Math.ceil(myPets.data[petIndex].currFoodLevel / (100 / myPets.data[petIndex].foodLevel));
+        myPets[petIndex].complitDayPlan = myPets[petIndex].currDayPlanLevel == 0 ? myPets[petIndex].currDayPlanLevel : Math.ceil(myPets[petIndex].currDayPlanLevel / (100 / myPets[petIndex].dayPlanLevel));
+        myPets[petIndex].complitActivity = myPets[petIndex].currActivityLevel == 0 ? myPets[petIndex].currActivityLevel : Math.ceil(myPets[petIndex].currActivityLevel / (100 / myPets[petIndex].activityLevel));
+        myPets[petIndex].complitFood = myPets[petIndex].currFoodLevel == 0 ? myPets[petIndex].currFoodLevel : Math.ceil(myPets[petIndex].currFoodLevel / (100 / myPets[petIndex].foodLevel));
 
-        console.log(myPets.data[petIndex].complitDayPlan);
-        console.log(myPets.data[petIndex].complitActivity);
-        console.log(myPets.data[petIndex].complitFood);
+        console.log(myPets[petIndex].complitDayPlan);
+        console.log(myPets[petIndex].complitActivity);
+        console.log(myPets[petIndex].complitFood);
         return (
             <React.Fragment>
                 <div className="row p-3 justify-content-between btn_section" >
                     <ArrowBackIosRoundedIcon onClick={handleClick} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowBackIosRoundedIcon>
                     <div className="col d-flex justify-content-center align-items-center">
-                        <img src={myPets.data[petIndex].img}
+                        <img src={myPets[petIndex].img}
                             alt="Avatar" className="img_pet" style={{ width: '50%', border: '#fff solid', borderRadius: '50%', padding: '5%' }} />
                         <div className="col-6 justify-content-end">
-                            <h5 className="pt-4 pl-2" style={{ color: '#727377' }}> {myPets.data[petIndex].type}</h5>
-                            <h2 className="pl-2">{myPets.data[petIndex].name}</h2>
+                            <h5 className="pt-4 pl-2" style={{ color: '#727377' }}> {myPets[petIndex].type}</h5>
+                            <h2 className="pl-2">{myPets[petIndex].name}</h2>
                             <h5 className="pb-2 pl-2" style={{ color: '#727377' }}> age {age}</h5>
                         </div>
                         <ArrowForwardIosRoundedIcon onClick={handleClickRight} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon>
@@ -197,11 +204,10 @@ const MyInfo = () => {
                 <div className='row p-3 justify-content-between btn_section mb-3' style={{ boxShadow: 'none' }}>
                     <div className="col-8 align-self-center p-2">
                         <h4><strong>Today's Plans</strong></h4>
-                        <h5>{myPets.data[petIndex].complitDayPlan} tasks completed</h5>
+                        <h5>{myPets[petIndex].complitDayPlan} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        {/* {ChartData()} */}
-                        <Chart mydata={myPets.data[petIndex].currDayPlanLevel} />
+                        <Chart mydata={myPets[petIndex].currDayPlanLevel} />
                     </div>
                 </div>
                 {/*End of dayly plan section */}
@@ -210,11 +216,10 @@ const MyInfo = () => {
                 <div className='row p-3 justify-content-between btn_section mb-3' style={{ boxShadow: 'none' }}>
                     <div className="col-8 align-self-center p-2">
                         <h4><strong>Energy avaliable</strong></h4>
-                        <h5>{myPets.data[petIndex].complitActivity} tasks completed</h5>
+                        <h5>{myPets[petIndex].complitActivity} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        {/* {ChartData()} */}
-                        <Chart mydata={myPets.data[petIndex].currActivityLevel} />
+                        <Chart mydata={myPets[petIndex].currActivityLevel} />
                     </div>
                 </div>
                 {/*End of Energy avaliable section */}
@@ -223,11 +228,10 @@ const MyInfo = () => {
                 <div className='row p-3 justify-content-between btn_section mb-3' style={{ boxShadow: 'none' }}>
                     <div className="col-8 align-self-center p-2">
                         <h4><strong>Daily food habits</strong></h4>
-                        <h5>{myPets.data[petIndex].complitFood} tasks completed</h5>
+                        <h5>{myPets[petIndex].complitFood} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        {/* {ChartData()} */}
-                        <Chart mydata={myPets.data[petIndex].currFoodLevel} />
+                        <Chart mydata={myPets[petIndex].currFoodLevel} />
                     </div>
                 </div>
                 {/*End of Daily food habits section */}
