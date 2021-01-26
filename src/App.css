@@ -128,7 +128,7 @@ body{background: #E5E5E5;}
 }
 
 /* buttonStyle For all pages */
-.btn{
+.btnStyle{
     border-radius: 20px;
     color: #5b595c;
     border: 1px solid #ffffff;
@@ -147,6 +147,33 @@ body{background: #E5E5E5;}
   border: 1px solid #ffffff;
   background-image: linear-gradient(#c6c7ca, #F1F3F6);
   box-shadow: 13px 7px 25px 5px  rgba(124, 177, 255, 0.48);
+}
+
+.btns{
+  border-radius: 20px;
+  color: #5b595c;
+  border: 1px solid #ffffff;
+  background-color: rgba(0, 0, 0, 0.03); 
+  box-shadow: 15px 15px 30px 0px rgba(0, 0, 0, .48);
+}
+.btns_blue{
+  border-radius: 20px;
+  background-color: #6EA8FF ;
+  color: #000000 ;
+  font-style: normal;
+  font-weight: 500; 
+  border-color: #6EA8FF;
+}
+
+.btns_blue:hover{
+  color: #ffffff;
+  box-shadow: 15px 15px 30px 0px rgba(177, 177, 255, 0.7);
+  transition: box-shadow .5s;
+}
+.btns:hover{
+  color: #000000;
+  box-shadow: 15px 15px 30px 0px rgba(0, 0, 0, .70);
+  transition: box-shadow .5s;
 }
 
 
