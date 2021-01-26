@@ -16,7 +16,7 @@ import Navbar from '../RepeatingComponents/Navbar';
 const PetProfile = () => {
 
 
-    const [dogId,setDogId]=React.useState("")
+    const [dogId, setDogId] = React.useState("")
     const [dogType, setDogType] = React.useState('none')
     const [dogName, setDogName] = React.useState('')
     const [dogGender, setDogGender] = React.useState('Male')
@@ -69,37 +69,47 @@ const PetProfile = () => {
                     <img alt="my-dog" src={dogImg} style={{ display: 'block', position: 'relative', width: '100px', height: '100px' }} />
                     <text><b>{dogName}</b></text>
                 </div>
-                <div style={{ display: 'flex', position: 'relative', left:'20%',width:'175px', flexDirection: 'column' }}>
-                    <div style={{flexDirection:'row'}}>
-                        <NavLink to='/editPet'><Button style={{ backgroundColor: 'orange', borderRadius: '10px' }}> <CreateIcon /> Edit</Button></NavLink>
-                        <NavLink to='/myPets' onClick={()=>{
-                            axios({
-                                method:'delete',
-                                url:`https://petwalkapp.herokuapp.com/pets/${dogId}`,
-                                headers:{
-                                    "x-auth-token": localStorage["token"]
-                                }
-                            })
-                            .then((data)=>{
-                                console.log(data)
-                            })
-                            .catch((err)=>{
-                                if(err)
-                                console.log("problem with dog deletion:\n"+err)
-                            })
-                        }} ><Button style={{ backgroundColor: 'red', borderRadius: '10px' }}> <DeleteIcon/> Delete</Button></NavLink>
+                <div style={{display:'flex',position:'relative', backgroundColor:'gray'}} >
+                    <div style={{ display: 'flex', position: 'absolute', left: '20%', width: '175px', flexDirection: 'column' }}>
+                        <div style={{ flexDirection: 'row' }}>
+                            <NavLink to='/editPet'><Button style={{ backgroundColor: 'orange', borderRadius: '10px' }}> <CreateIcon /> Edit</Button></NavLink>
+                            <NavLink to='/myPets' onClick={() => {
+                                axios({
+                                    method: 'delete',
+                                    url: `https://petwalkapp.herokuapp.com/pets/${dogId}`,
+                                    headers: {
+                                        "x-auth-token": localStorage["token"]
+                                    }
+                                })
+                                    .then((data) => {
+                                        console.log(data)
+                                    })
+                                    .catch((err) => {
+                                        if (err)
+                                            console.log("problem with dog deletion:\n" + err)
+                                    })
+                            }} ><Button style={{ backgroundColor: 'red', borderRadius: '10px' }}> <DeleteIcon /> Delete</Button></NavLink>
+                        </div>
+                        <div style={{ display: 'flex', position: 'absolute',top:'1cm', flexDirection: 'column' }}>
+                            <text className='pet-profile-text'><PetsIcon /> <b>type: {dogType}</b></text>
+                            <text> <WcIcon style={{ color: 'skyblue' }} /> gender: {dogGender}</text>
+                            <text> <HourglassEmptyIcon style={{ color: 'skyblue' }} /> age: {dogAge} </text>
+                            <text> <DirectionsRunIcon style={{ color: 'skyblue' }} /> activity level: {activityLevel} </text>
+                            <text> <FastfoodIcon style={{ color: 'skyblue' }} /> food level: {foodLevel} </text>
+                            <text> <FavoriteIcon style={{ color: 'skyblue' }} /> day plan level: {dayPlanLevel} </text>
+                        </div>
                     </div>
-                    <div style={{ display: 'flex', position: 'relative', flexDirection: 'column' }}>
-                        <text className='pet-profile-text'><PetsIcon /> <b>type: {dogType}</b></text>
-                        <text> <WcIcon style={{color:'skyblue'}} /> gender: {dogGender}</text>
-                        <text> <HourglassEmptyIcon style={{color:'skyblue'}} /> age: {dogAge} </text>
-                        <text> <DirectionsRunIcon style={{color:'skyblue'}} /> activity level: {activityLevel} </text>
-                        <text> <FastfoodIcon style={{color:'skyblue'}} /> food level: {foodLevel} </text>
-                        <text> <FavoriteIcon style={{color:'skyblue'}} /> day plan level: {dayPlanLevel} </text>
+                    <div style={{ display: 'flex', position: 'absolute',right: '20%',flexDirection:'column' }} >
+                        <label>Hobbies:</label>
+                        <text>{hobbies}</text>
+                        <label>Bio:</label>
+                        <text>{bio}</text>
+                        <label>Day Plan:</label>
+                        <text>{dogPlan}</text>
                     </div>
                 </div>
             </div>
-            <Navbar/>
+            <Navbar />
         </Grid>
     )
 }
