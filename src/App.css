@@ -150,14 +150,14 @@ body{background: #E5E5E5;}
 }
 
 .btns{
-  border-radius: 20px;
+  border-radius: 20px !important;
   color: #5b595c;
   border: 1px solid #ffffff;
   background-color: rgba(0, 0, 0, 0.03); 
   box-shadow: 15px 15px 30px 0px rgba(0, 0, 0, .48);
 }
 .btns_blue{
-  border-radius: 20px;
+  border-radius: 20px !important;
   background-color: #6EA8FF ;
   color: #000000 ;
   font-style: normal;

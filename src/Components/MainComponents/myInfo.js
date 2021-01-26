@@ -6,6 +6,7 @@ import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounde
 import Navbar from '../RepeatingComponents/Navbar';
 import Loading from '../RepeatingComponents/Loading';
 import { Pie } from 'react-chartjs-2';
+import Swal from 'sweetalert2';
 import Chart from './Chart';
 
 
@@ -59,6 +60,43 @@ const MyInfo = () => {
         }
     }
 
+    const onClickPlay = () => {
+        Swal.mixin({
+            input: 'text',
+            confirmButtonText: 'Next &rarr;',
+            showCancelButton: true,
+            progressSteps: ['1', '2', '3']
+        }).queue([
+            {
+                title: 'Where we play?',
+                text: 'Garden, park, house, with friends'
+            },
+            'Playing time',
+            'Energy level'
+        ]).then((result) => {
+            if (result.value) {
+                const answers = JSON.stringify(result.value)
+                Swal.fire({
+                    title: 'All done!',
+                    html: `
+                Your Day Play:
+                <pre><code>${answers}</code></pre>
+              `,
+                    confirmButtonText: 'Lovely!'
+                })
+            }
+            //update activity level:
+            console.log(result.value[2]);
+            // if (Number(result.value[2]) >= 1) {
+            //     localStorage.setItem(`petName`, `${this.name}`);
+            //     localStorage.setItem(`petId`, `${this.id}`);
+            //     localStorage.setItem(`update`, `currActivityLevel`);
+            //     localStorage.setItem(`index`, `${this.i}`);
+            //     updatMyInfo(result.value[2]);
+            // }
+        })
+    }
+
     // const ChartData = () => {
     //     let charData= {
     //         datasets: [{
@@ -79,20 +117,19 @@ const MyInfo = () => {
         if (myPets.length == 0) {
             return ('no Pats');
         }
-        // let defultData = {
-        //     img: (myPets[petIndex].img == undefined) ? "https://icon-library.com/images/dog-icon/dog-icon-16.jpg" : myPets[petIndex].img,
-        //     age: (!myPets[petIndex].age) ? "Forever Young" : myPets[petIndex].age,
-        //     currDayPlanLevel = (myPets[petIndex].currDayPlanLevel == undefined) ? 0 : myPets[petIndex].currDayPlanLevel,
-        //     currActivityLevel = (myPets[petIndex].currActivityLevel == undefined) ? 0 : myPets[petIndex].currActivityLevel,
-        //     currFoodLevel = (myPets[petIndex].currFoodLevel == undefined) ? 0 : myPets[petIndex].currFoodLevel
-        // }
-        // myPets[petIndex].complitDayPlan = myPets[petIndex].currDayPlanLevel == 0 ? myPets[petIndex].currDayPlanLevel : Math.ceil(myPets[petIndex].currDayPlanLevel / (100 / myPets[petIndex].dayPlanLevel));
-        // myPets[petIndex].complitActivity = myPets[petIndex].currActivityLevel == 0 ? myPets[petIndex].currActivityLevel : Math.ceil(myPets[petIndex].currActivityLevel / (100 / myPets[petIndex].activityLevel));
-        // myPets[petIndex].complitFood = myPets[petIndex].currFoodLevel == 0 ? myPets[petIndex].currFoodLevel : Math.ceil(myPets[petIndex].currFoodLevel / (100 / myPets[petIndex].foodLevel));
+        //set defult elements from db
+        myPets.data[petIndex].age= (!myPets.data[petIndex].age) ? "Forever Young" : myPets.data[petIndex].age;
+        myPets.data[petIndex].currDayPlanLevel = (myPets.data[petIndex].currDayPlanLevel == undefined) ? 0 : myPets.data[petIndex].currDayPlanLevel;
+        myPets.data[petIndex].currActivityLevel = (myPets.data[petIndex].currActivityLevel == undefined) ? 0 : myPets.data[petIndex].currActivityLevel;
+        myPets.data[petIndex].currFoodLevel =(myPets.data[petIndex].currFoodLevel == undefined) ?0 : myPets.data[petIndex].currFoodLevel;
 
-        console.log(myPets.data);
-        console.log(petIndex);
-        console.log(myPets.data[petIndex].img);
+        myPets.data[petIndex].complitDayPlan = myPets.data[petIndex].currDayPlanLevel == 0 ? myPets.data[petIndex].currDayPlanLevel : Math.ceil(myPets.data[petIndex].currDayPlanLevel / (100 / myPets.data[petIndex].dayPlanLevel));
+        myPets.data[petIndex].complitActivity = myPets.data[petIndex].currActivityLevel == 0 ? myPets.data[petIndex].currActivityLevel : Math.ceil(myPets.data[petIndex].currActivityLevel / (100 / myPets.data[petIndex].activityLevel));
+        myPets.data[petIndex].complitFood = myPets.data[petIndex].currFoodLevel == 0 ? myPets.data[petIndex].currFoodLevel : Math.ceil(myPets.data[petIndex].currFoodLevel / (100 / myPets.data[petIndex].foodLevel));
+
+        console.log(myPets.data[petIndex].complitDayPlan);
+        console.log(myPets.data[petIndex].complitActivity);
+        console.log(myPets.data[petIndex].complitFood);
         return (
             <React.Fragment>
                 <div className="row p-3 justify-content-between btn_section" >
@@ -111,45 +148,45 @@ const MyInfo = () => {
                 <h3 className="mt-4 pb-2">State</h3>
                 {/* dayly plan section */}
                 <div className='row p-3 justify-content-between btn_section mb-3' style={{ boxShadow: 'none' }}>
-                    <div class="col-8 align-self-center p-2">
+                    <div className="col-8 align-self-center p-2">
                         <h4><strong>Today's Plans</strong></h4>
-                        <h5>{myPets.data[petIndex].age} tasks completed</h5>
+                        <h5>{myPets.data[petIndex].complitDayPlan} tasks completed</h5>
                     </div>
-                    <div class='col-4 align-self-center text-center'>
+                    <div className='col-4 align-self-center text-center'>
                         {/* {ChartData()} */}
-                        <Chart mydata={myPets.data[petIndex].age} />
+                        <Chart mydata={myPets.data[petIndex].currDayPlanLevel} />
                     </div>
                 </div>
                 {/*End of dayly plan section */}
 
                 {/* Energy avaliable section */}
                 <div className='row p-3 justify-content-between btn_section mb-3' style={{ boxShadow: 'none' }}>
-                    <div class="col-8 align-self-center p-2">
+                    <div className="col-8 align-self-center p-2">
                         <h4><strong>Energy avaliable</strong></h4>
-                        <h5>{myPets.data[petIndex].age} tasks completed</h5>
+                        <h5>{myPets.data[petIndex].complitActivity} tasks completed</h5>
                     </div>
-                    <div class='col-4 align-self-center text-center'>
+                    <div className='col-4 align-self-center text-center'>
                         {/* {ChartData()} */}
-                        <Chart mydata={myPets.data[petIndex].age} />
+                        <Chart mydata={myPets.data[petIndex].currActivityLevel} />
                     </div>
                 </div>
                 {/*End of Energy avaliable section */}
 
                 {/* EDaily food habits section */}
                 <div className='row p-3 justify-content-between btn_section mb-3' style={{ boxShadow: 'none' }}>
-                    <div class="col-8 align-self-center p-2">
+                    <div className="col-8 align-self-center p-2">
                         <h4><strong>Daily food habits</strong></h4>
-                        <h5>{myPets.data[petIndex].age} tasks completed</h5>
+                        <h5>{myPets.data[petIndex].complitFood} tasks completed</h5>
                     </div>
-                    <div class='col-4 align-self-center text-center'>
+                    <div className='col-4 align-self-center text-center'>
                         {/* {ChartData()} */}
-                        <Chart mydata={myPets.data[petIndex].age} />
+                        <Chart mydata={myPets.data[petIndex].currFoodLevel} />
                     </div>
                 </div>
                 {/*End of Daily food habits section */}
 
-                <div class='col-auto text-center' style={{marginBottom: '100px'}}>
-                    <button class="btnStyle btn-lg btns_blue mt-4 w-75">Start a Play</button>
+                <div className='col-auto text-center' style={{marginBottom: '100px'}}>
+                    <button onClick={onClickPlay} className="btnStyle btn-lg btns_blue mt-4 w-75">Start a Play</button>
                 </div>
             </React.Fragment>
         )
