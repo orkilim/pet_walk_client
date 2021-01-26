@@ -1,8 +1,8 @@
 import * as React from 'react';
 import axios from 'axios';
-//import { Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
-//import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
+import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
 import Navbar from '../RepeatingComponents/Navbar';
 import Loading from '../RepeatingComponents/Loading';
 import { Pie } from 'react-chartjs-2';

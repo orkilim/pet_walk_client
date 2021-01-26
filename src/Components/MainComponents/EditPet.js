@@ -90,7 +90,7 @@ const EditPet = () => {
                 </div>
                 <TextField multiline={true} rows={2} id="plan-textfield" className='add-pet-input' type='text' value={hobbies} label='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
                 <TextField multiline={true} rows={2} id="plan-textfield" className='add-pet-input' type='text' value={bio} label='Bio...' onChange={(event) => { setBio(event.target.value) }} />
-                <NavLink to="/petProfile" ><Button style={{ backgroundColor: 'blue', borderRadius: '100px',marginTop:'0.5cm',marginBottom:'2.5cm' }} onClick={() => {
+                <NavLink to="/petProfile" ><Button style={{ backgroundColor: 'blue', borderRadius: '100px',marginTop:'0.5cm',marginBottom:'2.5cm' }} onClick={ async () => {
 
                     const age = (Number)(dogAge)
                     const weight = (Number)(dogWeight)
@@ -113,10 +113,15 @@ const EditPet = () => {
                         "bio": bio,
                         "img": dogImg
                     }
+                    
+                    console.log("in the put axios call\n"+dogData)
 
-                    axios({
+                    await axios({
                         method: 'put',
                         url: 'https://petwalkapp.herokuapp.com/pets',
+                        headers:{
+                            "x-auth-token": localStorage["token"]
+                        },
                         data: dogData
                     })
                     .then((data)=>{
