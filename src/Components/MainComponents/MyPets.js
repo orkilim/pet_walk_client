@@ -61,7 +61,7 @@ const MyPets = () => {
                 {
                     pets.map(showPets)
                 }
-                <NavLink namePage={'myPets'} to='/addPet' ><Button style={{ backgroundColor: 'blue', color: 'white', marginTop: '1.5cm', borderRadius: '50%', height: '55px', fontSize: '20px' }} >+</Button></NavLink>
+                <NavLink namePage={'myPets'} to='/addPet' ><Button style={{ backgroundColor: 'blue', color: 'white', marginTop: '1.5cm',marginBottom:'2cm', borderRadius: '50%', height: '55px', fontSize: '20px' }} >+</Button></NavLink>
                 <Navbar />
             </div>
         </Grid>
