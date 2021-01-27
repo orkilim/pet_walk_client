@@ -8,9 +8,6 @@ import SearchClass from '../../RepeatingComponents/SearchClass';
 import CommunityList from './CommunityList';
 
 
-
-
-
 const Community = () => {
     const [communities, setCommunities] = React.useState([]);
     const [data, setData] = React.useState(false); // data retrieved from the server(y\n)
@@ -83,7 +80,7 @@ const Community = () => {
             <main className="container-fluid">
                 <div className="container">
                     <div className="row justify-content-center">
-                        {data ? <CommunityList communities={communities} communityList={communityList}/> : <Loading />}
+                        {data ? <CommunityList page={'community'} communities={communities} communityList={communityList}/> : <Loading />}
                     </div>
                 </div>
             </main>

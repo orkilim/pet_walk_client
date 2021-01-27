@@ -5,10 +5,12 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
+import FooterCommunity from './FooterCommunity';
+import FooterMyCommunity from './FooterMyCommunity';
 
 
 const CommunityItem = (props) => {
-    const {key, item, title} = props;
+    const { key, item, title, page } = props;
     console.log(title);
     console.log(item);
 
@@ -27,11 +29,17 @@ const CommunityItem = (props) => {
                 <img className="card-img-top" src={item.img} alt="Card image" />
                 <div className="card-body">
                     <div class="row p-2 fafa justify-content-between">
-                        <Link to="#" ><StarIcon /></Link>
+                        {page === 'community'
+                            ? <FooterCommunity/>
+                            :<FooterMyCommunity/>
+            
+                        }
+                        {/* <Link to="#" ><StarIcon /></Link>
                         <ChatBubbleOutlineIcon />
                         <FacebookIcon />
                         <TwitterIcon />
-                        <InstagramIcon />
+                        <InstagramIcon /> */}
+
                     </div>
                 </div>
             </div>
