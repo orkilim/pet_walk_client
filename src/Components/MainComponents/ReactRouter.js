@@ -9,6 +9,10 @@ import EditPet from './EditPet'
 import MyPets from './MyPets'
 import Login from './Login'
 import PetProfile from './PetProfile'
+import Community from './Community'
+import MyCommunity from './MyCommunity'
+
+
 
 
 const ReactRouter=()=>{
@@ -22,6 +26,8 @@ const ReactRouter=()=>{
             <Route exact path='/myPets' component={MyPets}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/petProfile' component={PetProfile}/>
+            <Route exact path='/community' component={Community}/>
+            <Route exact path='/myCommunity' component={MyCommunity}/>
         </React.Fragment>
     )
 }

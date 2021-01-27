@@ -177,6 +177,56 @@ body{background: #E5E5E5;}
 }
 
 
+/* search  */
+header .search-box{
+	background:#E5E6E8;
+    border-radius: 50px;
+    height: 60px;
+	  padding: 10px;
+}
+
+header .search-box:hover .search-btn{
+	color:#77787B;
+}
+
+
+header .search-btn{
+	color:#77787B;
+	float: right;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+header .search-txt{
+	border:none;
+	outline: none;
+	background: none;
+	color:#77787B;
+	line-height: 40px;
+	width: 80%;
+	padding: 0 25px;
+}
+/* endSearch */
+
+.fafa ul li {
+  display:block;
+  font-size:30px;
+  transition:0.5s;  
+}
+
+.fafa ul li:hover{
+  color: rgb(74, 119, 243);
+  transform:rotate(360deg);
+}
+
+.card{
+  border: none !important;
+  background-color: #F1F3F6 !important; 
+}
 /*.pet-profile-text{
 
 }*/

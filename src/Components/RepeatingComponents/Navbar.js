@@ -18,9 +18,9 @@ const Navbar = (props) => {
             ? <NavLink to='/myPets'><PetsIcon color='primary' /></NavLink>
             : <NavLink to='/myPets'><PetsIcon color='disabled' /></NavLink>
             }
-            {namePage === 'profile' 
-            ? <NavLink to='/profile'><AccountCircleIcon color='primary' /></NavLink>
-            : <NavLink to='/profile'><AccountCircleIcon color='disabled' /></NavLink>
+            {namePage === 'community' 
+            ? <NavLink to='/community'><AccountCircleIcon color='primary' /></NavLink>
+            : <NavLink to='/community'><AccountCircleIcon color='disabled' /></NavLink>
             }
             {namePage === 'search' 
             ? <NavLink to='/search'><SearchIcon color='primary' /></NavLink>
