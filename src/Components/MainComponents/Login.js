@@ -110,8 +110,10 @@ const Login = () => {
                             <Button onClick={handleClick} className="btn btn-lg btn-block btns my-4 w-100">Login</Button>
                         </form>
 
-                        <div className="row pt-4 justify-content-center text-center">
-                            <div className="col-4 " style={{ backgroundColor: '#727377', height: '3px' }}> </div>
+                        <div className="pt-4 justify-content-center text-center">
+                            <div className="row p-3 justify-content-center">
+                                <div className="col-4" style={{ backgroundColor: '#727377', height: '3px' }}> </div>
+                            </div>
                             <p className="pt-2">Don't have an Account! <NavLink to='/register'>Sign Up Here</NavLink></p>
                             <p>Forgot <NavLink to='/helpPage'>Password?</NavLink></p>
                         </div>

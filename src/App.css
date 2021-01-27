@@ -1,14 +1,3 @@
-/* .App {
-  align-content: center;
-} */
-
-
-
-/*@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}*/
 
 h1{
   font-style: normal;
@@ -36,13 +25,6 @@ body{background: #E5E5E5;}
   background-color: #a7f5f1;
 }
 
-/* .container{
-  position: fixed;
-  background-color: green;
-  width: 100%;
-  height: 100%;
-} */
-
 .general-container{
   display: flex;
   height: 100%;
@@ -59,8 +41,6 @@ body{background: #E5E5E5;}
   width: 50%;
   
 }
-
-
 
 
 .add-pet-input-side-by-side{
@@ -110,13 +90,17 @@ body{background: #E5E5E5;}
 
 
 /*for indexPage  */
-#id_start{
+#id_start {
   border-radius: 20px;
   border: 1px solid #5b595c;
   color: #5b595c;
   background-color: rgba(0, 0, 0, 0.03);
 }
 #id_start a{
+  color: #434244;
+}
+#id_start a:hover{
+  text-decoration: none;
   color: #5b595c;
 }
 #id_start:hover{
@@ -140,7 +124,6 @@ body{background: #E5E5E5;}
   box-shadow: 15px 15px 30px 0px rgba(0, 0, 0, .70);
   transition: box-shadow .5s;
 }
-
 
 .btn_section{
   border-radius: 10px;
@@ -189,7 +172,6 @@ header .search-box:hover .search-btn{
 	color:#77787B;
 }
 
-
 header .search-btn{
 	color:#77787B;
 	float: right;
@@ -227,8 +209,4 @@ header .search-txt{
   border: none !important;
   background-color: #F1F3F6 !important; 
 }
-/*.pet-profile-text{
-
-}*/
-
 
