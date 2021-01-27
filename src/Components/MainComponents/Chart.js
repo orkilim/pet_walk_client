@@ -7,7 +7,7 @@ const Chart = (props) => {
 
     let charData= {
         datasets: [{
-            data:[mydata,20-mydata],
+            data:[mydata,100-mydata],
             backgroundColor: ['rgb(110, 168, 255)','rgb(255, 255, 255)']
         }]
     }

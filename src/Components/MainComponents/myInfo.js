@@ -143,9 +143,17 @@ const MyInfo = () => {
             //update activity level:
             console.log(result.value[2]);
             upadteActivity(result.value[2]);
-            if (Number(result.value[2]) >= 1) {
-                console.log("d");
-                // updatMyInfo(result.value[2]);
+            if (Number(result.value[2]) <= 100) {
+                //say Goog Jub:
+                Swal.fire({
+                    title: 'Goog Jub',
+                    width: 600,
+                    padding: '3em',
+                    background: '#fff url(/images/good-job.jpg) ',
+                    backdrop: `
+                      rgba(0,0,123,0.4)
+                      url("/images/good.gif")                    `
+                  })
             }
         })
     }
