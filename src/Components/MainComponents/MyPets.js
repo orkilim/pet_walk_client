@@ -8,6 +8,8 @@ import { Link, NavLink } from 'react-router-dom';
 import MediaQuery from 'react-responsive'
 import AddIcon from '@material-ui/icons/Add';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 
 
 
@@ -18,17 +20,17 @@ const showPets = (item) => {
         <React.Fragment>
             <div key={item._id} className='row p-3 mt-4 justify-content-between btn_section'>
                 <div className="col d-flex justify-content-center align-items-center">
-                    <img src={item.img} alt={item.name} className="img_pet" style={{ height: '3cm', border: '#fff solid' ,borderRadius: '50%', padding: '5%'}} />
+                    <img src={item.img} alt={item.name} className="img_pet" style={{ height: '3cm', border: '#fff solid', borderRadius: '50%', padding: '5%' }} />
                 </div>
                 <div className="col justify-content-start">
-                    <h5 className="pt-4 ml-2" style={{color: '#727377'}}> {item.type}</h5>
+                    <h5 className="pt-4 ml-2" style={{ color: '#727377' }}> {item.type}</h5>
                     <h2 className="ml-2"> {item.name}</h2>
-                    <h5 className="pb-2 ml-2" style={{color: '#727377'}}>age : {age}</h5>
+                    <h5 className="pb-2 ml-2" style={{ color: '#727377' }}>age : {age}</h5>
                 </div>
                 <div className="col-1 align-self-center">
                     <Link to="/petProfile" key={item._id}
-                    onClick={() => {localStorage.setItem('dogId', item._id);}}> 
-                    <ArrowForwardIosRoundedIcon className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon></Link>
+                        onClick={() => { localStorage.setItem('dogId', item._id); }}>
+                        <ArrowForwardIosRoundedIcon className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon></Link>
                 </div>
 
 
@@ -85,7 +87,10 @@ const MyPets = () => {
         <React.Fragment>
             <header className="container-fluid">
                 <div className="container">
-                    <h1 className="py-4">My Pets</h1>
+                    <div className="mt-2">
+                        <Link className="py-2" to="/myInfo"><ArrowBackIcon style={{fontSize: 'xx-large',color: 'black'}}></ArrowBackIcon></Link>
+                        <h1 className="py-2">My Pets</h1>
+                    </div>
                 </div>
             </header>
 
