@@ -9,8 +9,8 @@ import EditPet from './EditPet'
 import MyPets from './MyPets'
 import Login from './Login'
 import PetProfile from './PetProfile'
-import Community from './Community'
-import MyCommunity from './MyCommunity'
+import Community from './Community/Community'
+import MyCommunity from './Community/MyCommunity'
 
 
 
