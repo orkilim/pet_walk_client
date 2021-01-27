@@ -1,19 +1,11 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom';
-import StarIcon from '@material-ui/icons/Star';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import InstagramIcon from '@material-ui/icons/Instagram';
 import FooterCommunity from './FooterCommunity';
 import FooterMyCommunity from './FooterMyCommunity';
 
 
 const CommunityItem = (props) => {
     const { key, item, title, page } = props;
-    console.log(title);
-    console.log(item);
-
+    
     return (
         <React.Fragment>
             <div key={item._id} className="card col-md-4 col-8 m-3">
@@ -32,14 +24,7 @@ const CommunityItem = (props) => {
                         {page === 'community'
                             ? <FooterCommunity/>
                             :<FooterMyCommunity/>
-            
                         }
-                        {/* <Link to="#" ><StarIcon /></Link>
-                        <ChatBubbleOutlineIcon />
-                        <FacebookIcon />
-                        <TwitterIcon />
-                        <InstagramIcon /> */}
-
                     </div>
                 </div>
             </div>

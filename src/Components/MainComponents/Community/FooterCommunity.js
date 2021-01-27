@@ -10,7 +10,6 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 
 
 const FooterCommunity = () => {
-    console.log('commm');
     return (
         <React.Fragment>
             <Link to="#" ><StarIcon /></Link>
