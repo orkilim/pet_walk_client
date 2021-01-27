@@ -4,11 +4,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
 
-const FooterMyCommunity = () => {
+const FooterMyCommunity = (props) => {
+    const {key, deleteItem,editeItem} = props;
+
     return (
         <React.Fragment>
-            <DeleteIcon />
-            <EditIcon />
+            <DeleteIcon onClick={deleteItem}/>
+            <EditIcon onClick={editeItem}/>
         </React.Fragment>
     );
 }

@@ -11,6 +11,11 @@ import Login from './Login'
 import PetProfile from './PetProfile'
 import Community from './Community/Community'
 import MyCommunity from './Community/MyCommunity'
+import AddCommunity from './Community/AddCommunity'
+import Demo from './Community/test';
+
+
+
 
 
 
@@ -28,6 +33,9 @@ const ReactRouter=()=>{
             <Route exact path='/petProfile' component={PetProfile}/>
             <Route exact path='/community' component={Community}/>
             <Route exact path='/myCommunity' component={MyCommunity}/>
+            <Route exact path='/myCommunity/new' component={AddCommunity}/>
+            <Route exact path='/test' component={Demo}/>
+
         </React.Fragment>
     )
 }

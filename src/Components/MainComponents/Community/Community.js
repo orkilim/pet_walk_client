@@ -45,7 +45,7 @@ const Community = () => {
                 <div className="container">
                     <div className="row justify-content-between">
                         <h1 className="py-4">Community</h1>
-                        <Link to="/myCommunity"><button type="button" class="btn btn-outline-info">MyCommunity</button></Link>
+                        <Link to="/myCommunity"><button type="button" className="btn btn-outline-info">MyCommunity</button></Link>
                     </div>
                     <SearchClass onSearch={onSearch}/>
                 </div>

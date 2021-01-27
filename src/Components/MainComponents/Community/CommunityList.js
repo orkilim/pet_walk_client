@@ -5,10 +5,10 @@ import CommunityItem from './CommunityItem';
 
 
 const CommunityList = (props) => {
-    const {communities,communityList,page} = props;
+    const {communities,communityList,page,deleteItem} = props;
 
     return (
-        communityList.map(item =><CommunityItem key={item._id} item={item} title={item.title} page={page}/>)
+        communityList.map(item =><CommunityItem key={item._id} item={item} title={item.title} page={page} deleteItem={() => {deleteItem(item._id);}}/>)
     )
 }
 
