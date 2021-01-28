@@ -91,9 +91,37 @@ const MyCommunity = () => {
         // setCommunities(prevState => prevState.filter(({ _id }) => _id !== deleteId));
     };
 
-    const editItem = (deleteId) => {
-        console.log(deleteId);
-        setCommunities(prevState => prevState.filter(({ _id }) => _id !== deleteId));
+    const editItem = async(editId) => {
+        console.log(editId);
+        //elements
+        let dataBodyVal = {
+            img: '',
+            type: '',
+            title: '',
+        }
+        //lightbox form :
+        const { value: formValues } = await Swal.fire({
+            title: 'Edit Community',
+            html:
+              '<input id="swal-input0" type="file" class="swal2-input" >' +
+              '<input id="swal-input1" class="swal2-input" value="aaa" >' +
+              '<input id="swal-input2" class="swal2-input" placeholder="Type" >',
+            focusConfirm: false,
+            preConfirm: () => {
+              return [
+                dataBodyVal.img = document.getElementById('swal-input0').value,
+                dataBodyVal.title = document.getElementById('swal-input1').value,
+                dataBodyVal.type = document.getElementById('swal-input2').value
+              ]
+            }
+          })
+          
+          if (formValues) {
+            Swal.fire(JSON.stringify(formValues))
+          }
+         console.log(dataBodyVal);
+         setCommunities(myPets=> myPets.map(data => data._id !== editId ? data : { ...data, title: dataBodyVal.title }));
+   
     };
 
     const communityList = communities.filter(todo => todo.title.toString().toLowerCase().includes(search));
