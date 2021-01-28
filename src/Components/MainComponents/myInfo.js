@@ -16,6 +16,10 @@ const MyInfo = () => {
     const [data, setData] = React.useState(false); // data retrieved from the server(y\n)
     const [petIndex, setPetIndex] = React.useState(0); // index from myPets array 
     const [chart1, setChart1] = React.useState({});
+    //elements thet can be updete in this page :
+    const [activity, setActiviry] = React.useState(0);
+    const [plan, setPlan] = React.useState(0);
+    const [food, setFood] = React.useState(0);
 
     React.useEffect(() => {
         console.log(data);
@@ -30,9 +34,11 @@ const MyInfo = () => {
             .then((data) => {
                 console.log(data.data);
                 setMyPets(data.data);
+                setActiviry(data.data[petIndex].currActivityLevel);
+                setPlan(data.data[petIndex].currDayPlanLevel);
+                setFood(data.data[petIndex].currFoodLevel);
                 setData(true);
                 return;
-                // showMyPets();
             })
             .catch((error) => {
                 console.log(error.response);
@@ -45,18 +51,30 @@ const MyInfo = () => {
     const handleClick = () => {
         if (petIndex == 0) {
             setPetIndex(myPets.length - 1);
+            setActiviry(myPets[myPets.length - 1].currDayPlanLevel);
+            setPlan(myPets[myPets.length - 1].currDayPlanLevel);
+            setFood(myPets[myPets.length - 1].currFoodLevel);
         }
         if (petIndex > 0) {
             setPetIndex(petIndex - 1);
+            setActiviry(myPets[petIndex - 1].currDayPlanLevel);
+            setPlan(myPets[petIndex - 1].currDayPlanLevel);
+            setFood(myPets[petIndex - 1].currFoodLevel);
         }
     }
 
     const handleClickRight = () => {
         if (petIndex == myPets.length - 1) {
             setPetIndex(0);
+            setActiviry(myPets[myPets.length - 1].currDayPlanLevel);
+            setPlan(myPets[myPets.length - 1].currDayPlanLevel);
+            setFood(myPets[myPets.length - 1].currFoodLevel);
         }
         if (petIndex >= 0 && petIndex < myPets.length - 1) {
             setPetIndex(petIndex + 1);
+            setActiviry(myPets[petIndex + 1].currDayPlanLevel);
+            setPlan(myPets[petIndex + 1].currDayPlanLevel);
+            setFood(myPets[petIndex + 1].currFoodLevel);
         }
     }
 
@@ -85,20 +103,17 @@ const MyInfo = () => {
         })
             .then(myData => {
                 console.log(myData);
-                console.log(myPets[petIndex].currActivityLevel);
-                console.log(level);
-                let perv = myPets.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) });
-                console.log("up", myPets);
-                try{
-                    setMyPets(myPets=> myPets.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) }));
-                    console.log("uprty", myPets);
+                setActiviry(dataBodyVal.currActivityLevel);
+                console.log("up", activity);
 
-                    // setMyPets(myPets =>myPets.map(item => item._id !== dataBodyVal.id ? item : { ...item, currActivityLevel: Number(level) }));
-
-                }catch(e){
-                    console.log(e);
-                }
-                console.log("up2", myPets);
+                // let perv = myPets.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) });
+                // console.log("up", myPets);
+                // try{
+                //     setMyPets(myPets=> myPets.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) }));
+                //     console.log("uprty", myPets);
+                // }catch(e){
+                //     console.log(e);
+                // }
                 return;
 
             })
@@ -114,7 +129,6 @@ const MyInfo = () => {
             })
     }
 
-
     const onClickPlay = () => {
         Swal.mixin({
             input: 'text',
@@ -129,6 +143,13 @@ const MyInfo = () => {
             'Playing time',
             'Energy level'
         ]).then((result) => {
+            if (Number(result.value[2]) > 100 || Number(result.value[2]) < 0) {
+                Swal.fire({
+                    title: 'Energy level Must be Number Between 1-100',
+                    confirmButtonText: 'Try Agin'
+                })
+                return;
+            }
             if (result.value) {
                 const answers = JSON.stringify(result.value)
                 Swal.fire({
@@ -143,7 +164,7 @@ const MyInfo = () => {
             //update activity level:
             console.log(result.value[2]);
             upadteActivity(result.value[2]);
-            if (Number(result.value[2]) <= 100) {
+            if (Number(result.value[2]) == 100) {
                 //say Goog Jub:
                 Swal.fire({
                     title: 'Goog Jub',
@@ -153,25 +174,31 @@ const MyInfo = () => {
                     backdrop: `
                       rgba(0,0,123,0.4)
                       url("/images/good.gif")                    `
-                  })
+                })
             }
         })
     }
 
-    // const ChartData = () => {
-    //     let charData= {
-    //         datasets: [{
-    //             data:[myPets.data[petIndex].age,20-myPets.data[petIndex].age],
-    //             backgroundColor: ['rgb(110, 168, 255)','rgb(255, 255, 255)']
-    //         }]
-    //     }
-    //     setChart1(charData);
-    //     return(
-    //         <Pie
-    //         //data= {chart1}
-    //     />
-    //     )
+
+    // let charData = {
+    //     labels: ['Done', 'Left'],
+    //     datasets: [{
+    //         data: [plan,100-plan],
+    //         backgroundColor: ['rgb(110, 168, 255)', 'rgb(255, 255, 255)']
+    //     }]
     // }
+    // const [data1, setData1] = React.useState(charData);
+    // const pieOptions = {
+    //     legend: {
+    //         display: false,
+    //         position: "right",
+    //     },
+    //     elements: {
+    //         arc: {
+    //             borderWidth: 1
+    //         }
+    //     }
+    // };
 
 
     const showMyPets = () => {
@@ -181,10 +208,7 @@ const MyInfo = () => {
         }
         //set defult elements from db
         let age = (myPets[petIndex].age == undefined) ? "Forever Young" : myPets[petIndex].age;
-        myPets[petIndex].currDayPlanLevel = (myPets[petIndex].currDayPlanLevel == undefined) ? 0 : myPets[petIndex].currDayPlanLevel;
-        myPets[petIndex].currActivityLevel = (myPets[petIndex].currActivityLevel == undefined) ? 0 : myPets[petIndex].currActivityLevel;
-        myPets[petIndex].currFoodLevel = (myPets[petIndex].currFoodLevel == undefined) ? 0 : myPets[petIndex].currFoodLevel;
-
+ 
         myPets[petIndex].complitDayPlan = myPets[petIndex].currDayPlanLevel == 0 ? myPets[petIndex].currDayPlanLevel : Math.ceil(myPets[petIndex].currDayPlanLevel / (100 / myPets[petIndex].dayPlanLevel));
         myPets[petIndex].complitActivity = myPets[petIndex].currActivityLevel == 0 ? myPets[petIndex].currActivityLevel : Math.ceil(myPets[petIndex].currActivityLevel / (100 / myPets[petIndex].activityLevel));
         myPets[petIndex].complitFood = myPets[petIndex].currFoodLevel == 0 ? myPets[petIndex].currFoodLevel : Math.ceil(myPets[petIndex].currFoodLevel / (100 / myPets[petIndex].foodLevel));
@@ -192,6 +216,7 @@ const MyInfo = () => {
         console.log(myPets[petIndex].complitDayPlan);
         console.log(myPets[petIndex].complitActivity);
         console.log(myPets[petIndex].complitFood);
+   
         return (
             <React.Fragment>
                 <div className="row p-3 justify-content-between btn_section" >
@@ -215,7 +240,12 @@ const MyInfo = () => {
                         <h5>{myPets[petIndex].complitDayPlan} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        <Chart mydata={myPets[petIndex].currDayPlanLevel} />
+                        {/* <Pie
+                            data={data1}
+                            options={pieOptions}
+                        /> */}
+
+                        <Chart mydata={plan} />
                     </div>
                 </div>
                 {/*End of dayly plan section */}
@@ -227,7 +257,7 @@ const MyInfo = () => {
                         <h5>{myPets[petIndex].complitActivity} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        <Chart mydata={myPets[petIndex].currActivityLevel} />
+                        <Chart mydata={activity} />
                     </div>
                 </div>
                 {/*End of Energy avaliable section */}
@@ -239,7 +269,7 @@ const MyInfo = () => {
                         <h5>{myPets[petIndex].complitFood} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        <Chart mydata={myPets[petIndex].currFoodLevel} />
+                        <Chart mydata={food} />
                     </div>
                 </div>
                 {/*End of Daily food habits section */}
