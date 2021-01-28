@@ -8,6 +8,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddIcon from '@material-ui/icons/Add';
 import SearchClass from '../../RepeatingComponents/SearchClass';
 import CommunityList from './CommunityList';
+import Swal from 'sweetalert2';
 
 
 
@@ -46,7 +47,48 @@ const MyCommunity = () => {
 
 
     const deleteItem = (deleteId) => {
-        setCommunities(prevState => prevState.filter(({ _id }) => _id !== deleteId));
+        console.log(deleteId);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                //delete from db:
+                axios({
+                    method: 'DELETE',
+                    url:`https://petwalkapp.herokuapp.com/socialNetworks/${deleteId}`,
+                    headers: {
+                        "x-auth-token": localStorage["token"]
+                    }
+                })
+                    .then(myData => {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your Community has been deleted.',
+                            'success'
+                          )
+                        //set state:
+                        setCommunities(prevState => prevState.filter(({ _id }) => _id !== deleteId));
+                        return;
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                        if (error.response.status == Number(401)) {
+                            alert("Pet is not found");
+                        }
+                        if (error.response.status == 500) {
+                            alert("Server Error , Try later");
+                        }
+                        return;
+                    })
+            }
+          })
+        // setCommunities(prevState => prevState.filter(({ _id }) => _id !== deleteId));
     };
 
     const communityList = communities.filter(todo => todo.title.toString().toLowerCase().includes(search));

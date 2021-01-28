@@ -179,27 +179,22 @@ const MyInfo = () => {
         })
     }
 
-
-    // let charData = {
-    //     labels: ['Done', 'Left'],
-    //     datasets: [{
-    //         data: [plan,100-plan],
-    //         backgroundColor: ['rgb(110, 168, 255)', 'rgb(255, 255, 255)']
-    //     }]
-    // }
-    // const [data1, setData1] = React.useState(charData);
-    // const pieOptions = {
-    //     legend: {
-    //         display: false,
-    //         position: "right",
-    //     },
-    //     elements: {
-    //         arc: {
-    //             borderWidth: 1
-    //         }
-    //     }
-    // };
-
+    const planClick = () =>{
+        Swal.fire({
+            title: `${myPets[myPets].name} Plan day level `,
+            icon: 'question',
+            input: 'range',
+            inputLabel: 'Your Choice',
+            inputAttributes: {
+              min: 1,
+              max: 100,
+              step: 1
+            },
+            inputValue: plan
+          })
+          //console.log(inputValue);
+          //setPlan(inputValue);
+    }
 
     const showMyPets = () => {
         console.log(myPets)
@@ -240,12 +235,7 @@ const MyInfo = () => {
                         <h5>{myPets[petIndex].complitDayPlan} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        {/* <Pie
-                            data={data1}
-                            options={pieOptions}
-                        /> */}
-
-                        <Chart mydata={plan} />
+                        <Chart mydata={plan} onClick={planClick}/>
                     </div>
                 </div>
                 {/*End of dayly plan section */}
