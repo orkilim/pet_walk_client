@@ -91,6 +91,11 @@ const MyCommunity = () => {
         // setCommunities(prevState => prevState.filter(({ _id }) => _id !== deleteId));
     };
 
+    const editItem = (deleteId) => {
+        console.log(deleteId);
+        setCommunities(prevState => prevState.filter(({ _id }) => _id !== deleteId));
+    };
+
     const communityList = communities.filter(todo => todo.title.toString().toLowerCase().includes(search));
     return (
         <React.Fragment>
@@ -110,7 +115,7 @@ const MyCommunity = () => {
                         <Link to='/myCommunity/new' style={{ borderRadius: '50%' }} className="btn-lg btns_blue"><AddIcon /></Link>
                     </div>
                     <div className="row justify-content-center">
-                        {data ? <CommunityList page={'myCommunity'} communities={communities} communityList={communityList} deleteItem={deleteItem} /> : <Loading />}
+                        {data ? <CommunityList page={'myCommunity'} communities={communities} communityList={communityList} deleteItem={deleteItem} editItem={editItem}/> : <Loading />}
                     </div>
                 </div>
             </main>

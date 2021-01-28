@@ -5,12 +5,12 @@ import EditIcon from '@material-ui/icons/Edit';
 
 
 const FooterMyCommunity = (props) => {
-    const {key, deleteItem,editeItem} = props;
+    const {key, deleteItem,editItem} = props;
 
     return (
         <React.Fragment>
-            <DeleteIcon onClick={deleteItem}/>
-            <EditIcon onClick={editeItem}/>
+            <DeleteIcon onClick={deleteItem} style={{cursor: 'pointer'}}/>
+            <EditIcon onClick={editItem} style={{cursor: 'pointer'}}/>
         </React.Fragment>
     );
 }

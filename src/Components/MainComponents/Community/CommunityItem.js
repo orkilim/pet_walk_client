@@ -4,7 +4,7 @@ import FooterMyCommunity from './FooterMyCommunity';
 
 
 const CommunityItem = (props) => {
-    const { key, item, title, page, deleteItem } = props;
+    const { key, item, title, page, deleteItem , editItem} = props;
 
     return (
         <React.Fragment>
@@ -22,7 +22,7 @@ const CommunityItem = (props) => {
                     <div className="row p-2 fafa justify-content-between">
                         {page === 'community'
                             ? <FooterCommunity/>
-                            :<FooterMyCommunity key={key} deleteItem={() => {deleteItem(key)}}/>
+                            :<FooterMyCommunity key={key} editItem={() => {editItem(key)}} deleteItem={() => {deleteItem(key)}}/>
                         }
                     </div>
                 </div>
