@@ -78,7 +78,7 @@ const MyInfo = () => {
         }
     }
 
-    const upadteActivity = (level) => {
+    const upadteActivity = async (level) => {
         //update in db :
         let dataBodyVal = {
             id: myPets[petIndex]._id, //requird for edting in server 
@@ -93,7 +93,7 @@ const MyInfo = () => {
         console.log(dataBodyVal);
 
         //update
-        axios({
+        await axios({
             method: 'PUT',
             url: "https://petwalkapp.herokuapp.com/pets",
             data: dataBodyVal,
@@ -102,7 +102,7 @@ const MyInfo = () => {
             }
         })
             .then(myData => {
-                console.log(myData);
+                console.log(dataBodyVal);
                 setActiviry(dataBodyVal.currActivityLevel);
                 console.log("up", activity);
 
@@ -129,7 +129,7 @@ const MyInfo = () => {
             })
     }
 
-    const onClickPlay = () => {
+    const onClickPlay = async () => {
         Swal.mixin({
             input: 'text',
             confirmButtonText: 'Next &rarr;',
@@ -282,7 +282,7 @@ const MyInfo = () => {
     }
 
     return (
-        <React.Fragment>
+        <>
             <header className="container-fluid">
                 <div className="container">
                     <h1 className="py-4">Home</h1>
@@ -296,7 +296,7 @@ const MyInfo = () => {
                 </div>
             </main>
             <footer> <Navbar namePage={'myInfo'} /> </footer>
-        </React.Fragment>
+        </>
     );
 
 }

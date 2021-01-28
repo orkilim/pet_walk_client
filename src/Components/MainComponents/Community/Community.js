@@ -38,6 +38,7 @@ const Community = () => {
 
     }, [])
 
+    console.log("befor" ,communities.filter(todo => todo.title.toString().toLowerCase().includes('p')));
     const communityList = communities.filter(todo => todo.title.toString().toLowerCase().includes(search));
     return (
         <React.Fragment>

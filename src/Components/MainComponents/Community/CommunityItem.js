@@ -4,11 +4,11 @@ import FooterMyCommunity from './FooterMyCommunity';
 
 
 const CommunityItem = (props) => {
-    const { key, item, title, page,deleteItem } = props;
+    const { key, item, title, page, deleteItem } = props;
 
     return (
         <React.Fragment>
-            <div key={item._id} className="card col-md-4 col-8 m-3">
+                  <div key={item._id} className="card col-md-4 col-8 m-3">
                 <div style={{ padding: '.75rem 1.25rem' }}>
                     <div className="row justify-content-between">
                         <div className="col-10 w-100">
