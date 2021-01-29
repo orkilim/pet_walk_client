@@ -104,6 +104,7 @@ const MyInfo = () => {
             .then(myData => {
                 console.log(dataBodyVal);
                 setActiviry(dataBodyVal.currActivityLevel);
+
                 console.log("up", activity);
 
                 // let perv = myPets.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) });
@@ -143,7 +144,7 @@ const MyInfo = () => {
             'Playing time',
             'Energy level'
         ]).then((result) => {
-            if (Number(result.value[2]) > 100 || Number(result.value[2]) < 0) {
+            if (Number(result.value[1]) > 100 || Number(result.value[1]) < 0) {
                 Swal.fire({
                     title: 'Energy level Must be Number Between 1-100',
                     confirmButtonText: 'Try Agin'
@@ -162,9 +163,9 @@ const MyInfo = () => {
                 })
             }
             //update activity level:
-            console.log(result.value[2]);
-            upadteActivity(result.value[2]);
-            if (Number(result.value[2]) == 100) {
+            console.log(result.value[1]);
+            upadteActivity(result.value[1]);
+            if (Number(result.value[1]) == 100) {
                 //say Goog Jub:
                 Swal.fire({
                     title: 'Goog Jub',
@@ -181,7 +182,7 @@ const MyInfo = () => {
 
     const planClick = () =>{
         Swal.fire({
-            title: `${myPets[myPets].name} Plan day level `,
+            title: `${myPets[petIndex].name} Plan day level `,
             icon: 'question',
             input: 'range',
             inputLabel: 'Your Choice',

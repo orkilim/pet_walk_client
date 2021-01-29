@@ -13,24 +13,24 @@ const Chart = (props) => {
             backgroundColor: ['rgb(110, 168, 255)', 'rgb(255, 255, 255)']
         }]
     }
-    const [data, setData] = React.useState(charData);
     console.log(charData);
 
     const pieOptions = {
         legend: {
-          display: false,
-          position: "right",
+            display: false,
+            position: "right",
         },
         elements: {
-          arc: {
-            borderWidth: 1
-          }
+            arc: {
+                borderWidth: 1
+            }
         }
-      };
+    };
 
     return (
         <Pie
-            data={data}
+            onElementsClick={props.onClick}
+            data={charData}
             options={pieOptions}
         />
     )

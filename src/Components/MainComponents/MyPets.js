@@ -98,7 +98,7 @@ const MyPets = () => {
                 <div className="container">
                     {data ? pets.map(showPets) : <Loading />}
                 </div>
-                <div className="col-auto text-center mt-5">
+                <div className="col-auto text-center mt-5" style={{marginBottom:'10%'}}>
                     <Link to='/addPet' style={{ borderRadius: '50%' }} className="btn-lg btns_blue my-4"><AddIcon /></Link>
                 </div>
             </main>
