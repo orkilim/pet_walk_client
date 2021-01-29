@@ -5,12 +5,12 @@ import { Button, Grid, Input, MenuItem, TextField } from '@material-ui/core';
 import '../../App.css'
 import { Select } from '@material-ui/core';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import {Link,NavLink } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 
-const AddPet = () => {
-
+const AddPet = (props) => {
     const [dogType, setDogType] = React.useState('none')
     const [dogName, setDogName] = React.useState('')
     const [dogGender, setDogGender] = React.useState('Male')
@@ -23,8 +23,25 @@ const AddPet = () => {
     const [hobbies, setHobbies] = React.useState("")
     const [bio, setBio] = React.useState("")
     const [dogImg, setDogImg] = React.useState("https://icon-library.com/images/dog-icon/dog-icon-16.jpg")
-    
+
+    const addPet = () => {
+        console.log("add");
+
+    }
+
     return (
+        // <>
+        //   <header className="container-fluid">
+        //         <div className="container">
+        //             <div className="mt-2">
+        //                 <Link to="/myInfo" className="py-2" ><ArrowBackIcon style={{ fontSize: 'xx-large', color: 'black' }}></ArrowBackIcon></Link>
+        //                 <h1 className="py-2">My Pets</h1>
+        //             </div>
+        //         </div>
+        //     </header>
+        // </>
+
+
         <Grid style={{backgroundColor:'lightgray'}}>
             <div id='add-pet-container' /*className='general-container'*/>
                 <img alt='dog image' src={dogImg} style={{ display: 'block', width: '100px', height: '100px' }} />
@@ -86,7 +103,7 @@ const AddPet = () => {
                         data: dogData
                     })
                         .then((data) => {
-                            console.log(data)
+                            console.log(data.data[0])
                         })
                         .catch((err) => {
                             if (err)

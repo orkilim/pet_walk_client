@@ -5,10 +5,15 @@ import { Button, Grid, MenuItem, TextField } from '@material-ui/core';
 import '../../App.css'
 import { Select } from '@material-ui/core';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 
 
-const EditPet = () => {
+const EditPet = (props) => {
+    console.log(props.location.state);
+    if (props.location.state != null) {
+        console.log(props.location.state.pet_id);
+    }
+
 
     const [dogType, setDogType] = React.useState('none')
     const [dogName, setDogName] = React.useState('')
@@ -26,8 +31,8 @@ const EditPet = () => {
 
     React.useEffect(() => {
             axios({
-            method: 'get',
-            url: `https://petwalkapp.herokuapp.com/pets/ofUser/${localStorage['dogId']}`,
+            method: 'GET',
+            url: `https://petwalkapp.herokuapp.com/pets/ofUser/${props.location.state.pet_id}`,
             headers: {
                 "x-auth-token": localStorage["token"],
             }
@@ -57,7 +62,51 @@ const EditPet = () => {
             })
     },[])
 
+    let dogData={};
+    const editPet = async() =>{
+        const age = (Number)(dogAge)
+        const weight = (Number)(dogWeight)
+        const activityLevelAsNum = (Number)(activityLevel)
+        const foodLevelAsNum = (Number)(foodLevel)
+        const dayPlanLvlAsNum = (Number)(dayPlanLevel)
 
+
+        dogData = {
+            id: props.location.state.pet_id,
+            name: dogName,
+            type: dogType,
+            age: age,
+            weight: weight,
+            gender: dogGender,
+            activityLevel: activityLevelAsNum,
+            foodLevel: foodLevelAsNum,
+            dayPlan: dogPlan,
+            dayPlanLevel: dayPlanLvlAsNum,
+            hobbies: hobbies,
+            bio: bio,
+            img: dogImg
+        }
+        
+        console.log("in", dogData)
+
+        await axios({
+            method: 'PUT',
+            url: 'https://petwalkapp.herokuapp.com/pets',
+            headers:{
+                "x-auth-token": localStorage["token"]
+            },
+            data: dogData
+        })
+        .then((data)=>{
+            console.log(data)
+        })
+        .catch((err)=>{
+            if(err)
+            console.log("problem with updating the dog's info: "+err)
+        })
+    
+
+    }
 
     return (
         <Grid style={{ backgroundColor: 'lightgray' }}>
@@ -90,48 +139,55 @@ const EditPet = () => {
                 </div>
                 <TextField multiline={true} rows={2} id="plan-textfield" className='add-pet-input' type='text' value={hobbies} label='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
                 <TextField multiline={true} rows={2} id="plan-textfield" className='add-pet-input' type='text' value={bio} label='Bio...' onChange={(event) => { setBio(event.target.value) }} />
-                <NavLink to="/petProfile" ><Button style={{ backgroundColor: 'blue', borderRadius: '100px',marginTop:'0.5cm',marginBottom:'2.5cm' }} onClick={ async () => {
+                <Link to={{ pathname: "/petProfile", state: { edited:true, pet_id: props.location.state.pet_id , name: dogName, type: dogType, gender:dogGender, age:dogAge, bio: bio, hobbies:hobbies, weight:dogWeight, dogWeight,dogPlan:dogPlan,activityLevel:activityLevel,foodLevel:foodLevel,dayPlanLevel:dayPlanLevel,dogImg:dogImg } }} ><Button style={{ backgroundColor: 'blue', borderRadius: '100px',marginTop:'0.5cm',marginBottom:'2.5cm' }}
+                
 
-                    const age = (Number)(dogAge)
-                    const weight = (Number)(dogWeight)
-                    const activityLevelAsNum = (Number)(activityLevel)
-                    const foodLevelAsNum = (Number)(foodLevel)
-                    const dayPlanLvlAsNum = (Number)(dayPlanLevel)
+                // dogWeight,dogPlan:dogPlan,activityLevel:activityLevel,foodLevel:foodLevel,dayPlanLevel:dayPlanLevel,dogImg:dogImg
 
-                    const dogData = {
-                        "id":localStorage["dogId"],
-                        "name": dogName,
-                        "type": dogType,
-                        "age": age,
-                        "weight": weight,
-                        "gender": dogGender,
-                        "activityLevel": activityLevelAsNum,
-                        "foodLevel": foodLevelAsNum,
-                        "dayPlan": dogPlan,
-                        "dayPlanLevel": dayPlanLvlAsNum,
-                        "hobbies": hobbies,
-                        "bio": bio,
-                        "img": dogImg
-                    }
+                onClick={editPet}
+                
+                // { async () => {
+                //     const age = (Number)(dogAge)
+                //     const weight = (Number)(dogWeight)
+                //     const activityLevelAsNum = (Number)(activityLevel)
+                //     const foodLevelAsNum = (Number)(foodLevel)
+                //     const dayPlanLvlAsNum = (Number)(dayPlanLevel)
+
+                //     const dogData = {
+                //         "id": props.location.state.pet_id,
+                //         "name": dogName,
+                //         "type": dogType,
+                //         "age": age,
+                //         "weight": weight,
+                //         "gender": dogGender,
+                //         "activityLevel": activityLevelAsNum,
+                //         "foodLevel": foodLevelAsNum,
+                //         "dayPlan": dogPlan,
+                //         "dayPlanLevel": dayPlanLvlAsNum,
+                //         "hobbies": hobbies,
+                //         "bio": bio,
+                //         "img": dogImg
+                //     }
                     
-                    console.log("in the put axios call\n"+dogData)
+                //     console.log("in the put axios call\n"+dogData)
 
-                    await axios({
-                        method: 'put',
-                        url: 'https://petwalkapp.herokuapp.com/pets',
-                        headers:{
-                            "x-auth-token": localStorage["token"]
-                        },
-                        data: dogData
-                    })
-                    .then((data)=>{
-                        console.log(data)
-                    })
-                    .catch((err)=>{
-                        if(err)
-                        console.log("problem with updating the dog's info: "+err)
-                    })
-                }}>Save Changes</Button></NavLink>
+                //     await axios({
+                //         method: 'put',
+                //         url: 'https://petwalkapp.herokuapp.com/pets',
+                //         headers:{
+                //             "x-auth-token": localStorage["token"]
+                //         },
+                //         data: dogData
+                //     })
+                //     .then((data)=>{
+                //         console.log(data)
+                //     })
+                //     .catch((err)=>{
+                //         if(err)
+                //         console.log("problem with updating the dog's info: "+err)
+                //     })
+                //}} 
+                >Save Changes</Button></Link>
                 <Navbar />
             </div>
         </Grid>

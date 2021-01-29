@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../RepeatingComponents/Navbar';
 import Loading from '../RepeatingComponents/Loading';
@@ -9,60 +10,73 @@ import MediaQuery from 'react-responsive'
 import AddIcon from '@material-ui/icons/Add';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import PetProfile from './PetProfile';
 
 
 
 
-const showPets = (item) => {
-    let age = (item.age === undefined) ? "Forever Young" : item.age;
+// const showPets = (item) => {
+//     let age = (item.age === undefined) ? "Forever Young" : item.age;
 
-    return (
-        <React.Fragment>
-            <div key={item._id} className='row p-3 mt-4 justify-content-between btn_section'>
-                <div className="col d-flex justify-content-center align-items-center">
-                    <img src={item.img} alt={item.name} className="img_pet" style={{ height: '3cm', border: '#fff solid', borderRadius: '50%', padding: '5%' }} />
-                </div>
-                <div className="col justify-content-start">
-                    <h5 className="pt-4 ml-2" style={{ color: '#727377' }}> {item.type}</h5>
-                    <h2 className="ml-2"> {item.name}</h2>
-                    <h5 className="pb-2 ml-2" style={{ color: '#727377' }}>age : {age}</h5>
-                </div>
-                <div className="col-1 align-self-center">
-                    <Link to="/petProfile" key={item._id}
-                        onClick={() => { localStorage.setItem('dogId', item._id); }}>
-                        <ArrowForwardIosRoundedIcon className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon></Link>
-                </div>
-
-
-            </div>
-        </React.Fragment>
+//     return (
+//         <React.Fragment>
+//             <div key={item._id} className='row p-3 mt-4 justify-content-between btn_section'>
+//                 <div className="col d-flex justify-content-center align-items-center">
+//                     <img src={item.img} alt={item.name} className="img_pet" style={{ height: '3cm', border: '#fff solid', borderRadius: '50%', padding: '5%' }} />
+//                 </div>
+//                 <div className="col justify-content-start">
+//                     <h5 className="pt-4 ml-2" style={{ color: '#727377' }}> {item.type}</h5>
+//                     <h2 className="ml-2"> {item.name}</h2>
+//                     <h5 className="pb-2 ml-2" style={{ color: '#727377' }}>age : {age}</h5>
+//                 </div>
+//                 <div className="col-1 align-self-center">
+//                     <Link to={{ pathname: "/petProfile", state: { pets, setPets } }}  key={item._id}
+//                         onClick={() => { localStorage.setItem('dogId', item._id); }}>
+//                         <ArrowForwardIosRoundedIcon className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon></Link>
+//                 </div>
+//             </div>
+//         </React.Fragment>
 
 
-        // <div key={item._id} style={{ display: 'flex', position: 'relative', marginTop: '20px', backgroundImage: 'linear-gradient(to right,gray,lightgray)', width: '30%', borderRadius: '10px', borderStyle: 'solid', borderColor: 'lightskyblue', borderWidth: '5px' }}>
-        //     <img style={{ display: 'block', position: 'relative', width: '3cm', height: '3cm', borderRadius: '10px', left: '10%', marginTop: '20px' }} alt='cute dog' src={item.img} />
-        //     <div style={{ display: 'block', position: 'absolute', flexDirection: 'column', marginTop: '20px', left: '50%' }} >
-        //         <text style={{ display: 'flex' }} > name: {item.name}  </text>
+//         // <div key={item._id} style={{ display: 'flex', position: 'relative', marginTop: '20px', backgroundImage: 'linear-gradient(to right,gray,lightgray)', width: '30%', borderRadius: '10px', borderStyle: 'solid', borderColor: 'lightskyblue', borderWidth: '5px' }}>
+//         //     <img style={{ display: 'block', position: 'relative', width: '3cm', height: '3cm', borderRadius: '10px', left: '10%', marginTop: '20px' }} alt='cute dog' src={item.img} />
+//         //     <div style={{ display: 'block', position: 'absolute', flexDirection: 'column', marginTop: '20px', left: '50%' }} >
+//         //         <text style={{ display: 'flex' }} > name: {item.name}  </text>
 
-        //         <text style={{ display: 'flex' }} > type: {item.type}  </text>
+//         //         <text style={{ display: 'flex' }} > type: {item.type}  </text>
 
-        //         <text style={{ display: 'flex' }} > age: {item.age} </text>
-        //     </div>
-        //     <NavLink to='/petProfile' onClick={() => {
-        //         localStorage.setItem('dogId', item._id);
-        //     }} style={{ display: 'block', position: 'absolute',right:'0.5cm', top: '1.5cm', width: '20px', height: '20px' }} ><ChevronRightIcon style={{ color: 'blue' }} /></NavLink>
-        // </div>
-    )
+//         //         <text style={{ display: 'flex' }} > age: {item.age} </text>
+//         //     </div>
+//         //     <NavLink to='/petProfile' onClick={() => {
+//         //         localStorage.setItem('dogId', item._id);
+//         //     }} style={{ display: 'block', position: 'absolute',right:'0.5cm', top: '1.5cm', width: '20px', height: '20px' }} ><ChevronRightIcon style={{ color: 'blue' }} /></NavLink>
+//         // </div>
+//     )
 
-}
+// }
 
 
-const MyPets = () => {
+const MyPets = (props) => {
     const [pets, setPets] = React.useState([]);
     const [data, setData] = React.useState(false); // data retrieved from the server(y\n)
 
 
     //getting all the data of a specific user
     React.useEffect(() => {
+        //if deleted in profile page then set state here.
+        if (props.location.state != null) {
+            if (props.location.state.petDeleted) {
+                deleted(props.location.state.petDeleted);
+            }
+        }
+
+        //if updated in profile page then set state here.
+        if (props.location.state != null) {
+            if (props.location.state.petEdited) {
+                edited(props.location.state.petEdited);
+            }
+        }
+
         axios({
             method: 'get',
             url: 'https://petwalkapp.herokuapp.com/pets/ofUser',
@@ -83,12 +97,73 @@ const MyPets = () => {
     }, [])
 
 
+
+
+    const addMyPet = (item) => {
+        setPets(prevState => {
+            [...pets].push({
+                _id: item._id,
+                name: item.name,
+                type: item.type,
+                age: item.age,
+                weight: item.weight,
+                gender: item.gender,
+                activityLevel: item.activityLevel,
+                foodLevel: item.foodLevel,
+                dayPlanLevel: item.dayPlanLevel,
+                dayPlan: item.dayPlan,
+                hobbies: item.hobbies
+            });
+        })
+    }
+
+    const deleted = (id) => {
+        setPets(prevState => prevState.filter(({ _id }) => _id !== id));
+        //after deleted in page set the props to starting --null
+        props.location.state = null;
+    }
+
+    const edited = (item) => {
+        console.log("d");
+        //setPets(prevState => prevState.filter(({ _id }) => _id !== id));
+    }
+
+
+    const showPets = (item) => {
+        let age = (item.age === undefined) ? "Forever Young" : item.age;
+        return (
+            <React.Fragment>
+                <div key={item._id} className='row p-3 mt-4 justify-content-between btn_section'>
+                    <div className="col d-flex justify-content-center align-items-center">
+                        <img src={item.img} alt={item.name} className="img_pet" style={{ height: '3cm', border: '#fff solid', borderRadius: '50%', padding: '5%' }} />
+                    </div>
+                    <div className="col justify-content-start">
+                        <h5 className="pt-4 ml-2" style={{ color: '#727377' }}> {item.type}</h5>
+                        <h2 className="ml-2"> {item.name}</h2>
+                        <h5 className="pb-2 ml-2" style={{ color: '#727377' }}>age : {age}</h5>
+                    </div>
+                    <div className="col-1 align-self-center">
+                        <Link to={{ pathname: "/petProfile", state: { pet_id: item._id } }} >
+                            <ArrowForwardIosRoundedIcon className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon></Link>
+                    </div>
+                </div>
+            </React.Fragment>
+        )
+    }
+
+    console.log(props.location.state);
+    if (props.location.state != null) {
+        console.log(props.location.state.petEdited);
+        console.log(props.location.state.petDeleted);
+    }
+    console.log(pets);
+
     return (
         <React.Fragment>
             <header className="container-fluid">
                 <div className="container">
                     <div className="mt-2">
-                        <Link className="py-2" to="/myInfo"><ArrowBackIcon style={{fontSize: 'xx-large',color: 'black'}}></ArrowBackIcon></Link>
+                        <Link to={{ pathname: "/myInfo", state: { pets, setPets } }} className="py-2" ><ArrowBackIcon style={{ fontSize: 'xx-large', color: 'black' }}></ArrowBackIcon></Link>
                         <h1 className="py-2">My Pets</h1>
                     </div>
                 </div>
@@ -98,8 +173,8 @@ const MyPets = () => {
                 <div className="container">
                     {data ? pets.map(showPets) : <Loading />}
                 </div>
-                <div className="col-auto text-center mt-5" style={{marginBottom:'10%'}}>
-                    <Link to='/addPet' style={{ borderRadius: '50%' }} className="btn-lg btns_blue my-4"><AddIcon /></Link>
+                <div className="col-auto text-center mt-5" style={{ marginBottom: '10%' }}>
+                    <Link to={{ pathname: '/addPet' }} style={{ borderRadius: '50%' }} className="btn-lg btns_blue my-4"><AddIcon /></Link>
                 </div>
             </main>
             <footer> <Navbar namePage={'myPets'} /> </footer>

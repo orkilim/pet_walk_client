@@ -20,9 +20,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AcordionProfile from './AcordionProfile';
 
-const PetProfile = () => {
+const PetProfile = (props) => {
     const [dogId, setDogId] = React.useState("")
-    const [dogType, setDogType] = React.useState('none')
+    const [dogType, setDogType] = React.useState('')
     const [dogName, setDogName] = React.useState('')
     const [dogGender, setDogGender] = React.useState('Male')
     const [dogAge, setDogAge] = React.useState('')
@@ -39,19 +39,22 @@ const PetProfile = () => {
 
     React.useEffect(() => {
         axios({
-            method: 'get',
-            url: `https://petwalkapp.herokuapp.com/pets/ofUser/${localStorage['dogId']}`,
+            method: 'GET',
+            url: `https://petwalkapp.herokuapp.com/pets/ofUser/${props.location.state.pet_id}`,
             headers: {
                 "x-auth-token": localStorage["token"],
             }
         })
             .then((data) => {
+                //including update 
                 const dogInfo = data.data[0];
-                setDogId(localStorage["dogId"]);
+                console.log(dogInfo);
+                setDogId(props.location.state.pet_id);
                 setDogName(dogInfo.name);
                 setDogType(dogInfo.type);
-                setDogAge(dogInfo.age);
+                setDogType(dogInfo.type);
                 setDogWeight(dogInfo.weight);
+                setDogAge(dogInfo.age);
                 setDogGender(dogInfo.gender);
                 setActivityLevel(dogInfo.activityLevel);
                 setFoodLevel(dogInfo.foodLevel);
@@ -61,6 +64,10 @@ const PetProfile = () => {
                 setBio(dogInfo.bio);
                 setDogImg(dogInfo.img);
                 setData(true);
+                if (props.location.state.edited){
+                    editPet();
+                    return;
+                }
             })
             .catch((err) => {
                 if (err)
@@ -70,95 +77,101 @@ const PetProfile = () => {
     }, [])
 
     const deletePet = () => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                //delete from db:
-                axios({
-                    method: 'DELETE',
-                    url: `https://petwalkapp.herokuapp.com/pets/${dogId}`,
-                    headers: {
-                        "x-auth-token": localStorage["token"]
-                    }
-                })
-                    .then(myData => {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your Community has been deleted.',
-                            'success'
-                        )
-                        return true;
-                    })
-                    .catch(err => {
-                        if (err)
-                            console.log("problem with dog deletion:\n" + err);
-                        return;
-                    })
+        //delete from db:
+        axios({
+            method: 'DELETE',
+            url: `https://petwalkapp.herokuapp.com/pets/${dogId}`,
+            headers: {
+                "x-auth-token": localStorage["token"]
             }
-            else return false;
         })
+            .then(myData => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Deleted Successfuly',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                //set state in MYPet page:
+                //setPets(prevState => prevState.filter(({ _id }) => _id !== dogId));
+                //props.location.state.deleted(dogId, true);
+                return;
+            })
+            .catch(err => {
+                if (err)
+                    console.log("problem with dog deletion:\n" + err);
+                return;
+            })
+    }
 
+    const editPet = () => {
+        if(props.location.state.name != undefined) setDogName(props.location.state.name);
+        if(props.location.state.type != undefined) setDogType(props.location.state.type);
+        if(props.location.state.age != undefined) setDogAge(props.location.state.age);
+        if(props.location.state.weight != undefined) setDogWeight(props.location.state.weight);
+        if(props.location.state.gender != undefined) setDogGender(props.location.state.gender);
+        if(props.location.state.activityLevel != undefined) setActivityLevel(props.location.state.activityLevel);
+        if(props.location.state.dogPlan != undefined) setDogPlan(props.location.state.dogPlan);
+        if(props.location.state.dayPlanLevel != undefined) setDayPlanLevel(props.location.state.dayPlanLevel);
+        if(props.location.state.hobbies != undefined) setHobbies(props.location.state.hobbies);
+        if(props.location.state.dogPlan != undefined) setDogPlan(props.location.state.dogPlan);
+        if(props.location.state.bio != undefined) setBio(props.location.state.bio);
+        if(props.location.state.dogImg != undefined) setDogImg(props.location.state.dogImg);
     }
 
     const showProfile = () => {
-        return(
-        <React.Fragment>
-            <div className="text-center">
+        return (
+            <React.Fragment>
                 <div className="text-center">
-                    <img src={dogImg} alt="PetPic"
-                        style={{ maxWidth: '30%', borderRadius: '50%', backgroundColor: 'azure' }} />
-                </div>
-                <h1 className="my-2">{dogName}</h1>
+                    <div className="text-center">
+                        <img src={dogImg} alt="PetPic"
+                            style={{ maxWidth: '30%', borderRadius: '50%', backgroundColor: 'azure' }} />
+                    </div>
+                    <h1 className="my-2">{dogName}</h1>
 
-                <div className="row">
-                    <div className="col-lg-6">
-                        <div className="row justify-content-center">
-                            <div className="col-lg-6">
-                                <div className="row justify-content-center">
-                                    <div className="col">
-                                        <Link to="/editPet"><Button className="btn btn-warning p-2 mb-2"><EditIcon style={{ cursor: 'pointer' }} /> Edit</Button></Link>
-                                    </div>
-                                    <div className="col">
-                                        <Link to="/myPets" onClick={deletePet}><Button className="btn btn-danger p-2 mb-2"> <DeleteIcon style={{ cursor: 'pointer' }} /> Delete</Button></Link>
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <div className="row justify-content-center">
+                                <div className="col-lg-6">
+                                    <div className="row justify-content-center">
+                                        <div className="col">
+                                            <Link to={{ pathname: "/editPet", state: { pet_id: dogId } }} ><button className="btn btn-warning p-2 mb-2"><EditIcon style={{ cursor: 'pointer' }} /> Edit</button></Link>
+                                        </div>
+                                        <div className="col">
+                                            <Link to={{ pathname: "/myPets", state: { petDeleted: dogId } }} onClick={deletePet}><button className="btn btn-danger p-2 mb-2"> <DeleteIcon style={{ cursor: 'pointer' }} /> Delete</button></Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <h3><PetsIcon/> Type: {dogType}</h3>
-                <div className="row justify-content-center">
-                    <WcIcon className="col-3" style={{fontSize: '150%', color: '#6EA8FF'}} />
-                    <p className="col-4 text-start"> Gender: {dogGender}</p>
-                </div>
-                <div className="row justify-content-center">
-                    <HourglassEmptyIcon className="col-3" style={{fontSize: '150%', color: '#6EA8FF'}} />
-                    <p className="col-4 text-start"> Age: {dogAge}</p>
-                </div>
-                <div className="row justify-content-center">
-                    <DirectionsRunIcon className="col-3" style={{fontSize: '150%', color: '#6EA8FF'}} />
-                    <p className="col-4 text-start"> Acrivity Level: {activityLevel}</p>
-                </div>
-                <div className="row justify-content-center">
-                    <FastfoodIcon className="col-3" style={{fontSize: '150%', color: '#6EA8FF'}} />
-                    <p className="col-4 text-start"> Food Level: {foodLevel}</p>
-                </div>
-                <div className="row justify-content-center">
-                    <FavoriteIcon className="col-3" style={{fontSize: '150%', color: '#6EA8FF'}} />
-                    <p className="col-4 text-start"> Day Plan Level: {dayPlanLevel}</p>
-                </div>
+                    <h3><PetsIcon /> Type: {dogType}</h3>
+                    <div className="row justify-content-center">
+                        <WcIcon className="col-3" style={{ fontSize: '150%', color: '#6EA8FF' }} />
+                        <p className="col-4 text-start"> Gender: {dogGender}</p>
+                    </div>
+                    <div className="row justify-content-center">
+                        <HourglassEmptyIcon className="col-3" style={{ fontSize: '150%', color: '#6EA8FF' }} />
+                        <p className="col-4 text-start"> Age: {dogAge}</p>
+                    </div>
+                    <div className="row justify-content-center">
+                        <DirectionsRunIcon className="col-3" style={{ fontSize: '150%', color: '#6EA8FF' }} />
+                        <p className="col-4 text-start"> Acrivity Level: {activityLevel}</p>
+                    </div>
+                    <div className="row justify-content-center">
+                        <FastfoodIcon className="col-3" style={{ fontSize: '150%', color: '#6EA8FF' }} />
+                        <p className="col-4 text-start"> Food Level: {foodLevel}</p>
+                    </div>
+                    <div className="row justify-content-center">
+                        <FavoriteIcon className="col-3" style={{ fontSize: '150%', color: '#6EA8FF' }} />
+                        <p className="col-4 text-start"> Day Plan Level: {dayPlanLevel}</p>
+                    </div>
 
-                <AcordionProfile details={dogPlan} hobis={hobbies} bio={bio} className="mb-5"/>
-            </div>
-        </React.Fragment>
+                    <AcordionProfile details={dogPlan} hobis={hobbies} bio={bio} className="mb-5" />
+                </div>
+            </React.Fragment>
         )
     }
 
