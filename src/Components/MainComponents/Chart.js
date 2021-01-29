@@ -26,7 +26,7 @@ const Chart = (props) => {
     };
 
     return (
-        <Pie
+        <Pie 
             onElementsClick={props.onClick}
             data={charData}
             options={pieOptions}

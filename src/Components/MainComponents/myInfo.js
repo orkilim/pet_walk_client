@@ -365,7 +365,7 @@ const MyInfo = () => {
         return (
             <React.Fragment>
                 <div className="row p-3 justify-content-between btn_section" >
-                    <ArrowBackIosRoundedIcon onClick={handleClick} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowBackIosRoundedIcon>
+                    <ArrowBackIosRoundedIcon onClick={handleClick} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF',cursor: 'pointer' }}></ArrowBackIosRoundedIcon>
                     <div className="col d-flex justify-content-center align-items-center">
                         <img src={myPets[petIndex].img}
                             alt="Avatar" className="img_pet" style={{ width: '50%', border: '#fff solid', borderRadius: '50%', padding: '5%' }} />
@@ -374,7 +374,7 @@ const MyInfo = () => {
                             <h2 className="pl-2">{myPets[petIndex].name}</h2>
                             <h5 className="pb-2 pl-2" style={{ color: '#727377' }}> age {age}</h5>
                         </div>
-                        <ArrowForwardIosRoundedIcon onClick={handleClickRight} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon>
+                        <ArrowForwardIosRoundedIcon onClick={handleClickRight} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF',cursor: 'pointer' }}></ArrowForwardIosRoundedIcon>
                     </div>
                 </div>
                 <h3 className="mt-4 pb-2">State</h3>
@@ -384,8 +384,8 @@ const MyInfo = () => {
                         <h4><strong>Today's Plans</strong></h4>
                         <h5>{myPets[petIndex].complitDayPlan} tasks completed</h5>
                     </div>
-                    <div className='col-4 align-self-center text-center'>
-                        <Chart mydata={plan} onClick={planClick} style={{ cursor: 'pointer' }} />
+                    <div className='col-4 align-self-center text-center'style={{ cursor: 'pointer' }}>
+                        <Chart mydata={plan} onClick={planClick} />
                     </div>
                 </div>
                 {/*End of dayly plan section */}
@@ -396,8 +396,8 @@ const MyInfo = () => {
                         <h4><strong>Energy avaliable</strong></h4>
                         <h5>{myPets[petIndex].complitActivity} tasks completed</h5>
                     </div>
-                    <div className='col-4 align-self-center text-center'>
-                        <Chart mydata={activity} onClick={activityClick} style={{ cursor: 'pointer' }} />
+                    <div className='col-4 align-self-center text-center' style={{ cursor: 'pointer' }}>
+                        <Chart mydata={activity} onClick={activityClick} />
                     </div>
                 </div>
                 {/*End of Energy avaliable section */}
@@ -408,8 +408,8 @@ const MyInfo = () => {
                         <h4><strong>Daily food habits</strong></h4>
                         <h5>{myPets[petIndex].complitFood} tasks completed</h5>
                     </div>
-                    <div className='col-4 align-self-center text-center'>
-                        <Chart mydata={food} onClick={foodClick} style={{ cursor: 'pointer' }} />
+                    <div className='col-4 align-self-center text-center' style={{ cursor: 'pointer' }}>
+                        <Chart mydata={food} onClick={foodClick}/>
                     </div>
                 </div>
                 {/*End of Daily food habits section */}
