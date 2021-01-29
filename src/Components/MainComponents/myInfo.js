@@ -102,19 +102,101 @@ const MyInfo = () => {
             }
         })
             .then(myData => {
-                console.log(dataBodyVal);
                 setActiviry(dataBodyVal.currActivityLevel);
+                return;
 
-                console.log("up", activity);
+            })
+            .catch(error => {
+                console.log(error.response);
+                if (error.response.status == 404) {
+                    alert(error.response);
+                }
+                if (error.response.status == 500) {
+                    alert("Server Error , Try later");
+                }
+                return;
+            })
+    }
 
-                // let perv = myPets.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) });
-                // console.log("up", myPets);
-                // try{
-                //     setMyPets(myPets=> myPets.map(data => data._id !== dataBodyVal.id ? data : { ...data, currActivityLevel: Number(level) }));
-                //     console.log("uprty", myPets);
-                // }catch(e){
-                //     console.log(e);
-                // }
+    const upadtePlan = async (level) => {
+        //update in db :
+        let dataBodyVal = {
+            id: myPets[petIndex]._id, //requird for edting in server 
+            name: myPets[petIndex].name,
+            type: myPets[petIndex].type,
+            dayPlan: myPets[petIndex].dayPlan,
+            dayPlanLevel: myPets[petIndex].dayPlanLevel,
+            activityLevel: myPets[petIndex].activityLevel,
+            foodLevel: myPets[petIndex].foodLevel,
+            currDayPlanLevel: Number(level)
+        }
+        console.log(dataBodyVal);
+
+        //update
+        await axios({
+            method: 'PUT',
+            url: "https://petwalkapp.herokuapp.com/pets",
+            data: dataBodyVal,
+            headers: {
+                "x-auth-token": localStorage["token"],
+            }
+        })
+            .then(myData => {
+                setPlan(dataBodyVal.currDayPlanLevel);
+                return;
+
+            })
+            .catch(error => {
+                console.log(error.response);
+                if (error.response.status == 404) {
+                    alert(error.response);
+                }
+                if (error.response.status == 500) {
+                    alert("Server Error , Try later");
+                }
+                return;
+            })
+    }
+
+    const goodJob = () => {
+        //say Goog Jub:
+        Swal.fire({
+            title: 'Goog Jub',
+            width: 600,
+            padding: '3em',
+            background: '#fff url(/images/good-job.jpg) ',
+            backdrop: `
+                      rgba(0,0,123,0.4)
+                      url("/images/good.gif")`
+        })
+
+    }
+
+    const upadteFood = async (level) => {
+        //update in db :
+        let dataBodyVal = {
+            id: myPets[petIndex]._id, //requird for edting in server 
+            name: myPets[petIndex].name,
+            type: myPets[petIndex].type,
+            dayPlan: myPets[petIndex].dayPlan,
+            dayPlanLevel: myPets[petIndex].dayPlanLevel,
+            activityLevel: myPets[petIndex].activityLevel,
+            foodLevel: myPets[petIndex].foodLevel,
+            currFoodLevel: Number(level)
+        }
+        console.log(dataBodyVal);
+
+        //update
+        await axios({
+            method: 'PUT',
+            url: "https://petwalkapp.herokuapp.com/pets",
+            data: dataBodyVal,
+            headers: {
+                "x-auth-token": localStorage["token"],
+            }
+        })
+            .then(myData => {
+                setFood(dataBodyVal.currFoodLevel);
                 return;
 
             })
@@ -167,34 +249,111 @@ const MyInfo = () => {
             upadteActivity(result.value[1]);
             if (Number(result.value[1]) == 100) {
                 //say Goog Jub:
-                Swal.fire({
-                    title: 'Goog Jub',
-                    width: 600,
-                    padding: '3em',
-                    background: '#fff url(/images/good-job.jpg) ',
-                    backdrop: `
-                      rgba(0,0,123,0.4)
-                      url("/images/good.gif")                    `
-                })
+                goodJob();
             }
         })
     }
 
-    const planClick = () =>{
-        Swal.fire({
+    const planClick = async () => {
+        const inputAttributes = new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    min: 1,
+                    max: 100,
+                    step: 1
+                })
+            }, 1000)
+        })
+
+        const { value: color } = await Swal.fire({
             title: `${myPets[petIndex].name} Plan day level `,
             icon: 'question',
             input: 'range',
             inputLabel: 'Your Choice',
-            inputAttributes: {
-              min: 1,
-              max: 100,
-              step: 1
-            },
-            inputValue: plan
-          })
-          //console.log(inputValue);
-          //setPlan(inputValue);
+            inputAttributes: inputAttributes,
+            inputValue: plan,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to choose something!'
+                }
+            }
+        })
+        if (color) {
+            Swal.fire({ html: `You selected: ${color}` });
+            upadtePlan(Number(color));
+            if (Number(color) == 100) {
+                //say Goog Jub:
+                goodJob();
+            }
+        }
+    }
+
+    const activityClick = async () => {
+        const inputAttributes = new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    min: 1,
+                    max: 100,
+                    step: 1
+                })
+            }, 1000)
+        })
+
+        const { value: color } = await Swal.fire({
+            title: `${myPets[petIndex].name} Energy level `,
+            icon: 'question',
+            input: 'range',
+            inputLabel: 'Your Choice',
+            inputAttributes: inputAttributes,
+            inputValue: activity,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to choose something!'
+                }
+            }
+        })
+        if (color) {
+            Swal.fire({ html: `You selected: ${color}` });
+            upadteActivity(Number(color));
+            if (Number(color) == 100) {
+                //say Goog Jub:
+                goodJob();
+            }
+        }
+    }
+
+    const foodClick = async () => {
+        const inputAttributes = new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    min: 1,
+                    max: 100,
+                    step: 1
+                })
+            }, 1000)
+        })
+
+        const { value: color } = await Swal.fire({
+            title: `${myPets[petIndex].name} Food level `,
+            icon: 'question',
+            input: 'range',
+            inputLabel: 'Your Choice',
+            inputAttributes: inputAttributes,
+            inputValue: food,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to choose something!'
+                }
+            }
+        })
+        if (color) {
+            Swal.fire({ html: `You selected: ${color}` });
+            upadteFood(Number(color));
+            if (Number(color) == 100) {
+                //say Goog Jub:
+                goodJob();
+            }
+        }
     }
 
     const showMyPets = () => {
@@ -204,7 +363,6 @@ const MyInfo = () => {
         }
         //set defult elements from db
         let age = (myPets[petIndex].age == undefined) ? "Forever Young" : myPets[petIndex].age;
- 
         myPets[petIndex].complitDayPlan = myPets[petIndex].currDayPlanLevel == 0 ? myPets[petIndex].currDayPlanLevel : Math.ceil(myPets[petIndex].currDayPlanLevel / (100 / myPets[petIndex].dayPlanLevel));
         myPets[petIndex].complitActivity = myPets[petIndex].currActivityLevel == 0 ? myPets[petIndex].currActivityLevel : Math.ceil(myPets[petIndex].currActivityLevel / (100 / myPets[petIndex].activityLevel));
         myPets[petIndex].complitFood = myPets[petIndex].currFoodLevel == 0 ? myPets[petIndex].currFoodLevel : Math.ceil(myPets[petIndex].currFoodLevel / (100 / myPets[petIndex].foodLevel));
@@ -212,7 +370,7 @@ const MyInfo = () => {
         console.log(myPets[petIndex].complitDayPlan);
         console.log(myPets[petIndex].complitActivity);
         console.log(myPets[petIndex].complitFood);
-   
+
         return (
             <React.Fragment>
                 <div className="row p-3 justify-content-between btn_section" >
@@ -236,7 +394,7 @@ const MyInfo = () => {
                         <h5>{myPets[petIndex].complitDayPlan} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        <Chart mydata={plan} onClick={planClick}/>
+                        <Chart mydata={plan} onClick={planClick} style={{ cursor: 'pointer' }} />
                     </div>
                 </div>
                 {/*End of dayly plan section */}
@@ -248,7 +406,7 @@ const MyInfo = () => {
                         <h5>{myPets[petIndex].complitActivity} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        <Chart mydata={activity} />
+                        <Chart mydata={activity} onClick={activityClick} style={{ cursor: 'pointer' }} />
                     </div>
                 </div>
                 {/*End of Energy avaliable section */}
@@ -260,7 +418,7 @@ const MyInfo = () => {
                         <h5>{myPets[petIndex].complitFood} tasks completed</h5>
                     </div>
                     <div className='col-4 align-self-center text-center'>
-                        <Chart mydata={food} />
+                        <Chart mydata={food} onClick={foodClick} style={{ cursor: 'pointer' }} />
                     </div>
                 </div>
                 {/*End of Daily food habits section */}
