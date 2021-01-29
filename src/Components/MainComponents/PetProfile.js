@@ -167,7 +167,7 @@ const PetProfile = () => {
             <header className="container-fluid">
                 <div className="container">
                     <div className="mt-2">
-                        <Link className="py-2" to="/myInfo"><ArrowBackIcon style={{ fontSize: 'xx-large', color: 'black' }}></ArrowBackIcon></Link>
+                        <Link className="py-2" to="/myPets"><ArrowBackIcon style={{ fontSize: 'xx-large', color: 'black' }}></ArrowBackIcon></Link>
                         <h1 className="py-2"> {dogName} Profile</h1>
                     </div>
                 </div>
