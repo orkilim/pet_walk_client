@@ -10,50 +10,7 @@ import MediaQuery from 'react-responsive'
 import AddIcon from '@material-ui/icons/Add';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import PetProfile from './PetProfile';
 
-
-
-
-// const showPets = (item) => {
-//     let age = (item.age === undefined) ? "Forever Young" : item.age;
-
-//     return (
-//         <React.Fragment>
-//             <div key={item._id} className='row p-3 mt-4 justify-content-between btn_section'>
-//                 <div className="col d-flex justify-content-center align-items-center">
-//                     <img src={item.img} alt={item.name} className="img_pet" style={{ height: '3cm', border: '#fff solid', borderRadius: '50%', padding: '5%' }} />
-//                 </div>
-//                 <div className="col justify-content-start">
-//                     <h5 className="pt-4 ml-2" style={{ color: '#727377' }}> {item.type}</h5>
-//                     <h2 className="ml-2"> {item.name}</h2>
-//                     <h5 className="pb-2 ml-2" style={{ color: '#727377' }}>age : {age}</h5>
-//                 </div>
-//                 <div className="col-1 align-self-center">
-//                     <Link to={{ pathname: "/petProfile", state: { pets, setPets } }}  key={item._id}
-//                         onClick={() => { localStorage.setItem('dogId', item._id); }}>
-//                         <ArrowForwardIosRoundedIcon className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF' }}></ArrowForwardIosRoundedIcon></Link>
-//                 </div>
-//             </div>
-//         </React.Fragment>
-
-
-//         // <div key={item._id} style={{ display: 'flex', position: 'relative', marginTop: '20px', backgroundImage: 'linear-gradient(to right,gray,lightgray)', width: '30%', borderRadius: '10px', borderStyle: 'solid', borderColor: 'lightskyblue', borderWidth: '5px' }}>
-//         //     <img style={{ display: 'block', position: 'relative', width: '3cm', height: '3cm', borderRadius: '10px', left: '10%', marginTop: '20px' }} alt='cute dog' src={item.img} />
-//         //     <div style={{ display: 'block', position: 'absolute', flexDirection: 'column', marginTop: '20px', left: '50%' }} >
-//         //         <text style={{ display: 'flex' }} > name: {item.name}  </text>
-
-//         //         <text style={{ display: 'flex' }} > type: {item.type}  </text>
-
-//         //         <text style={{ display: 'flex' }} > age: {item.age} </text>
-//         //     </div>
-//         //     <NavLink to='/petProfile' onClick={() => {
-//         //         localStorage.setItem('dogId', item._id);
-//         //     }} style={{ display: 'block', position: 'absolute',right:'0.5cm', top: '1.5cm', width: '20px', height: '20px' }} ><ChevronRightIcon style={{ color: 'blue' }} /></NavLink>
-//         // </div>
-//     )
-
-// }
 
 
 const MyPets = (props) => {
@@ -63,20 +20,6 @@ const MyPets = (props) => {
 
     //getting all the data of a specific user
     React.useEffect(() => {
-        //if deleted in profile page then set state here.
-        if (props.location.state != null) {
-            if (props.location.state.petDeleted) {
-                deleted(props.location.state.petDeleted);
-            }
-        }
-
-        //if updated in profile page then set state here.
-        if (props.location.state != null) {
-            if (props.location.state.petEdited) {
-                edited(props.location.state.petEdited);
-            }
-        }
-
         axios({
             method: 'get',
             url: 'https://petwalkapp.herokuapp.com/pets/ofUser',
@@ -87,6 +30,15 @@ const MyPets = (props) => {
             .then((data) => {
                 setPets(data.data);
                 setData(true);
+
+                //if deleted in profile page then set state here.
+                if (props.location.state != null) {
+                    if (props.location.state.petDeleted) {
+                        console.log(props.location.state.petDeleted);
+                        deleted(props.location.state.petDeleted);
+                    }
+                }
+
                 return;
             })
             .catch((err) => {
@@ -117,15 +69,10 @@ const MyPets = (props) => {
         })
     }
 
-    const deleted = (id) => {
-        setPets(prevState => prevState.filter(({ _id }) => _id !== id));
+    const deleted = (deleteId) => {
+        setPets(prevState => prevState.filter(({ _id }) => _id !== deleteId));
         //after deleted in page set the props to starting --null
         props.location.state = null;
-    }
-
-    const edited = (item) => {
-        console.log("d");
-        //setPets(prevState => prevState.filter(({ _id }) => _id !== id));
     }
 
 
