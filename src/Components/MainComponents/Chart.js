@@ -4,7 +4,6 @@ import { Pie } from 'react-chartjs-2';
 
 const Chart = (props) => {
     const { mydata } = props;
-    console.log(mydata);
 
     let charData = {
         labels: ['Done', 'Left'],
@@ -13,7 +12,6 @@ const Chart = (props) => {
             backgroundColor: ['rgb(110, 168, 255)', 'rgb(255, 255, 255)']
         }]
     }
-    console.log(charData);
 
     const pieOptions = {
         legend: {
