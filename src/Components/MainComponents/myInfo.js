@@ -15,7 +15,6 @@ const MyInfo = () => {
     const [myPets, setMyPets] = React.useState([]);
     const [data, setData] = React.useState(false); // data retrieved from the server(y\n)
     const [petIndex, setPetIndex] = React.useState(0); // index from myPets array 
-    const [chart1, setChart1] = React.useState({});
     //elements thet can be updete in this page :
     const [activity, setActiviry] = React.useState(0);
     const [plan, setPlan] = React.useState(0);
@@ -90,7 +89,6 @@ const MyInfo = () => {
             foodLevel: myPets[petIndex].foodLevel,
             currActivityLevel: Number(level)
         }
-        console.log(dataBodyVal);
 
         //update
         await axios({
@@ -130,7 +128,6 @@ const MyInfo = () => {
             foodLevel: myPets[petIndex].foodLevel,
             currDayPlanLevel: Number(level)
         }
-        console.log(dataBodyVal);
 
         //update
         await axios({
@@ -184,7 +181,6 @@ const MyInfo = () => {
             foodLevel: myPets[petIndex].foodLevel,
             currFoodLevel: Number(level)
         }
-        console.log(dataBodyVal);
 
         //update
         await axios({
@@ -245,7 +241,6 @@ const MyInfo = () => {
                 })
             }
             //update activity level:
-            console.log(result.value[1]);
             upadteActivity(result.value[1]);
             if (Number(result.value[1]) == 100) {
                 //say Goog Jub:
@@ -366,10 +361,6 @@ const MyInfo = () => {
         myPets[petIndex].complitDayPlan = myPets[petIndex].currDayPlanLevel == 0 ? myPets[petIndex].currDayPlanLevel : Math.ceil(myPets[petIndex].currDayPlanLevel / (100 / myPets[petIndex].dayPlanLevel));
         myPets[petIndex].complitActivity = myPets[petIndex].currActivityLevel == 0 ? myPets[petIndex].currActivityLevel : Math.ceil(myPets[petIndex].currActivityLevel / (100 / myPets[petIndex].activityLevel));
         myPets[petIndex].complitFood = myPets[petIndex].currFoodLevel == 0 ? myPets[petIndex].currFoodLevel : Math.ceil(myPets[petIndex].currFoodLevel / (100 / myPets[petIndex].foodLevel));
-
-        console.log(myPets[petIndex].complitDayPlan);
-        console.log(myPets[petIndex].complitActivity);
-        console.log(myPets[petIndex].complitFood);
 
         return (
             <React.Fragment>
