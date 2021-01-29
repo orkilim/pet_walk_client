@@ -39,6 +39,13 @@ const MyPets = (props) => {
                     }
                 }
 
+                //if added pet then set state here.
+                if (props.location.state != null) {
+                    if (props.location.state.petAdded) {
+                        console.log(props.location.state.petAdded);
+                        added(props.location.state.petAdded);
+                    }
+                }
                 return;
             })
             .catch((err) => {
@@ -49,9 +56,7 @@ const MyPets = (props) => {
     }, [])
 
 
-
-
-    const addMyPet = (item) => {
+    const added = (item) => {
         setPets(prevState => {
             [...pets].push({
                 _id: item._id,
