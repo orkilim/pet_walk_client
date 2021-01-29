@@ -15,8 +15,7 @@ const Community = () => {
 
     const onSearch = (search) => {
         console.log(search);
-        setSearch({ search: search.toLowerCase() });
-        console.log(search);
+        setSearch(search.toLowerCase() );
     };
 
     React.useEffect(() => {
@@ -39,6 +38,7 @@ const Community = () => {
     }, [])
 
     console.log("befor" ,communities.filter(todo => todo.title.toString().toLowerCase().includes('p')));
+    console.log('search',search);
     const communityList = communities.filter(todo => todo.title.toString().toLowerCase().includes(search));
     return (
         <React.Fragment>

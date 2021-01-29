@@ -5,7 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 
 const FooterMyCommunity = (props) => {
-    const {key, deleteItem,editItem} = props;
+    const {deleteItem,editItem} = props;
 
     return (
         <React.Fragment>

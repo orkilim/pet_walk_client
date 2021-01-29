@@ -18,9 +18,7 @@ const MyCommunity = () => {
     const [search, setSearch] = React.useState('');
 
     const onSearch = (search) => {
-        console.log(search);
-        setSearch({ search: search.toLowerCase() });
-        console.log(search);
+        setSearch(search.toLowerCase());
     };
 
     React.useEffect(() => {
