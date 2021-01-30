@@ -46,11 +46,11 @@ const AddPet = (props) => {
     const handleClick = (event) => {
         event.preventDefault();
 
-        const our_data = {
+        let our_data = {
             name: dogName,
-            type: dogType,
-            age: dogAge,
+            age:dogAge,
             weight: dogWeight,
+            type: dogType,
             gender: dogGender,
             activityLevel: activityLevel,
             foodLevel: foodLevel,
@@ -58,6 +58,9 @@ const AddPet = (props) => {
             dayPlan: dogPlan,
             img: dogImg
         }
+
+
+        console.log(our_data);
         let errors = {};
 
         //chack valid form inputs
@@ -110,17 +113,71 @@ const AddPet = (props) => {
             setError(errors);
             return;
         }
+         //ok:
+         else {
+            const age = Number(dogAge);
+            const weight =Number(dogWeight);
+            const activityLevelAsNum = Number(activityLevel);
+            const foodLevelAsNum = Number(foodLevel);
+            const dayPlanLvlAsNum = Number(dayPlanLevel);
+    
+            const dogData = {
+                "name": dogName,
+                // "type": dogType,
+                "gender": dogGender,
+                "activityLevel": activityLevelAsNum,
+                "foodLevel": foodLevelAsNum,
+                "dayPlan": dogPlan,
+                "dayPlanLevel": dayPlanLvlAsNum,
+                "img": dogImg
+            }
+            //if its undifind its not sent for chaks validations 
+        if (dogAge !== undefined) dogData.age=dogAge;
+        if (dogWeight !== undefined) dogData.weight=dogWeight;
+        if (hobbies !== "") dogData.hobbies=hobbies;
+        if (bio !== "") dogData.bio=bio;
+        if (dogType !== 'none') dogData.type=dogType;
+
+        console.log(dogData);
+            axios({
+                method: 'post',
+                url: 'https://petwalkapp.herokuapp.com/pets',
+                headers: {
+                    "x-auth-token": localStorage["token"]
+                },
+                data: dogData
+            })
+                .then((data) => {
+                    console.log(data.data[0]);
+                    window.location.href = "/myPets";
+                })
+                .catch((error) => {
+                    console.log(error.response);
+                    let errors = {};
+                    if (error.response.data[0].message == '"hobbies" is not allowed to be empty') {
+                        errors["hobbies"] = "* hobbies ";
+                    }
+                    if (error.response.data[0].message == '"type" is required') {
+                        errors["type"] = "* Type is required";
+                    }
+                    if (error.response.status == 500) {
+                        alert("Server Error , Try later");
+                    }
+                    setError(errors);
+                    return;
+                })
+        }
     }
 
 
     const addPet = () => {
         console.log("add");
 
-        const age = (Number)(dogAge)
-        const weight = (Number)(dogWeight)
-        const activityLevelAsNum = (Number)(activityLevel)
-        const foodLevelAsNum = (Number)(foodLevel)
-        const dayPlanLvlAsNum = (Number)(dayPlanLevel)
+        const age = Number(dogAge)
+        const weight = Number(dogWeight)
+        const activityLevelAsNum = Number(activityLevel)
+        const foodLevelAsNum = Number(foodLevel)
+        const dayPlanLvlAsNum = Number(dayPlanLevel)
 
         const dogData = {
             "name": dogName,
@@ -181,7 +238,7 @@ const AddPet = (props) => {
                         <TextField id="outlined-basic" label="Name" variant="outlined" className="w-100" onChange={(event) => { setDogName(event.target.value) }} />
                         <div className="text-danger mb-5">{errors.name}</div>
                         <Select variant="outlined" value={dogType} onChange={(event) => { setDogType(event.target.value) }} className="w-100">
-                            <MenuItem selected value='none' >dog type</MenuItem>
+                            <MenuItem selected value='Cute Type' >dog type</MenuItem>
                             <MenuItem value='German Shephard' >German Shephard</MenuItem>
                             <MenuItem value='Bulldog' >Bulldog</MenuItem>
                             <MenuItem value='Golden Retriever' >Golden Retriever</MenuItem>
@@ -190,6 +247,7 @@ const AddPet = (props) => {
                             <MenuItem value='st. bernard' >St. Bernard</MenuItem>
                         </Select>
                         <div className="text-danger mb-5">{errors.type}</div>
+
                         <Select variant="outlined" className="w-100" value={dogGender} onChange={(event) => { setDogGender(event.target.value) }}>
                             <MenuItem selected value='Male' >Male</MenuItem>
                             <MenuItem value='Female' >Female</MenuItem>
@@ -198,9 +256,9 @@ const AddPet = (props) => {
 
 
                         <div className="row justify-content-around" >
-                            <TextField variant="outlined" label='Age' className="mb-5" type='number' value={dogAge} onChange={(event) => { setDogAge(event.target.value) }} />
+                            <TextField variant="outlined" label='Age' className="mb-5"  value={1} type='number' value={dogAge} onChange={(event) => { setDogAge(event.target.value) }} />
                             <div className="text-danger mb-5">{errors.age}</div>
-                            <TextField variant="outlined" label='Weight' min={1} className="mb-5" type='number' placeholder='KGs' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
+                            <TextField variant="outlined" label='Weight' value={1} min={1} className="mb-5" type='number' placeholder='KGs' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
                             <div className="text-danger mb-5">{errors.weight}</div>
                         </div>
                         <TextField variant="outlined" multiline={true} rows={2} className="w-100" type='text' value={dogPlan} label='Daily plan' onChange={(event) => { setDogPlan(event.target.value) }} />
@@ -221,7 +279,6 @@ const AddPet = (props) => {
                         </div>
                         <TextField variant="outlined" multiline={true} rows={2} id="plan-textfield" className="w-50 mb-5" type='text' value={hobbies} label='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
                         <TextField variant="outlined" multiline={true} rows={2} id="plan-textfield" className="w-50 mb-5" type='text' value={bio} label='Bio...' onChange={(event) => { setBio(event.target.value) }} />
-
                         <Button onClick={handleClick} className="btn-lg btn-block my-4 w-100 btns_blue mb-5">Add Pet</Button>
                     </form>
                 </div>
