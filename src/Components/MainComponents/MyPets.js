@@ -115,7 +115,7 @@ const MyPets = (props) => {
             <header className="container-fluid">
                 <div className="container">
                     <div className="mt-2">
-                        <Link to={{ pathname: "/myInfo", state: { pets, setPets } }} className="py-2" ><ArrowBackIcon style={{ fontSize: 'xx-large', color: 'black' }}></ArrowBackIcon></Link>
+                        <Link to={{ pathname: "/myInfo"}} className="py-2" ><ArrowBackIcon style={{ fontSize: 'xx-large', color: 'black' }}></ArrowBackIcon></Link>
                         <h1 className="py-2">My Pets</h1>
                     </div>
                 </div>
