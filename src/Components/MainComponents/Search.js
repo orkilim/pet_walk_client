@@ -20,6 +20,15 @@ const Search = () => {
     const [dogBreed, setBreed] = React.useState('')
     const [fullArray,setFullArray]=React.useState(false)
 
+
+
+    const showImages = (imageLink) => {
+        
+        return (
+            <img style={{float:'left',marginTop:'10px',marginLeft:'20px',marginRight:'20px',width: 100, height: 100 }} key={key++} src={imageLink} alt='dog image' />
+        )
+}
+
     return (
 
         <div>
@@ -32,20 +41,25 @@ const Search = () => {
 
                     })
                     .then((responseJson) => {
+
                         if (responseJson.data.status === 'success') {
                             dogsImagesArray = responseJson.data.message
                             setFullArray(true)
                         }
+                        
+                        
                     })
                     .catch((err) => {
-                        if (err)
+                        if (err){
                             console.log('error is:\n' + err)
+                            setFullArray(false)
+                        }
                     })
 
             }}>SEARCH</Button>
             <div>
             {
-                dogsImagesArray.map(showImages)
+                fullArray?dogsImagesArray.map(showImages):(<h1>nothing entered in search or no dog of that type</h1>)
             }
             </div>
             <Navbar />
