@@ -37,16 +37,14 @@ const Community = () => {
 
     }, [])
 
-    console.log("befor" ,communities.filter(todo => todo.title.toString().toLowerCase().includes('p')));
-    console.log('search',search);
     const communityList = communities.filter(todo => todo.title.toString().toLowerCase().includes(search));
     return (
         <React.Fragment>
             <header className="container-fluid">
                 <div className="container">
                     <div className="row justify-content-between">
-                        <h1 className="py-4">Community</h1>
-                        <Link to="/myCommunity"><button type="button" className="btn btn-outline-info">MyCommunity</button></Link>
+                        <h1 className="col py-4">Community</h1>
+                        <Link to="/myCommunity" className="col align-self-center justify-content-end "><button type="button" className="btn btn-outline-info ">MyCommunity</button></Link>
                     </div>
                     <SearchClass onSearch={onSearch}/>
                 </div>
@@ -54,7 +52,7 @@ const Community = () => {
 
             <main className="container-fluid">
                 <div className="container">
-                    <div className="row justify-content-center">
+                    <div className="row justify-content-center" style={{ marginBottom: '100px' }}>
                         {data ? <CommunityList page={'community'} communities={communities} communityList={communityList}/> : <Loading />}
                     </div>
                 </div>

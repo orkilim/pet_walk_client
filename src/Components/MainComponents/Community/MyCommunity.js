@@ -98,12 +98,16 @@ const MyCommunity = () => {
             title: '',
         }
         //lightbox form :
+
+        const communityItem = communities.filter(item => item._id === editId );
+        if(communityItem[0].type === undefined) communityItem[0].type="";
+        
         const { value: formValues } = await Swal.fire({
             title: 'Edit Community',
             html:
-              '<input id="swal-input0" type="file" class="swal2-input" >' +
-              '<input id="swal-input1" class="swal2-input" value="aaa" >' +
-              '<input id="swal-input2" class="swal2-input" placeholder="Type" >',
+              `<input id="swal-input0" type="file" class="swal2-input" value=${communityItem[0].img} >` +
+              `<input id="swal-input1" class="swal2-input" value=${communityItem[0].title}>` +
+              `<input id="swal-input2" class="swal2-input" placeholder="Type" value=${communityItem[0].type}>`,
             focusConfirm: false,
             preConfirm: () => {
               return [
@@ -128,7 +132,7 @@ const MyCommunity = () => {
             <header className="container-fluid">
                 <div className="container">
                     <div className="mt-2">
-                        <Link className="py-4" to="/community"><ArrowBackIcon></ArrowBackIcon></Link>
+                        <Link className="py-4" to="/community"><ArrowBackIcon style={{ fontSize: 'xx-large', color: 'black' }}></ArrowBackIcon></Link>
                         <h1 className="py-4">My Community</h1>
                     </div>
                     <SearchClass onSearch={onSearch} />
@@ -140,7 +144,7 @@ const MyCommunity = () => {
                     <div className="col-auto text-center mt-3">
                         <Link to='/myCommunity/new' style={{ borderRadius: '50%' }} className="btn-lg btns_blue"><AddIcon /></Link>
                     </div>
-                    <div className="row justify-content-center">
+                    <div className="row justify-content-center" style={{ marginBottom: '100px' }}>
                         {data ? <CommunityList page={'myCommunity'} communities={communities} communityList={communityList} deleteItem={deleteItem} editItem={editItem}/> : <Loading />}
                     </div>
                 </div>

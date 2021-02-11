@@ -13,6 +13,10 @@ import Community from './Community/Community'
 import MyCommunity from './Community/MyCommunity'
 import AddCommunity from './Community/AddCommunity'
 import Demo from './Community/test';
+import Propess from './Propess';
+
+
+
 
 
 
@@ -35,7 +39,7 @@ const ReactRouter = () => {
             <Route exact path='/myCommunity' component={MyCommunity} />
             <Route exact path='/myCommunity/new' component={AddCommunity} />
             <Route exact path='/test' component={Demo} />
-
+            <Route exact path='/settings' component={Propess} />
         </React.Fragment>
     )
 }

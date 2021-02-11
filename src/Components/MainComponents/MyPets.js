@@ -125,32 +125,14 @@ const MyPets = (props) => {
                 <div className="container">
                     {data ? pets.map(showPets) : <Loading />}
                 </div>
-                <div className="col-auto text-center mt-5" style={{ marginBottom: '10%' }}>
-                    <Link to={{ pathname: '/addPet' }} style={{ borderRadius: '50%' }} className="btn-lg btns_blue my-4"><AddIcon /></Link>
+                <div className="col-auto text-center mt-5"  style={{ marginBottom: '100px' }}>
+                    <Link to={{ pathname: '/addPet' }} style={{ borderRadius: '50%' }} className=" btnStyle btn-lg btns_blue mt-4 w-75"><AddIcon /></Link>
                 </div>
             </main>
             <footer> <Navbar namePage={'myPets'} /> </footer>
         </React.Fragment>
-
-
-        // <Grid style={{backgroundColor:'lightgray'}} >
-        //     <h1 style={{ display: 'block', position: 'absolute', width: '10%', top: '1.5cm', left: '15%' }}>My Pets</h1>
-        //     <div style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }} /*className='general-container'*/ >
-        //         {
-        //             pets.map(showPets)
-        //         }
-        //         <NavLink to='/addPet' ><Button style={{ backgroundColor: 'blue', color: 'white', marginTop: '1.5cm',marginBottom:'2cm', borderRadius: '50%', height: '55px', fontSize: '20px' }} >+</Button></NavLink>
-        //         <Navbar namePage={'myPets'} />
-        //     </div>
-        // </Grid>
-
     )
 }
 
 
 export default MyPets
-
-
-/*<div style={{ display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%', backgroundColor: 'lightgray' }}>*/
-
-/*</div>*/

@@ -9,8 +9,8 @@ const FooterMyCommunity = (props) => {
 
     return (
         <React.Fragment>
-            <DeleteIcon onClick={deleteItem} style={{cursor: 'pointer'}}/>
-            <EditIcon onClick={editItem} style={{cursor: 'pointer'}}/>
+            <DeleteIcon onClick={deleteItem} className="fafaDelete" />
+            <EditIcon onClick={editItem}  className="fafaEdite"/>
         </React.Fragment>
     );
 }

@@ -1,69 +1,111 @@
 import axios from 'axios'
 import * as React from 'react'
-import Navbar from '../RepeatingComponents/Navbar'
-import { Button, Input } from '@material-ui/core';
+import Navbar from '../RepeatingComponents/Navbar';
+import SearchIcon from '@material-ui/icons/Search';
+import Pet404 from "../MainComponents/Pet404";
 
-let dogsImagesArray = []
-let key=0
+
+let dogsImagesArray = [];
+let dogsStart = [];
+let key = 0
 
 const showImages = (imageLink) => {
-        return (
-            <img style={{float:'left',marginTop:'10px',marginLeft:'20px',marginRight:'20px',width: 100, height: 100 }} key={key++} src={imageLink} alt='dog image' />
-        )
-    
-    
-}
+    return (
+        <img style={{ float: 'left', marginTop: '10px', marginLeft: '20px', marginRight: '20px', width: 100, height: 100 }} key={key++} src={imageLink} alt='dog image' />
+    )
 
+
+}
 
 const Search = () => {
+    const [dogBreed, setBreed] = React.useState('');
+    const [fullArray, setFullArray] = React.useState(false);
+    const [dogs, setDogs] = React.useState([]);
+    const [err404, setEror404] = React.useState(false);
 
-    const [dogBreed, setBreed] = React.useState('')
-    const [fullArray,setFullArray]=React.useState(false)
 
+    React.useEffect(() => {
+        axios({
+            method: 'GET',
+            url: 'https://dog.ceo/api/breeds/image/random/10',
+        })
+            .then((data) => {
+                if (data.data.status === 'success') {
+                    dogsStart = data.data.message;
+                    setDogs(data.data.message);
+                }
+            })
+            .catch((error) => {
+                console.log(error.response);
+                return;
+            })
 
+    }, [])
 
     const showImages = (imageLink) => {
-        
         return (
-            <img style={{float:'left',marginTop:'10px',marginLeft:'20px',marginRight:'20px',width: 100, height: 100 }} key={key++} src={imageLink} alt='dog image' />
+            <React.Fragment>
+                <div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100 gallery">
+                    <img class="img-fluid img-thumbnail" style={{  marginTop: '10px', width: 200, height: 200 }} key={key++} src={imageLink} alt='dog image' />
+                </div>
+            </React.Fragment>
         )
-}
+    }
+
+    const onClick = async () => {
+        setEror404(false);
+        if (dogBreed !== '') {
+            await axios({
+                method: "GET",
+                url: `https://dog.ceo/api/breed/${dogBreed}/images`
+            })
+                .then((responseJson) => {
+                    if (responseJson.data.status === 'success') {
+                        dogsImagesArray = responseJson.data.message
+                        setFullArray(true)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.response);
+                    if (err.response.status == 404) {
+                        setEror404(true);
+                        setFullArray(false)
+                    }
+                })
+        }
+        //if no value writen the dont do anything 
+        else return;
+    }
 
     return (
+        <>
+            <header className="container-fluid">
+                <div className="container">
+                    <h1 className="py-4">Pets in the World</h1>      
+                    <form className="search-box my-2">
+                        <input type='text' className="search-txt" placeholder="Search types" onChange={(event) => { setBreed(event.currentTarget.value) }} />
+                        <SearchIcon onClick={onClick} className="search-btn" />
+                    </form>
+                </div>
+            </header>
 
-        <div>
-            <Input type='text' placeholder="dog breed..." onChange={(event) => { setBreed(event.currentTarget.value) }} />
-            <Button onClick={async () => {
+            <main className="container-fluid">
+                <div className="container">
+                    <div id="id_gallery" class="row text-center text-lg-left">
+                    {
+                        err404 ?
+                            <Pet404 dogBreed={dogBreed} /> :
+                            (!fullArray ?
+                                dogsStart.map(showImages)
+                                : dogsImagesArray.map(showImages)
+                            )
+                    }
+                    </div>
+                </div>
+            </main>
 
-                await axios({
-                    method: "GET",
-                    url: `https://dog.ceo/api/breed/${dogBreed}/images`
-
-                    })
-                    .then((responseJson) => {
-
-                        if (responseJson.data.status === 'success') {
-                            dogsImagesArray = responseJson.data.message
-                            setFullArray(true)
-                        }
-                        
-                        
-                    })
-                    .catch((err) => {
-                        if (err){
-                            console.log('error is:\n' + err)
-                            setFullArray(false)
-                        }
-                    })
-
-            }}>SEARCH</Button>
-            <div>
-            {
-                fullArray?dogsImagesArray.map(showImages):(<h1>nothing entered in search or no dog of that type</h1>)
-            }
-            </div>
-            <Navbar />
-        </div>
+            <footer> <Navbar namePage={'search'} /> </footer>
+        </>
     )
 }
 

@@ -13,10 +13,10 @@ const FooterCommunity = () => {
     return (
         <React.Fragment>
             <Link to="#" ><StarIcon /></Link>
-            <ChatBubbleOutlineIcon />
-            <FacebookIcon />
-            <TwitterIcon />
-            <InstagramIcon />
+            <ChatBubbleOutlineIcon className="fafaIcons"/>
+            <FacebookIcon className="fafaIcons2"/>
+            <TwitterIcon className="fafaIcons3"/>
+            <InstagramIcon className="fafaIcons4"/>
         </React.Fragment>
     );
 }

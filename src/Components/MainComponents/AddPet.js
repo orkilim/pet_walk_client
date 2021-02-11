@@ -25,7 +25,6 @@ const AddPet = (props) => {
     const [bio, setBio] = React.useState("")
     const [dogImg, setDogImg] = React.useState("https://icon-library.com/images/dog-icon/dog-icon-16.jpg")
 
-
     const [errors, setError] = React.useState({});
 
     const joiSchema = {
@@ -58,8 +57,6 @@ const AddPet = (props) => {
             dayPlan: dogPlan,
             img: dogImg
         }
-
-
         console.log(our_data);
         let errors = {};
 
@@ -169,55 +166,13 @@ const AddPet = (props) => {
         }
     }
 
-
-    const addPet = () => {
-        console.log("add");
-
-        const age = Number(dogAge)
-        const weight = Number(dogWeight)
-        const activityLevelAsNum = Number(activityLevel)
-        const foodLevelAsNum = Number(foodLevel)
-        const dayPlanLvlAsNum = Number(dayPlanLevel)
-
-        const dogData = {
-            "name": dogName,
-            "type": dogType,
-            "age": age,
-            "weight": weight,
-            "gender": dogGender,
-            "activityLevel": activityLevelAsNum,
-            "foodLevel": foodLevelAsNum,
-            "dayPlan": dogPlan,
-            "dayPlanLevel": dayPlanLvlAsNum,
-            "hobbies": hobbies,
-            "bio": bio,
-            "img": dogImg
-        }
-        axios({
-            method: 'post',
-            url: 'https://petwalkapp.herokuapp.com/pets',
-            headers: {
-                "x-auth-token": localStorage["token"]
-            },
-            data: dogData
-        })
-            .then((data) => {
-                console.log(data.data[0])
-            })
-            .catch((err) => {
-                if (err)
-                    console.log('problem with adding a dog:\n' + err)
-                console.log(dogData)
-            })
-    }
-
     return (
         <>
             <header className="container-fluid">
                 <div className="container">
                     <div className="mt-2">
                         <Link to="/myPets" className="py-2" ><ArrowBackIcon style={{ fontSize: 'xx-large', color: 'black' }}></ArrowBackIcon></Link>
-                        <h1 className="py-2">My Pets</h1>
+                        <h1 className="py-2">Add Pet</h1>
                     </div>
                 </div>
             </header>
@@ -257,9 +212,9 @@ const AddPet = (props) => {
 
                         <div className="row justify-content-around" >
                             <TextField variant="outlined" label='Age' className="mb-5"  value={1} type='number' value={dogAge} onChange={(event) => { setDogAge(event.target.value) }} />
-                            <div className="text-danger mb-5">{errors.age}</div>
+                            <div className=" text-danger mb-5 w-50">{errors.age}</div>
                             <TextField variant="outlined" label='Weight' value={1} min={1} className="mb-5" type='number' placeholder='KGs' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
-                            <div className="text-danger mb-5">{errors.weight}</div>
+                            <div className=" text-danger mb-5 w-50">{errors.weight}</div>
                         </div>
                         <TextField variant="outlined" multiline={true} rows={2} className="w-100" type='text' value={dogPlan} label='Daily plan' onChange={(event) => { setDogPlan(event.target.value) }} />
                         <div className="text-danger mb-5">{errors.dayPlan}</div>
@@ -279,7 +234,7 @@ const AddPet = (props) => {
                         </div>
                         <TextField variant="outlined" multiline={true} rows={2} id="plan-textfield" className="w-50 mb-5" type='text' value={hobbies} label='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
                         <TextField variant="outlined" multiline={true} rows={2} id="plan-textfield" className="w-50 mb-5" type='text' value={bio} label='Bio...' onChange={(event) => { setBio(event.target.value) }} />
-                        <Button onClick={handleClick} className="btn-lg btn-block my-4 w-100 btns_blue mb-5">Add Pet</Button>
+                        <button  id='id_start' onClick={handleClick} className="col justify-content-center p-2 w-100"  style={{ marginBottom: '100px' }}>Add Pet</button>
                     </form>
                 </div>
             </main>
@@ -287,82 +242,6 @@ const AddPet = (props) => {
 
 
         </>
-
-
-        // <Grid>
-        //     <div id='add-pet-container' /*className='general-container'*/>
-        //         <img alt='dog image' src={dogImg} style={{ display: 'block', width: '100px', height: '100px' }} />
-        //         <Input className='add-pet-input' required={true} type='file' onChange={(event) => { setDogImg(event.target.value) }} />
-        //         <TextField className='add-pet-input' type='text' value={dogName} label='Pet Name...' onChange={(event) => { setDogName(event.target.value) }} />
-        //         <Select className='add-pet-input' value={dogType} onChange={(event) => { setDogType(event.target.value) }}>
-        //             <MenuItem selected value='none' >dog type</MenuItem>
-        //             <MenuItem value='German Shephard' >German Shephard</MenuItem>
-        //             <MenuItem value='Bulldog' >Bulldog</MenuItem>
-        //             <MenuItem value='Golden Retriever' >Golden Retriever</MenuItem>
-        //             <MenuItem value='Wienner' >Wienner</MenuItem>
-        //             <MenuItem value='Shitzu' >Shitzu</MenuItem>
-        //             <MenuItem value='st. bernard' >St. Bernard</MenuItem>
-        //         </Select>
-        //         <Select className='add-pet-input' value={dogGender} onChange={(event) => { setDogGender(event.target.value) }}>
-        //             <MenuItem selected value='Male' >Male</MenuItem>
-        //             <MenuItem value='Female' >Female</MenuItem>
-        //         </Select>
-        //         <div className='add-pet-input' style={{ flexDirection: 'row' }} >
-        //             <TextField label='age...' className='add-pet-input-side-by-side' type='number'  value={dogAge} onChange={(event) => { setDogAge(event.target.value) }} />
-        //             <TextField label='weight' className='add-pet-input-side-by-side' type='number' placeholder='KGs' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
-        //         </div>
-        //         <TextField multiline={true} rows={2} id="plan-textfield" className='add-pet-input' type='text' value={dogPlan} label='daily plan...' onChange={(event) => { setDogPlan(event.target.value) }} />
-        //         <div className='add-pet-input' style={{ flexDirection: 'row' }} >
-        //             <TextField label='Day Plan Level...' className='add-pet-input-side-by-side-2' type='number' value={dayPlanLevel} onChange={(event) => { setDayPlanLevel(event.target.value) }} />
-        //             <TextField label='Food Level...' className='add-pet-input-side-by-side-2' type='number' value={foodLevel} onChange={(event) => { setFoodLevel(event.target.value) }} />
-        //             <TextField label='Activity Level' className='add-pet-input-side-by-side-2' type='number' value={activityLevel} onChange={(event) => { setActivityLevel(event.target.value) }} />
-        //         </div>
-        //         <TextField multiline={true} rows={2} id="plan-textfield" className='add-pet-input' type='text' value={hobbies}  label='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
-        //         <TextField multiline={true} rows={2} id="plan-textfield" className='add-pet-input' type='text' value={bio} label='Bio...' onChange={(event) => { setBio(event.target.value) }} />
-        //         <NavLink to="/myPets" ><Button style={{marginTop:'0.5cm',marginBottom:'1.5cm' ,backgroundColor: 'blue', borderRadius: '100px' }} onClick={() => {
-
-        //             const age = (Number)(dogAge)
-        //             const weight = (Number)(dogWeight)
-        //             const activityLevelAsNum = (Number)(activityLevel)
-        //             const foodLevelAsNum = (Number)(foodLevel)
-        //             const dayPlanLvlAsNum = (Number)(dayPlanLevel)
-
-        //             const dogData = {
-        //                 "name": dogName,
-        //                 "type": dogType,
-        //                 "age": age,
-        //                 "weight": weight,
-        //                 "gender": dogGender,
-        //                 "activityLevel": activityLevelAsNum,
-        //                 "foodLevel": foodLevelAsNum,
-        //                 "dayPlan": dogPlan,
-        //                 "dayPlanLevel": dayPlanLvlAsNum,
-        //                 "hobbies": hobbies,
-        //                 "bio": bio,
-        //                 "img": dogImg
-        //             }
-        //             axios({
-        //                 method: 'post',
-        //                 url: 'https://petwalkapp.herokuapp.com/pets',
-        //                 headers: {
-        //                     "x-auth-token": localStorage["token"]
-        //                 },
-        //                 data: dogData
-        //             })
-        //                 .then((data) => {
-        //                     console.log(data.data[0])
-        //                 })
-        //                 .catch((err) => {
-        //                     if (err)
-        //                         console.log('problem with adding a dog:\n' + err)
-        //                     console.log(dogData)
-
-
-        //                 })
-        //         }}>Add Pet</Button></NavLink>
-        //         <Navbar />
-        //     </div>
-        // </Grid>
     )
 }
 

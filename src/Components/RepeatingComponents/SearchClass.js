@@ -16,7 +16,7 @@ const SearchClass = (props) => {
     return (
         <form className="search-box my-2">
             <input type="text" className="search-txt" placeholder="Search" value={search} onChange={onSearchInputChange} />
-            <SearchIcon className="search-btn" />
+            <SearchIcon className="search-btn"/>
         </form>
     );
 }

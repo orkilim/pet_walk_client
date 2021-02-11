@@ -9,7 +9,18 @@ h1{
 h2,h3{font-weight: 800;}
 body{background: #E5E5E5;}
 
+#bottom-nav{
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  background-color: #D1FFFD;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
 
+/* 
 #bottom-nav{
   display: flex;
   position: fixed;
@@ -77,16 +88,16 @@ body{background: #E5E5E5;}
   height: 100%;
   width: 100%;
   flex-direction: column;
-  /*justify-content:space-evenly;*/
+  /*justify-content:space-evenly;
   align-items: center;
-  background-image:linear-gradient(to right,gray,lightgray);
-
+  background-image:linear-gradient(to right,gray,lightgray)
 }
 .each-pet-in-my-pets-div{
   border-color: black;
   border-width: 5px;
   border-style: solid;
-}
+} 
+*/
 
 
 /*for indexPage  */
@@ -194,19 +205,59 @@ header .search-txt{
 }
 /* endSearch */
 
-.fafa ul li {
-  display:block;
-  font-size:30px;
-  transition:0.5s;  
-}
 
-.fafa ul li:hover{
-  color: rgb(74, 119, 243);
-  transform:rotate(360deg);
+.fafaIcons:hover{
+  color:rgb(153, 74, 243);
+  -ms-transform: rotate(360deg); 
+  transform: rotate(360deg);
+  transition: transform 1s;
+  cursor: pointer;
+}
+.fafaIcons2:hover{
+  color:rgb(74, 195, 243);
+  -ms-transform: rotate(360deg); 
+  transform: rotate(360deg);
+  transition: transform 1s;
+  cursor: pointer;
+}
+.fafaIcons3:hover{
+  color:rgb(248, 250, 115);
+  -ms-transform: rotate(360deg); 
+  transform: rotate(360deg);
+  transition: transform 1s;
+  cursor: pointer;
+}
+.fafaIcons4:hover{
+  color:rgb(240, 63, 166);
+  -ms-transform: rotate(360deg); 
+  transform: rotate(360deg);
+  transition: transform 1s;
+  cursor: pointer;
+}
+.fafaDelete:hover{
+  color:rgb(246, 39, 39);
+  -ms-transform: rotate(360deg); 
+  transform: rotate(360deg);
+  transition: transform .5s;
+  cursor: pointer;
+}
+.fafaEdite:hover{
+  color:rgb(253, 250, 57);
+  -ms-transform: rotate(-360deg); 
+  transform: rotate(-360deg);
+  transition: transform .5s;
+  cursor: pointer;
 }
 
 .card{
   border: none !important;
   background-color: #F1F3F6 !important; 
+}
+
+
+.gallery:hover{
+  -ms-transform: rotate(10deg); 
+  transform: rotate(10deg);
+  transition: transform .5s;
 }
 
