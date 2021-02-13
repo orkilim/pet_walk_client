@@ -76,10 +76,10 @@ const MyCommunity = () => {
                     })
                     .catch(error => {
                         console.log(error.response);
-                        if (error.response.status == Number(401)) {
+                        if (error.response.status === Number(401)) {
                             alert("Pet is not found");
                         }
-                        if (error.response.status == 500) {
+                        if (error.response.status === 500) {
                             alert("Server Error , Try later");
                         }
                         return;

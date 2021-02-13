@@ -1,6 +1,5 @@
 import * as React from 'react';
 import '../../../App.css';
-import SearchIcon from '@material-ui/icons/Search';
 import { Link } from 'react-router-dom';
 import StarIcon from '@material-ui/icons/Star';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';

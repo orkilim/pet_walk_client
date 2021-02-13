@@ -1,15 +1,12 @@
 import * as React from 'react'
 import Navbar from '../RepeatingComponents/Navbar'
-import { Button, Grid, Input, MenuItem, TextField } from '@material-ui/core';
-//import { Label } from '@material-ui/icons';
+import { MenuItem, TextField } from '@material-ui/core';
 import '../../App.css'
 import { Select } from '@material-ui/core';
 import axios from 'axios';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Joi from 'joi-browser';
-
-
 
 const AddPet = (props) => {
     const [dogType, setDogType] = React.useState('none')
@@ -47,7 +44,7 @@ const AddPet = (props) => {
 
         let our_data = {
             name: dogName,
-            age:dogAge,
+            age: dogAge,
             weight: dogWeight,
             type: dogType,
             gender: dogGender,
@@ -67,60 +64,57 @@ const AddPet = (props) => {
         if (valid.error) {
             valid.error.details.forEach(err => {
                 console.log(err.message);
-                if (err.message == '"name" is not allowed to be empty' || err.message == '"name" length must be at least 2 characters long') {
+                if (err.message === '"name" is not allowed to be empty' || err.message === '"name" length must be at least 2 characters long') {
                     errors["name"] = "* Name is required.";
                 }
-                if (err.message == '"activityLevel" is required') {
+                if (err.message === '"activityLevel" is required') {
                     errors["activityLevel"] = "* Required.";
                 }
-                if (err.message == '"foodLevel" is required') {
+                if (err.message === '"foodLevel" is required') {
                     errors["foodLevel"] = "* Required.";
                 }
-                if (err.message == '"dayPlanLevel" is required') {
+                if (err.message === '"dayPlanLevel" is required') {
                     errors["dayPlanLevel"] = "* Required.";
                 }
-                if (err.message == '"dayPlan" is not allowed to be empty') {
+                if (err.message === '"dayPlan" is not allowed to be empty') {
                     errors["dayPlan"] = "* Required.";
                 }
-                if (err.message == '"dayPlan" length must be at least 2 characters long') {
+                if (err.message === '"dayPlan" length must be at least 2 characters long') {
                     errors["dayPlan"] = "* Too short.";
                 }
-                if (err.message == '"dayPlanLevel" must be larger than or equal to 1') {
+                if (err.message === '"dayPlanLevel" must be larger than or equal to 1') {
                     errors["dayPlanLevel"] = "* Too low.";
                 }
-                if (err.message == '"foodLevel" must be larger than or equal to 1') {
+                if (err.message === '"foodLevel" must be larger than or equal to 1') {
                     errors["foodLevel"] = "* Too low.";
                 }
-                if (err.message == '"activityLevel" must be larger than or equal to 1') {
+                if (err.message === '"activityLevel" must be larger than or equal to 1') {
                     errors["activityLevel"] = "* Too low.";
                 }
-                if (err.message == '"dayPlanLevel" must be less than or equal to 10') {
+                if (err.message === '"dayPlanLevel" must be less than or equal to 10') {
                     errors["dayPlanLevel"] = "* Limit up to 10.";
                 }
-                if (err.message == '"activityLevel" must be less than or equal to 10') {
+                if (err.message === '"activityLevel" must be less than or equal to 10') {
                     errors["activityLevel"] = "* Limit up to 10.";
                 }
-                if (err.message == '"foodLevel" must be less than or equal to 10') {
+                if (err.message === '"foodLevel" must be less than or equal to 10') {
                     errors["foodLevel"] = "* Limit up to 10.";
                 }
-                if (err.message == '"name" length must be at least 2 characters long') {
+                if (err.message === '"name" length must be at least 2 characters long') {
                     errors["name"] = "* Too short";
                 }
             })
             setError(errors);
             return;
         }
-         //ok:
-         else {
-            const age = Number(dogAge);
-            const weight =Number(dogWeight);
+        //ok:
+        else {
             const activityLevelAsNum = Number(activityLevel);
             const foodLevelAsNum = Number(foodLevel);
             const dayPlanLvlAsNum = Number(dayPlanLevel);
-    
+
             const dogData = {
                 "name": dogName,
-                // "type": dogType,
                 "gender": dogGender,
                 "activityLevel": activityLevelAsNum,
                 "foodLevel": foodLevelAsNum,
@@ -129,13 +123,13 @@ const AddPet = (props) => {
                 "img": dogImg
             }
             //if its undifind its not sent for chaks validations 
-        if (dogAge !== undefined) dogData.age=dogAge;
-        if (dogWeight !== undefined) dogData.weight=dogWeight;
-        if (hobbies !== "") dogData.hobbies=hobbies;
-        if (bio !== "") dogData.bio=bio;
-        if (dogType !== 'none') dogData.type=dogType;
+            if (dogAge !== undefined) dogData.age = dogAge;
+            if (dogWeight !== undefined) dogData.weight = dogWeight;
+            if (hobbies !== "") dogData.hobbies = hobbies;
+            if (bio !== "") dogData.bio = bio;
+            if (dogType !== 'none') dogData.type = dogType;
 
-        console.log(dogData);
+            console.log(dogData);
             axios({
                 method: 'post',
                 url: 'https://petwalkapp.herokuapp.com/pets',
@@ -151,13 +145,13 @@ const AddPet = (props) => {
                 .catch((error) => {
                     console.log(error.response);
                     let errors = {};
-                    if (error.response.data[0].message == '"hobbies" is not allowed to be empty') {
-                        errors["hobbies"] = "* hobbies ";
-                    }
-                    if (error.response.data[0].message == '"type" is required') {
+                    // if (error.response.data[0].message === '"hobbies" is not allowed to be empty') {
+                    //     errors["hobbies"] = "* hobbies ";
+                    // }
+                    if (error.response.data[0].message === '"type" is required') {
                         errors["type"] = "* Type is required";
                     }
-                    if (error.response.status == 500) {
+                    if (error.response.status === 500) {
                         alert("Server Error , Try later");
                     }
                     setError(errors);
@@ -211,9 +205,9 @@ const AddPet = (props) => {
 
 
                         <div className="row justify-content-around" >
-                            <TextField variant="outlined" label='Age' className="mb-5"  value={1} type='number' value={dogAge} onChange={(event) => { setDogAge(event.target.value) }} />
+                            <TextField variant="outlined" label='Age' className="mb-5" type='number' value={dogAge} onChange={(event) => { setDogAge(event.target.value) }} />
                             <div className=" text-danger mb-5 w-50">{errors.age}</div>
-                            <TextField variant="outlined" label='Weight' value={1} min={1} className="mb-5" type='number' placeholder='KGs' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
+                            <TextField variant="outlined" label='Weight' min={1} className="mb-5" type='number' placeholder='KGs' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
                             <div className=" text-danger mb-5 w-50">{errors.weight}</div>
                         </div>
                         <TextField variant="outlined" multiline={true} rows={2} className="w-100" type='text' value={dogPlan} label='Daily plan' onChange={(event) => { setDogPlan(event.target.value) }} />
@@ -233,8 +227,11 @@ const AddPet = (props) => {
                             </div>
                         </div>
                         <TextField variant="outlined" multiline={true} rows={2} id="plan-textfield" className="w-50 mb-5" type='text' value={hobbies} label='Hobbies...' onChange={(event) => { setHobbies(event.target.value) }} />
+                        <div className="text-danger mb-5">{errors.hobbies}</div>
                         <TextField variant="outlined" multiline={true} rows={2} id="plan-textfield" className="w-50 mb-5" type='text' value={bio} label='Bio...' onChange={(event) => { setBio(event.target.value) }} />
-                        <button  id='id_start' onClick={handleClick} className="col justify-content-center p-2 w-100"  style={{ marginBottom: '100px' }}>Add Pet</button>
+                        <div className="text-danger mb-5">{errors.bio}</div>
+
+                        <button id='id_start' onClick={handleClick} className="col justify-content-center p-2 w-100" style={{ marginBottom: '100px' }}>Add Pet</button>
                     </form>
                 </div>
             </main>

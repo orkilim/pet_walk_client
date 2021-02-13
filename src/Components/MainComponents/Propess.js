@@ -10,7 +10,7 @@ const Propess = () => {
     return (
         <React.Fragment>
             <div class="col text-center d-block mb-4">
-                <img src="images/404.PNG" width="400" />
+                <img src="images/404.PNG" width="400" alt="404" />
                 <h1><strong>SORRY</strong> </h1> 
                 <h4><strong>In Process....</strong> </h4> 
 

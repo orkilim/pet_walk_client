@@ -1,11 +1,9 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Button } from '@material-ui/core';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
 import Navbar from '../RepeatingComponents/Navbar';
 import Loading from '../RepeatingComponents/Loading';
-import { Pie } from 'react-chartjs-2';
 import Swal from 'sweetalert2';
 import Chart from './Chart';
 
@@ -43,12 +41,11 @@ const MyInfo = () => {
                 console.log(error.response);
                 return;
             })
-
     }, [])
 
     //Click and render the pet in the array :
     const handleClick = () => {
-        if (petIndex == 0) {
+        if (petIndex === 0) {
             setPetIndex(myPets.length - 1);
             setActiviry(myPets[myPets.length - 1].currDayPlanLevel);
             setPlan(myPets[myPets.length - 1].currDayPlanLevel);
@@ -63,7 +60,7 @@ const MyInfo = () => {
     }
 
     const handleClickRight = () => {
-        if (petIndex == myPets.length - 1) {
+        if (petIndex === myPets.length - 1) {
             setPetIndex(0);
             setActiviry(myPets[myPets.length - 1].currDayPlanLevel);
             setPlan(myPets[myPets.length - 1].currDayPlanLevel);
@@ -106,10 +103,10 @@ const MyInfo = () => {
             })
             .catch(error => {
                 console.log(error.response);
-                if (error.response.status == 404) {
+                if (error.response.status === 404) {
                     alert(error.response);
                 }
-                if (error.response.status == 500) {
+                if (error.response.status === 500) {
                     alert("Server Error , Try later");
                 }
                 return;
@@ -145,10 +142,10 @@ const MyInfo = () => {
             })
             .catch(error => {
                 console.log(error.response);
-                if (error.response.status == 404) {
+                if (error.response.status === 404) {
                     alert(error.response);
                 }
-                if (error.response.status == 500) {
+                if (error.response.status === 500) {
                     alert("Server Error , Try later");
                 }
                 return;
@@ -198,10 +195,10 @@ const MyInfo = () => {
             })
             .catch(error => {
                 console.log(error.response);
-                if (error.response.status == 404) {
+                if (error.response.status === 404) {
                     alert(error.response);
                 }
-                if (error.response.status == 500) {
+                if (error.response.status === 500) {
                     alert("Server Error , Try later");
                 }
                 return;
@@ -242,7 +239,7 @@ const MyInfo = () => {
             }
             //update activity level:
             upadteActivity(result.value[1]);
-            if (Number(result.value[1]) == 100) {
+            if (Number(result.value[1]) === 100) {
                 //say Goog Jub:
                 goodJob();
             }
@@ -276,7 +273,7 @@ const MyInfo = () => {
         if (color) {
             Swal.fire({ html: `You selected: ${color}` });
             upadtePlan(Number(color));
-            if (Number(color) == 100) {
+            if (Number(color) === 100) {
                 //say Goog Jub:
                 goodJob();
             }
@@ -310,7 +307,7 @@ const MyInfo = () => {
         if (color) {
             Swal.fire({ html: `You selected: ${color}` });
             upadteActivity(Number(color));
-            if (Number(color) == 100) {
+            if (Number(color) === 100) {
                 //say Goog Jub:
                 goodJob();
             }
@@ -344,7 +341,7 @@ const MyInfo = () => {
         if (color) {
             Swal.fire({ html: `You selected: ${color}` });
             upadteFood(Number(color));
-            if (Number(color) == 100) {
+            if (Number(color) === 100) {
                 //say Goog Jub:
                 goodJob();
             }
@@ -353,22 +350,22 @@ const MyInfo = () => {
 
     const showMyPets = () => {
         console.log(myPets)
-        if (myPets.length == 0) {
+        if (myPets.length === 0) {
             return ('no Pats');
         }
         //set defult elements from db
-        let age = (myPets[petIndex].age == undefined) ? "Forever Young" : myPets[petIndex].age;
+        let age = (myPets[petIndex].age === undefined) ? "Forever Young" : myPets[petIndex].age;
         myPets[petIndex].complitDayPlan = myPets[petIndex].currDayPlanLevel == 0 ? myPets[petIndex].currDayPlanLevel : Math.ceil(myPets[petIndex].currDayPlanLevel / (100 / myPets[petIndex].dayPlanLevel));
-        myPets[petIndex].complitActivity = myPets[petIndex].currActivityLevel == 0 ? myPets[petIndex].currActivityLevel : Math.ceil(myPets[petIndex].currActivityLevel / (100 / myPets[petIndex].activityLevel));
-        myPets[petIndex].complitFood = myPets[petIndex].currFoodLevel == 0 ? myPets[petIndex].currFoodLevel : Math.ceil(myPets[petIndex].currFoodLevel / (100 / myPets[petIndex].foodLevel));
+        myPets[petIndex].complitActivity = myPets[petIndex].currActivityLevel === 0 ? myPets[petIndex].currActivityLevel : Math.ceil(myPets[petIndex].currActivityLevel / (100 / myPets[petIndex].activityLevel));
+        myPets[petIndex].complitFood = myPets[petIndex].currFoodLevel === 0 ? myPets[petIndex].currFoodLevel : Math.ceil(myPets[petIndex].currFoodLevel / (100 / myPets[petIndex].foodLevel));
 
         return (
             <React.Fragment>
                 <div className="row p-3 justify-content-between btn_section" >
                     <ArrowBackIosRoundedIcon onClick={handleClick} className="align-self-center" style={{ fontSize: '200%', color: '#6EA8FF',cursor: 'pointer' }}></ArrowBackIosRoundedIcon>
                     <div className="col d-flex justify-content-center align-items-center">
-                        <img src={myPets[petIndex].img}
-                            alt="Avatar" className="img_pet" style={{ width: '50%', border: '#fff solid', borderRadius: '50%', padding: '5%' }} />
+                        <img src={myPets[petIndex].img}  
+                            alt="Avatar" className="img_pet rounded-circle" style={{ width: '35%', border: '#fff solid', padding: '2%' }} />
                         <div className="col-6 justify-content-end">
                             <h5 className="pt-4 pl-2" style={{ color: '#727377' }}> {myPets[petIndex].type}</h5>
                             <h2 className="pl-2">{myPets[petIndex].name}</h2>

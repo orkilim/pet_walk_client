@@ -34,13 +34,13 @@ const Login = () => {
         if (valid.error) {
             valid.error.details.forEach(err => {
                 console.log(err.message);
-                if (err.message == '"email" is not allowed to be empty') {
+                if (err.message === '"email" is not allowed to be empty') {
                     errors["email"] = "* Email is required.";
                 }
-                else if (err.message == '"email" must be a valid email') {
+                else if (err.message === '"email" must be a valid email') {
                     errors["email"] = "* Invalid Email";
                 }
-                if (err.message == '"pass" is not allowed to be empty') {
+                if (err.message === '"pass" is not allowed to be empty') {
                     errors["pass"] = "* Password is required.";
                 }
             })
@@ -65,14 +65,14 @@ const Login = () => {
                 .catch((error) => {
                     console.log(error.response);
                     let errors = {};
-                    if (error.response.status == Number(401)) {
+                    if (error.response.status === Number(401)) {
                         errors["email"] = "* Email not found";
                     }
-                    if (error.response.status == Number(400)) {
+                    if (error.response.status === Number(400)) {
                         console.log(error.response.status);
                         errors["psss"] = "* Password incorrect";
                     }
-                    if (error.response.status == 500) {
+                    if (error.response.status === 500) {
                         alert("Server Error , Try later");
                     }
                     setError(errors);

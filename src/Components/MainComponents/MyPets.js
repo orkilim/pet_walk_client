@@ -1,16 +1,11 @@
 import * as React from 'react'
-import { Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../RepeatingComponents/Navbar';
 import Loading from '../RepeatingComponents/Loading';
-import { Button, Grid } from '@material-ui/core';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Link, NavLink } from 'react-router-dom';
-import MediaQuery from 'react-responsive'
+import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
 
 
 const MyPets = (props) => {

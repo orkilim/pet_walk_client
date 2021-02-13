@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Navbar from '../RepeatingComponents/Navbar'
-import { Button, Grid, MenuItem, TextField } from '@material-ui/core';
+import { MenuItem, TextField } from '@material-ui/core';
 import '../../App.css'
 import { Select } from '@material-ui/core';
 import axios from 'axios';
@@ -11,7 +11,7 @@ import Joi from 'joi-browser';
 
 const EditPet = (props) => {
     console.log(props.location.state);
-    if (props.location.state != null) {
+    if (props.location.state !== null) {
         console.log(props.location.state.pet_id);
     }
     const [dogType, setDogType] = React.useState('none')
@@ -108,12 +108,10 @@ const EditPet = (props) => {
             abortEarly: false
         });
 
-        console.log("in", dogData)
-
         if (valid.error) {
             valid.error.details.forEach(err => {
                 console.log(err.message);
-                if (err.message == '"name" is not allowed to be empty' || err.message == '"name" length must be at least 2 characters long') {
+                if (err.message === '"name" is not allowed to be empty' || err.message === '"name" length must be at least 2 characters long') {
                     errors["name"] = "* Name is required.";
                 }
             })
@@ -122,8 +120,6 @@ const EditPet = (props) => {
         }
         //ok:
         else {
-            const age = Number(dogAge);
-            const weight = Number(dogWeight);
             const activityLevelAsNum = Number(activityLevel);
             const foodLevelAsNum = Number(foodLevel);
             const dayPlanLvlAsNum = Number(dayPlanLevel);
@@ -131,7 +127,6 @@ const EditPet = (props) => {
             const dogData = {
                 "id": props.location.state.pet_id,
                 "name": dogName,
-                // "type": dogType,
                 "gender": dogGender,
                 "activityLevel": activityLevelAsNum,
                 "foodLevel": foodLevelAsNum,
@@ -210,9 +205,9 @@ const EditPet = (props) => {
                         <div className="text-danger mb-5">{errors.gender}</div>
 
                         <div className="row justify-content-around" >
-                            <TextField variant="outlined" label='Age' className="mb-5" value={1} type='number' value={Number(dogAge)} onChange={(event) => { setDogAge(event.target.value) }} />
+                            <TextField variant="outlined" label='Age' className="mb-5"  type='number' value={Number(dogAge)} onChange={(event) => { setDogAge(event.target.value) }} />
                             <div className="text-danger mb-5">{errors.age}</div>
-                            <TextField variant="outlined" label='Weight' value={1} min={1} className="mb-5" type='number' placeholder='KGs' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
+                            <TextField variant="outlined" label='Weight' min={1} className="mb-5" type='number' placeholder='KGs' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
                             <div className="text-danger mb-5">{errors.weight}</div>
                         </div>
                         <TextField variant="outlined" multiline={true} rows={2} className="w-100" type='text' value={dogPlan} label='Daily plan' onChange={(event) => { setDogPlan(event.target.value) }} />

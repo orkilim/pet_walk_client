@@ -1,17 +1,15 @@
 import * as React from 'react';
-import '../../App.css';
+import '../../../App.css';
 import axios from 'axios';
-import { Button, Grid } from '@material-ui/core';
 import PetsIcon from '@material-ui/icons/Pets';
 import WcIcon from '@material-ui/icons/Wc';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import CreateIcon from '@material-ui/icons/Create';
-import { Link, NavLink } from 'react-router-dom';
-import Navbar from '../RepeatingComponents/Navbar';
-import Loading from '../RepeatingComponents/Loading';
+import { Link } from 'react-router-dom';
+import Navbar from '../../RepeatingComponents/Navbar';
+import Loading from '../../RepeatingComponents/Loading';
 import Swal from 'sweetalert2';
 
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -106,18 +104,18 @@ const PetProfile = (props) => {
     }
 
     const editPet = () => {
-        if(props.location.state.name != undefined) setDogName(props.location.state.name);
-        if(props.location.state.type != undefined) setDogType(props.location.state.type);
-        if(props.location.state.age != undefined) setDogAge(props.location.state.age);
-        if(props.location.state.weight != undefined) setDogWeight(props.location.state.weight);
-        if(props.location.state.gender != undefined) setDogGender(props.location.state.gender);
-        if(props.location.state.activityLevel != undefined) setActivityLevel(props.location.state.activityLevel);
-        if(props.location.state.dogPlan != undefined) setDogPlan(props.location.state.dogPlan);
-        if(props.location.state.dayPlanLevel != undefined) setDayPlanLevel(props.location.state.dayPlanLevel);
-        if(props.location.state.hobbies != undefined) setHobbies(props.location.state.hobbies);
-        if(props.location.state.dogPlan != undefined) setDogPlan(props.location.state.dogPlan);
-        if(props.location.state.bio != undefined) setBio(props.location.state.bio);
-        if(props.location.state.dogImg != undefined) setDogImg(props.location.state.dogImg);
+        if(props.location.state.name !== undefined) setDogName(props.location.state.name);
+        if(props.location.state.type !== undefined) setDogType(props.location.state.type);
+        if(props.location.state.age !== undefined) setDogAge(props.location.state.age);
+        if(props.location.state.weight !== undefined) setDogWeight(props.location.state.weight);
+        if(props.location.state.gender !== undefined) setDogGender(props.location.state.gender);
+        if(props.location.state.activityLevel !== undefined) setActivityLevel(props.location.state.activityLevel);
+        if(props.location.state.dogPlan !== undefined) setDogPlan(props.location.state.dogPlan);
+        if(props.location.state.dayPlanLevel !== undefined) setDayPlanLevel(props.location.state.dayPlanLevel);
+        if(props.location.state.hobbies !== undefined) setHobbies(props.location.state.hobbies);
+        if(props.location.state.dogPlan !== undefined) setDogPlan(props.location.state.dogPlan);
+        if(props.location.state.bio !== undefined) setBio(props.location.state.bio);
+        if(props.location.state.dogImg !== undefined) setDogImg(props.location.state.dogImg);
     }
 
     const showProfile = () => {

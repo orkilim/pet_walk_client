@@ -3,22 +3,16 @@ import { Route } from 'react-router-dom'
 import '../../App.css'
 import AddPet from './AddPet'
 import MyInfo from './MyInfo'
-import Search from './Search'
+import Search from './SearchApi/Search'
 import Intro from './Intro'
 import EditPet from './EditPet'
 import MyPets from './MyPets'
 import Login from './Login'
-import PetProfile from './PetProfile'
+import PetProfile from './Profile/PetProfile'
 import Community from './Community/Community'
 import MyCommunity from './Community/MyCommunity'
 import AddCommunity from './Community/AddCommunity'
-import Demo from './Community/test';
 import Propess from './Propess';
-
-
-
-
-
 
 
 
@@ -38,7 +32,6 @@ const ReactRouter = () => {
             <Route exact path='/community' component={Community} />
             <Route exact path='/myCommunity' component={MyCommunity} />
             <Route exact path='/myCommunity/new' component={AddCommunity} />
-            <Route exact path='/test' component={Demo} />
             <Route exact path='/settings' component={Propess} />
         </React.Fragment>
     )
