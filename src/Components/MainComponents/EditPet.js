@@ -140,7 +140,9 @@ const EditPet = (props) => {
             if (dogWeight !== undefined) dogData.weight = dogWeight;
             if (hobbies !== "") dogData.hobbies = hobbies;
             if (bio !== "") dogData.bio = bio;
-            if (dogType !== 'none') dogData.type = dogType;
+            
+            if (hobbies === undefined) dogData.hobbies = "";
+            if (bio === undefined) dogData.bio = "";
 
             const formData = new FormData();
             for(const key of Object.keys(dogData)){

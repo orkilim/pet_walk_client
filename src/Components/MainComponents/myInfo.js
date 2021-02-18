@@ -91,7 +91,7 @@ const MyInfo = () => {
         //update
         await axios({
             method: 'PUT',
-            url: "https://petwalkapp.herokuapp.com/pets",
+            url: "https://petwalkapp.herokuapp.com/pets/pet",
             data: dataBodyVal,
             headers: {
                 "x-auth-token": localStorage["token"],
@@ -130,7 +130,7 @@ const MyInfo = () => {
         //update
         await axios({
             method: 'PUT',
-            url: "https://petwalkapp.herokuapp.com/pets",
+            url: "https://petwalkapp.herokuapp.com/pets/pet",
             data: dataBodyVal,
             headers: {
                 "x-auth-token": localStorage["token"],
@@ -183,7 +183,7 @@ const MyInfo = () => {
         //update
         await axios({
             method: 'PUT',
-            url: "https://petwalkapp.herokuapp.com/pets",
+            url: "https://petwalkapp.herokuapp.com/pets/pet",
             data: dataBodyVal,
             headers: {
                 "x-auth-token": localStorage["token"],
