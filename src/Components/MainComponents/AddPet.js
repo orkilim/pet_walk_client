@@ -36,7 +36,7 @@ const AddPet = (props) => {
         dayPlan: Joi.string().min(2).required(),
         hobbies: Joi.string().max(50),
         bio: Joi.string(),
-        img: Joi.string()
+        img: Joi.any()
     }
 
     const handleClick = (event) => {
@@ -129,14 +129,22 @@ const AddPet = (props) => {
             if (bio !== "") dogData.bio = bio;
             if (dogType !== 'none') dogData.type = dogType;
 
+            const formData = new FormData();
+
+            for(const key of Object.keys(dogData)){
+                formData.append(key,dogData[key])
+            }
+
+            console.log(formData);
             console.log(dogData);
             axios({
                 method: 'post',
                 url: 'https://petwalkapp.herokuapp.com/pets',
                 headers: {
-                    "x-auth-token": localStorage["token"]
+                    "x-auth-token": localStorage["token"],
+                    "Content-Type": "multipart/form-data"
                 },
-                data: dogData
+                data: formData
             })
                 .then((data) => {
                     console.log(data.data[0]);
@@ -175,11 +183,11 @@ const AddPet = (props) => {
                 <div className="container">
                     <div className="add_form">
                         <div className="text-center">
-                            <img src="https://i.pinimg.com/originals/f6/af/e8/f6afe8801e93598525796c47afd9f3c0.png" alt="PetPic" style={{ maxWidth: '30%', borderRadius: '50%', backgroundColor: 'azure' }} />
+                            <img src={"https://i.pinimg.com/originals/f6/af/e8/f6afe8801e93598525796c47afd9f3c0.png"} alt="PetPic" style={{ maxWidth: '30%', borderRadius: '50%', backgroundColor: 'azure' }} />
                         </div>
 
                         <div className="col-auto text-center">
-                            <input className="btn btn-primary btn-lg my-4 w-75" type="file" onChange={(event) => { setDogImg(event.target.value) }} />
+                            <input className="btn btn-primary btn-lg my-4 w-75" type="file" onChange={(event) => { setDogImg(event.target.files[0]) }} />
                         </div>
                     </div>
 
