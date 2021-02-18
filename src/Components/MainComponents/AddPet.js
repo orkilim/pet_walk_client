@@ -57,7 +57,7 @@ const AddPet = (props) => {
         console.log(our_data);
         let errors = {};
 
-        //chack valid form inputs
+        //check valid form inputs
         const valid = Joi.validate(our_data, joiSchema, {
             abortEarly: false
         });
@@ -122,7 +122,7 @@ const AddPet = (props) => {
                 "dayPlanLevel": dayPlanLvlAsNum,
                 "img": dogImg
             }
-            //if its undifind its not sent for chaks validations 
+            //if it's undefined it's not sent for chaks validations 
             if (dogAge !== undefined) dogData.age = dogAge;
             if (dogWeight !== undefined) dogData.weight = dogWeight;
             if (hobbies !== "") dogData.hobbies = hobbies;
@@ -153,9 +153,7 @@ const AddPet = (props) => {
                 .catch((error) => {
                     console.log(error.response);
                     let errors = {};
-                    // if (error.response.data[0].message === '"hobbies" is not allowed to be empty') {
-                    //     errors["hobbies"] = "* hobbies ";
-                    // }
+                    
                     if (error.response.data[0].message === '"type" is required') {
                         errors["type"] = "* Type is required";
                     }
