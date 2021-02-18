@@ -13,13 +13,14 @@ const MyInfo = () => {
     const [myPets, setMyPets] = React.useState([]);
     const [data, setData] = React.useState(false); // data retrieved from the server(y\n)
     const [petIndex, setPetIndex] = React.useState(0); // index from myPets array 
-    //elements thet can be updete in this page :
+
+    //elements thet can be update in this page :
     const [activity, setActiviry] = React.useState(0);
     const [plan, setPlan] = React.useState(0);
     const [food, setFood] = React.useState(0);
 
     React.useEffect(() => {
-        console.log(data);
+        
         //ok user then do server call:
         axios({
             method: 'GET',
@@ -29,7 +30,7 @@ const MyInfo = () => {
             }
         })
             .then((data) => {
-                console.log(data.data);
+                
                 setMyPets(data.data);
                 setActiviry(data.data[petIndex].currActivityLevel);
                 setPlan(data.data[petIndex].currDayPlanLevel);
@@ -153,7 +154,7 @@ const MyInfo = () => {
     }
 
     const goodJob = () => {
-        //say Goog Jub:
+        //say Goog Job:
         Swal.fire({
             title: 'Goog Jub',
             width: 600,
@@ -240,7 +241,7 @@ const MyInfo = () => {
             //update activity level:
             upadteActivity(result.value[1]);
             if (Number(result.value[1]) === 100) {
-                //say Goog Jub:
+                //say Goog Job:
                 goodJob();
             }
         })
@@ -274,7 +275,7 @@ const MyInfo = () => {
             Swal.fire({ html: `You selected: ${color}` });
             upadtePlan(Number(color));
             if (Number(color) === 100) {
-                //say Goog Jub:
+                //say Goog Job:
                 goodJob();
             }
         }
@@ -308,7 +309,7 @@ const MyInfo = () => {
             Swal.fire({ html: `You selected: ${color}` });
             upadteActivity(Number(color));
             if (Number(color) === 100) {
-                //say Goog Jub:
+                //say Goog Job:
                 goodJob();
             }
         }
@@ -342,7 +343,7 @@ const MyInfo = () => {
             Swal.fire({ html: `You selected: ${color}` });
             upadteFood(Number(color));
             if (Number(color) === 100) {
-                //say Goog Jub:
+                //say Good Job:
                 goodJob();
             }
         }
@@ -385,7 +386,7 @@ const MyInfo = () => {
                         <Chart mydata={plan} onClick={planClick} />
                     </div>
                 </div>
-                {/*End of dayly plan section */}
+                {/*End of daily plan section */}
 
                 {/* Energy avaliable section */}
                 <div className='row p-3 justify-content-between btn_section mb-3' style={{ boxShadow: 'none' }}>
