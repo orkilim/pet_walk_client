@@ -90,6 +90,7 @@ const MyCommunity = () => {
         
     };
 
+
     const editItem = async (editId) => {
         console.log(editId);
         //elements
@@ -103,11 +104,6 @@ const MyCommunity = () => {
         const communityItem = communities.filter(item => item._id === editId);
         console.log(communityItem);
         if (communityItem[0].type === undefined) communityItem[0].type = "";
-
-        const onIMG = (e) => {
-            console.log("onIMG");
-            setDogImg(e.target.files[0])
-        }
 
         const { value: formValues } = await Swal.fire({
             title: 'Edit Community',
@@ -130,27 +126,37 @@ const MyCommunity = () => {
             const dogData = {
                 "id": editId
             };
-            if (formValues.img !== "" || formValues.img !== undefined) dogData.img = formValues.img;
-            if (formValues.title !== "" || formValues.title !== undefined) dogData.title = formValues.title;
-            if (formValues.type !== "" || formValues.type !== undefined) dogData.type = formValues.type;
+            if (dataBodyVal.img !== "" || dataBodyVal.img !== undefined) dogData.img = dataBodyVal.img;
+            if (dataBodyVal.title !== "" || dataBodyVal.title !== undefined) dogData.title = dataBodyVal.title;
+            if (dataBodyVal.type !== "" || dataBodyVal.type !== undefined) dogData.type = dataBodyVal.type;
 
             const formData = new FormData();
             for (const key of Object.keys(dogData)) {
                 formData.append(key, dogData[key])
             }
+            axios({
+                method: 'PUT',
+                url: 'https://petwalkapp.herokuapp.com/socialNetworks',
+                headers: {
+                    "x-auth-token": localStorage["token"],
+                    "Content-Type": "multipart/form-data"
+                },
+                data: formData
+            })
+                .then((data) => {
+                    console.log(data);
+                    let myIMG= `https://petwalkapp.herokuapp.com/${data.data}`;
+                   setCommunities(myPets => myPets.map(data => data._id !== editId ? data : { ...data, title: dogData.title  , img: myIMG , type: dogData.type }));
 
-            
-
-            console.log(formValues);
-            console.log(dogImg);
-            console.log(dataBodyVal);
-            console.log(formData);
-
+                })
+                .catch((error) => {
+                    console.log(error.response);
+                    if (error.response.status === 500) {
+                        alert("Server Error , Try later");
+                    }
+                    return;
+                })
         }
-
-
-        
-
     };
 
     const communityList = communities.filter(todo => todo.title.toString().toLowerCase().includes(search));
