@@ -37,7 +37,7 @@ const AddCommunity = () => {
         console.log(our_data);
         let errors = {};
 
-        //chack valid form inputs
+        //check valid form inputs
         const valid = Joi.validate(our_data, joiSchema, {
             abortEarly: false
         });
@@ -69,7 +69,7 @@ const AddCommunity = () => {
                 "img": file,
                 "title": title,
             }
-            //if its undifind its not sent for chaks validations 
+            //if it's undefined it's not sent for chaks validations 
             if (type !== undefined) dogData.type = type;
             if (selcted !== undefined) dogData.pet_id = selcted;
 
@@ -102,7 +102,7 @@ const AddCommunity = () => {
                         errors["title"] = "* title is too short";
                     }
                     if (error.response.status === 500) {
-                        alert("Server Error , Try later");
+                        alert("Server error, try later");
                     }
                     setError(errors);
                     return;
@@ -126,7 +126,7 @@ const AddCommunity = () => {
             })
             .catch((err) => {
                 console.log(err.response);
-                alert('Sorry Something went wring');
+                alert('Sorry Something went wrong');
                 return;
             })
     }, [])
