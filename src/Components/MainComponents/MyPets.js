@@ -45,7 +45,7 @@ const MyPets = (props) => {
             })
             .catch((err) => {
                 console.log(err.response);
-                alert('Sorry Something went wring');
+                alert('Sorry Something went wrong');
                 return;
             })
     }, [])
