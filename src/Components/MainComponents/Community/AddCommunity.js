@@ -20,7 +20,7 @@ const AddCommunity = () => {
 
     const [errors, setError] = React.useState({});
     const joiSchema = {
-        img: Joi.string(),
+        img: Joi.any(),
         title: Joi.string().required(),
         type: Joi.string(),
          pet_id: Joi.any()
@@ -73,14 +73,20 @@ const AddCommunity = () => {
             if (type !== undefined) dogData.type = type;
             if (selcted !== undefined) dogData.pet_id = selcted;
 
+            const formData = new FormData();
+            for(const key of Object.keys(dogData)){
+                formData.append(key,dogData[key])
+            }
+
             console.log(dogData);
             axios({
                 method: 'post',
                 url: 'https://petwalkapp.herokuapp.com/socialNetworks',
                 headers: {
-                    "x-auth-token": localStorage["token"]
+                    "x-auth-token": localStorage["token"],
+                    "Content-Type": "multipart/form-data"
                 },
-                data: dogData
+                data: formData
             })
                 .then((data) => {
                     console.log(data.data[0]);
@@ -110,6 +116,7 @@ const AddCommunity = () => {
             url: 'https://petwalkapp.herokuapp.com/pets/ofUser',
             headers: {
                 "x-auth-token": localStorage["token"],
+                "Content-Type": "multipart/form-data"
             }
         })
             .then((data) => {
@@ -145,7 +152,7 @@ const AddCommunity = () => {
 
                     <form>
                         <div className="col-auto text-center">
-                            <input className="btn btn-primary btn-lg my-4 w-75" type="file" value={file} onChange={(event) => { setFile(event.target.value) }} />
+                            <input className="btn btn-primary btn-lg my-4 w-75" type="file" onChange={(event) => { setFile(event.target.files[0]) }} />
                             <div className="text-danger mb-5">{errors.img}</div>
                         </div>
 

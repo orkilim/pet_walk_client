@@ -34,6 +34,7 @@ const EditPet = (props) => {
             url: `https://petwalkapp.herokuapp.com/pets/ofUser/${props.location.state.pet_id}`,
             headers: {
                 "x-auth-token": localStorage["token"],
+                "Content-Type": "multipart/form-data"
             }
         })
             .then((data) => {
@@ -76,7 +77,7 @@ const EditPet = (props) => {
         dayPlan: Joi.string().min(2).required(),
         hobbies: Joi.string().max(50),
         bio: Joi.string(),
-        img: Joi.string()
+        img: Joi.any()
     }
 
 
@@ -141,14 +142,21 @@ const EditPet = (props) => {
             if (bio !== "") dogData.bio = bio;
             if (dogType !== 'none') dogData.type = dogType;
 
+            const formData = new FormData();
+            for(const key of Object.keys(dogData)){
+                formData.append(key,dogData[key])
+            }
+
+
             console.log(dogData);
             await axios({
                 method: 'PUT',
                 url: 'https://petwalkapp.herokuapp.com/pets',
                 headers: {
-                    "x-auth-token": localStorage["token"]
+                    "x-auth-token": localStorage["token"],
+                    "Content-Type": "multipart/form-data"
                 },
-                data: dogData
+                data: formData
             })
                 .then((data) => {
                     console.log(data)
@@ -180,7 +188,7 @@ const EditPet = (props) => {
                         </div>
 
                         <div className="col-auto text-center">
-                            <input className="btn btn-primary btn-lg my-4 w-75" type="file" onChange={(event) => { setDogImg(event.target.value) }} />
+                            <input className="btn btn-primary btn-lg my-4 w-75" type="file" onChange={(event) => { setDogImg(event.target.files[0]) }} />
                         </div>
                     </div>
 
