@@ -27,7 +27,7 @@ const Login = () => {
         }
         let errors = {};
 
-        //chack valid form inputs
+        //check valid form inputs
         const valid = Joi.validate(our_data, joiSchema, {
             abortEarly: false
         });
