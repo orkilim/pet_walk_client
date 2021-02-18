@@ -81,13 +81,13 @@ const MyCommunity = () => {
                             alert("Pet is not found");
                         }
                         if (error.response.status === 500) {
-                            alert("Server Error , Try later");
+                            alert("Server error, try later");
                         }
                         return;
                     })
             }
         })
-        // setCommunities(prevState => prevState.filter(({ _id }) => _id !== deleteId));
+        
     };
 
     const editItem = async (editId) => {
@@ -139,26 +139,7 @@ const MyCommunity = () => {
                 formData.append(key, dogData[key])
             }
 
-            // axios({
-            //     method: 'put',
-            //     url: 'https://petwalkapp.herokuapp.com/socialNetworks',
-            //     headers: {
-            //         "x-auth-token": localStorage["token"],
-            //         "Content-Type": "multipart/form-data"
-            //     },
-            //     data: formData
-            // })
-            //     .then((data) => {
-            //         console.log(data.data[0]);
-            //         setCommunities(data.data[0])
-            //     })
-            //     .catch((error) => {
-            //         console.log(error.response);
-            //         if (error.response.status === 500) {
-            //             alert("Server Error , Try later");
-            //         }
-            //         return;
-            //     })
+            
 
             console.log(formValues);
             console.log(dogImg);
@@ -168,7 +149,7 @@ const MyCommunity = () => {
         }
 
 
-        //setCommunities(myPets => myPets.map(data => data._id !== editId ? data : { ...data, title: dataBodyVal.title }));
+        
 
     };
 
