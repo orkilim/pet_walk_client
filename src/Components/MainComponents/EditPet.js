@@ -135,7 +135,7 @@ const EditPet = (props) => {
                 "dayPlanLevel": dayPlanLvlAsNum,
                 "img": dogImg
             }
-            //if its undifind its not sent for chaks validations 
+            //if it's undefined it's not sent for chaks validations 
             if (dogAge !== undefined) dogData.age = dogAge;
             if (dogWeight !== undefined) dogData.weight = dogWeight;
             if (hobbies !== "") dogData.hobbies = hobbies;
