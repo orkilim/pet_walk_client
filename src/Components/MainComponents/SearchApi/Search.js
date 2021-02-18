@@ -39,15 +39,7 @@ const Search = () => {
 
     }, [])
 
-    // const showImages = (imageLink) => {
-    //     return (
-    //         <React.Fragment>
-    //             <div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100 gallery">
-    //                 <img class="img-fluid img-thumbnail" style={{  marginTop: '10px', width: 200, height: 200 }} key={key++} src={imageLink} alt='dog image' />
-    //             </div>
-    //         </React.Fragment>
-    //     )
-    // }
+    
 
     const onClick = async () => {
         setEror404(false);
@@ -70,7 +62,7 @@ const Search = () => {
                     }
                 })
         }
-        //if no value writen the dont do anything 
+        //if no value is written than don't do anything 
         else return;
     }
 
@@ -114,16 +106,7 @@ const Search = () => {
                                 )
                         }
 
-                        {/* {
-                            err404 ?
-                                <Pet404 dogBreed={dogBreed} /> :
-                                (!fullArray ?
-                                    <SearchList searchList={dogsStart} i={0} />
-                                    //dogsStart.map(showImages)
-                                    : //dogsImagesArray.map(showImages)
-                                    <SearchList searchList={dogsImagesArray} i={0} />
-                                )
-                        } */}
+                        
                     </div>
                 </div>
             </main>
