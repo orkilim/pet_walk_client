@@ -29,7 +29,6 @@ const MyPets = (props) => {
                 //if deleted in profile page then set state here.
                 if (props.location.state != null) {
                     if (props.location.state.petDeleted) {
-                        console.log(props.location.state.petDeleted);
                         deleted(props.location.state.petDeleted);
                     }
                 }
@@ -37,7 +36,6 @@ const MyPets = (props) => {
                 //if added pet then set state here.
                 if (props.location.state != null) {
                     if (props.location.state.petAdded) {
-                        console.log(props.location.state.petAdded);
                         added(props.location.state.petAdded);
                     }
                 }

@@ -3,7 +3,6 @@ import '../../../App.css';
 
 const SearchItem = (props) => {
     const { i } = props;
-    console.log(i);
 
     return (
         <React.Fragment>

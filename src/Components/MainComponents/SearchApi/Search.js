@@ -90,7 +90,6 @@ const Search = () => {
 
     }
 
-    console.log(dogBreed);
     return (
         <>
             <header className="container-fluid">
