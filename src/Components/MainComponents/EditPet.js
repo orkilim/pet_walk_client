@@ -26,6 +26,7 @@ const EditPet = (props) => {
     const [hobbies, setHobbies] = React.useState("")
     const [bio, setBio] = React.useState("")
     const [dogImg, setDogImg] = React.useState("")
+    const [dogImgUpdate, setUpdateImg] = React.useState("")
 
 
     React.useEffect(() => {
@@ -83,7 +84,7 @@ const EditPet = (props) => {
 
     let dogData = {};
     const editPet = async (event) => {
-        event.preventDefault();
+        // event.preventDefault();
 
         dogData = {
             id: props.location.state.pet_id,
@@ -98,7 +99,7 @@ const EditPet = (props) => {
             dayPlanLevel: dayPlanLevel,
             hobbies: hobbies,
             bio: bio,
-            img: dogImg
+            img: dogImgUpdate
         }
 
         console.log(dogData);
@@ -129,24 +130,20 @@ const EditPet = (props) => {
                 "id": props.location.state.pet_id,
                 "name": dogName,
                 "gender": dogGender,
+                "type": dogType,
                 "activityLevel": activityLevelAsNum,
                 "foodLevel": foodLevelAsNum,
                 "dayPlan": dogPlan,
                 "dayPlanLevel": dayPlanLvlAsNum,
-                "img": dogImg
+                "img": dogImgUpdate
             }
             //if it's undefined it's not sent for chaks validations 
             if (dogAge !== undefined) dogData.age = dogAge;
             if (dogWeight !== undefined) dogData.weight = dogWeight;
-            if (hobbies !== "") dogData.hobbies = hobbies;
-            if (bio !== "") dogData.bio = bio;
-            
-            if (hobbies === undefined) dogData.hobbies = "";
-            if (bio === undefined) dogData.bio = "";
 
             const formData = new FormData();
-            for(const key of Object.keys(dogData)){
-                formData.append(key,dogData[key])
+            for (const key of Object.keys(dogData)) {
+                formData.append(key, dogData[key])
             }
 
 
@@ -172,6 +169,41 @@ const EditPet = (props) => {
         }
     }
 
+    const setImgShow = async (event) => {
+        const dogData = {
+            "name": "new img",
+            "img": event.target.files[0],
+        }
+
+        const formData = new FormData();
+        for (const key of Object.keys(dogData)) {
+            formData.append(key, dogData[key])
+        }
+
+        console.log(dogData);
+        await axios({
+            method: 'post',
+            url: 'https://petwalkapp.herokuapp.com/pets/file',
+            headers: {
+                "x-auth-token": localStorage["token"],
+                "Content-Type": "multipart/form-data"
+            },
+            data: formData
+        })
+            .then((data) => {
+                console.log(data);
+                let myIMG = `https://petwalkapp.herokuapp.com/${data.data}`;
+                setDogImg(myIMG);
+                setUpdateImg(event.target.files[0]);
+            })
+            .catch((err) => {
+                console.log(err.response);
+                if (err)
+                    console.log("problem with updating the dog's info: " + err)
+            })
+
+    }
+
     return (
         <>
             <header className="container-fluid">
@@ -190,7 +222,7 @@ const EditPet = (props) => {
                         </div>
 
                         <div className="col-auto text-center">
-                            <input className="btn btn-primary btn-lg my-4 w-75" type="file" onChange={(event) => { setDogImg(event.target.files[0]) }} />
+                            <input className="btn btn-primary btn-lg my-4 w-75" type="file" onChange={setImgShow} />
                         </div>
                     </div>
 
@@ -215,7 +247,7 @@ const EditPet = (props) => {
                         <div className="text-danger mb-5">{errors.gender}</div>
 
                         <div className="row justify-content-around" >
-                            <TextField variant="outlined" label='Age' className="mb-5"  type='number' value={Number(dogAge)} onChange={(event) => { setDogAge(event.target.value) }} />
+                            <TextField variant="outlined" label='Age' className="mb-5" type='number' value={Number(dogAge)} onChange={(event) => { setDogAge(event.target.value) }} />
                             <div className="text-danger mb-5">{errors.age}</div>
                             <TextField variant="outlined" label='Weight' min={1} className="mb-5" type='number' placeholder='KGs' value={dogWeight} onChange={(event) => { setDogWeight(event.target.value) }} />
                             <div className="text-danger mb-5">{errors.weight}</div>
