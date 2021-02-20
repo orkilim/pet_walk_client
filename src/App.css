@@ -20,86 +20,6 @@ body{background: #E5E5E5;}
   justify-content: space-around;
 }
 
-/* 
-#bottom-nav{
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  height: 60px;
-  background-color: #D1FFFD;
-  width: 100%;
-  align-items: center;
-  justify-content: space-around;
-}
-
-#bottom-nav:hover {
-  background-color: #a7f5f1;
-}
-
-.general-container{
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  justify-content:flex-start;
-  align-items: center;
-  background-image: linear-gradient(to right, gray, lightgray);
-}
-
-.add-pet-input{
-  display: flex;
-  margin-top: 25px;
-  width: 50%;
-  
-}
-
-
-.add-pet-input-side-by-side{
-  display: flex;
-  width: 50%;
-}
-
-#lets-go-button{
-  display: flex;
-  position: absolute;
-  background-image: linear-gradient(to right,gray,lightgray);
-  color: aliceblue;
-  box-shadow: black;
-  width: 90%;
-  height: 50px;
-  justify-content: center;
-  text-align: center;
-  text-decoration-line: none;
-  border-radius: 10px;
-  border-style: solid;
-  border-color: black;
-  padding-top: 1%;
-  bottom: 1.5cm;
-}
-
-.add-pet-input-side-by-side-2{
-  display: flex;
-  width: 33%;
-}
-
-#add-pet-container{
-  display: flex;
-  position: 'relative';
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  /*justify-content:space-evenly;
-  align-items: center;
-  background-image:linear-gradient(to right,gray,lightgray)
-}
-.each-pet-in-my-pets-div{
-  border-color: black;
-  border-width: 5px;
-  border-style: solid;
-} 
-*/
-
-
 /*for indexPage  */
 #id_start {
   border-radius: 20px;
@@ -173,7 +93,7 @@ body{background: #E5E5E5;}
 
 /* search  */
 header .search-box{
-	background:#E5E6E8;
+	background:#F1F3F6 ;
     border-radius: 50px;
     height: 60px;
 	  padding: 10px;

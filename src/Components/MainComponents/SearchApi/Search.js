@@ -17,12 +17,12 @@ const Search = () => {
     const [fullArray, setFullArray] = React.useState(false);
     const [dogs, setDogs] = React.useState([]);
     const [err404, setEror404] = React.useState(false);
-    const [type2, setDogType2] = React.useState(false);
 
 
 
     React.useEffect(() => {
-        axios({
+        if (dogBreed === '') {
+            axios({
             method: 'GET',
             url: 'https://dog.ceo/api/breeds/image/random/10',
         })
@@ -36,26 +36,25 @@ const Search = () => {
                 console.log(error.response);
                 return;
             })
-
+        }
     }, [])
 
     
 
-    const onClick = async () => {
-        setEror404(false);
-        if (dogBreed !== '') {
+    const onClickB = async () => {
+        if (dogBreed) {
             await axios({
                 method: "GET",
-                url: `https://dog.ceo/api/breed/${dogBreed}/images`
+                url: `https://dog.ceo/api/breed/${dogBreed}/images/random/20`
             })
                 .then((responseJson) => {
                     if (responseJson.data.status === 'success') {
-                        dogsImagesArray = responseJson.data.message
-                        setFullArray(true)
+                        dogsImagesArray = responseJson.data.message;
+                        setEror404(false);
+                       setFullArray(true);
                     }
                 })
                 .catch((err) => {
-                    console.log(err.response);
                     if (err.response.status == 404) {
                         setEror404(true);
                         setFullArray(false)
@@ -64,6 +63,31 @@ const Search = () => {
         }
         //if no value is written than don't do anything 
         else return;
+    }
+
+    const onClickSelect = async(e) =>{        
+        if (e) {
+            await axios({
+                method: "GET",
+                url: `https://dog.ceo/api/breed/${e}/images/random/20`
+            })
+                .then((responseJson) => {
+                    if (responseJson.data.status === 'success') {
+                        dogsImagesArray = responseJson.data.message;
+                        setEror404(false);
+                       setFullArray(true);
+                    }
+                })
+                .catch((err) => {
+                    if (err.response.status == 404) {
+                        setEror404(true);
+                        setFullArray(false)
+                    }
+                })
+        }
+        //if no value is written than don't do anything 
+        else return;
+
     }
 
     console.log(dogBreed);
@@ -76,17 +100,17 @@ const Search = () => {
                         <div className="col-8">
                             <form className="search-box my-2">
                                 <input type='text' className="search-txt" placeholder="Search types" onChange={(event) => { setBreed(event.currentTarget.value) }} />
-                                <SearchIcon onClick={onClick} className="search-btn" />
+                                <SearchIcon onClick={onClickB} className="search-btn" />
                             </form>
                         </div>
                         <div className="col-4 align-self-center">
                             <Select variant="outlined" className="w-100" value={dogBreed} onChange={(event) => { setBreed(event.target.value) }}>
-                                <MenuItem selected value='Boxer' onClick={onClick}  >Akita</MenuItem>
-                                <MenuItem value='Boxer' onClick={onClick} >Boxer</MenuItem>
-                                <MenuItem value='Chow' onClick={onClick} >Chow</MenuItem>
-                                <MenuItem value='Dingo' onClick={onClick} >Dingo</MenuItem>
-                                <MenuItem value='Husky' onClick={onClick} >Husky</MenuItem>
-                                <MenuItem value='Mix' onClick={onClick} >Mix</MenuItem>
+                                <MenuItem selected value='wolfhound' onClick={() => onClickSelect('wolfhound')}  >wolfhound</MenuItem>
+                                <MenuItem value='bulldog' onClick={() => onClickSelect('bulldog')} >bulldog</MenuItem>
+                                <MenuItem value='setter' onClick={() => onClickSelect('setter')} >setter</MenuItem>
+                                <MenuItem value='spaniel' onClick={() => onClickSelect('spaniel')} >spaniel</MenuItem>
+                                <MenuItem value='terrier' onClick={() => onClickSelect('terrier')} >terrier</MenuItem>
+                                <MenuItem value='hound' onClick={() => onClickSelect('hound')} >hound</MenuItem>
                             </Select>
                         </div>
                     </div>
@@ -99,6 +123,7 @@ const Search = () => {
                         {
                             err404 ?
                                 <Pet404 dogBreed={dogBreed} /> :
+
                                 (!fullArray ?
                                     <SearchList searchList={dogsStart} i={0} />
                                     : 
